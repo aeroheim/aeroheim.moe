@@ -1,23 +1,48 @@
-module.exports =
+const path = require('path');
+
+module.exports = 
 {
-    context: __dirname + "/app",
-    entry: "./app.js",
+    entry: './src/app/app.js',
+    target: 'web',
     output:
     {
-        filename: "bundle.js"
+        filename: 'bundle.js',
+        path: path.resolve('dist')
     },
     module:
     {
-        loaders:
+        rules:
         [
             {
                 test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader',
-                query:
-                {
-                    presets: ['react']
-                }
+                exclude: 
+                [
+                    /node_modules/
+                ],
+                use:
+                [
+                    {
+                        loader: "babel-loader",
+                        options:
+                        {
+                            presets:
+                            [
+                                'es2015',
+                                'react'
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.css$/,
+                include: path.resolve(__dirname, './src/app/static/css'),
+                use: [ 'style-loader', 'css-loader' ]
+            },
+            {
+                test: /\.(jpg|png|svg)$/,
+                include: path.resolve(__dirname, './src/app/static/img'),
+                use: [ 'file-loader' ]
             }
         ]
     }
