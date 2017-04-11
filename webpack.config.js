@@ -67,5 +67,6 @@ module.exports =
             }
         ]
     },
-    plugins: [ extractSass ]
+    plugins: [ extractSass ],
+    devtool: 'source-map'
 }
