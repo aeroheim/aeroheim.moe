@@ -1,5 +1,14 @@
 const path = require('path');
 
+// Extract styles into a dedicated file in production so they aren't dependant on JS.
+// See https://github.com/webpack-contrib/sass-loader for more details.
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const extractSass = new ExtractTextPlugin(
+{
+    filename: "[name].[contenthash].css",
+    disable: process.env.NODE_ENV !== "production"
+});
+
 module.exports = 
 {
     entry: './src/app/app.js',
@@ -35,9 +44,21 @@ module.exports =
                 ]
             },
             {
-                test: /\.css$/,
+                test: /\.scss$/,
                 include: path.resolve(__dirname, './src/app/static/css'),
-                use: [ 'style-loader', 'css-loader' ]
+                use: extractSass.extract(
+                {
+                    use:
+                    [ 
+                        {
+                            loader: 'css-loader'
+                        },
+                        {
+                            loader: 'sass-loader'
+                        }
+                    ],
+                    fallback: 'style-loader'
+                })
             },
             {
                 test: /\.(jpg|png|svg)$/,
@@ -45,5 +66,6 @@ module.exports =
                 use: [ 'file-loader' ]
             }
         ]
-    }
+    },
+    plugins: [ extractSass ]
 }
