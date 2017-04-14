@@ -1,14 +1,5 @@
 const path = require('path');
 
-// Extract styles into a dedicated file in production so they aren't dependant on JS.
-// See https://github.com/webpack-contrib/sass-loader for more details.
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const extractSass = new ExtractTextPlugin(
-{
-    filename: "[name].[contenthash].css",
-    disable: process.env.NODE_ENV !== "production"
-});
-
 module.exports = 
 {
     entry: './src/app/app.js',
@@ -24,10 +15,7 @@ module.exports =
         [
             {
                 test: /\.js$/,
-                exclude: 
-                [
-                    /node_modules/
-                ],
+                exclude: /node_modules/,
                 use:
                 [
                     {
@@ -44,25 +32,19 @@ module.exports =
                 ]
             },
             {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+                include: /flexboxgrid/
+            },
+            {
                 test: /\.scss$/,
-                include: path.resolve(__dirname, './src/app/static/css'),
-                use: extractSass.extract(
-                {
-                    use:
-                    [ 
-                        {
-                            loader: 'css-loader',
-                            options:
-                            {
-                                modules: true
-                            }
-                        },
-                        {
-                            loader: 'sass-loader'
-                        }
-                    ],
-                    fallback: 'style-loader'
-                })
+                include: path.resolve(__dirname, './src/app/static/styles'),
+                use: 
+                [ 
+                    { loader: 'style-loader'} , 
+                    { loader: 'css-loader', options: { modules: true } },
+                    { loader: 'sass-loader' }
+                ]
             },
             {
                 test: /\.(jpg|png|svg)$/,
@@ -71,6 +53,5 @@ module.exports =
             }
         ]
     },
-    plugins: [ extractSass ],
     devtool: 'source-map'
 }

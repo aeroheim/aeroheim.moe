@@ -1,0 +1,44 @@
+h1
+{
+    color: greenyellow
+}
+
+.mainLinksRow
+{
+    display: flex;
+    margin: 0 auto;
+    width: 90%
+}
+
+.link
+{
+    // use ems for this eventually;
+    width: 33.33%;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.moonlightLinkButton
+{
+    composes: link;
+}
+
+.bumpsLinkButton
+{
+    composes: link;
+}
+
+.blogLinkButton
+{
+    composes: link;
+}
+
+.externalLinksRow
+{
+    display: flex;
+}
+
+.linkIcon
+{
+    width: 100%;
+}
