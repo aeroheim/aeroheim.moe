@@ -6,11 +6,12 @@ import Bumps from './bumps';
 import Blog from './blog';
 import Header from '../components/header';
 import ErrorNotFound from './404';
+import styles from '../static/styles/aeroheim.scss';
 
 const Aeroheim = () =>
 {
     return (
-        <div>
+        <div className={styles.background}>
             <Header/>
             <Switch>
                 <Route exact path="/" component={Home}/>

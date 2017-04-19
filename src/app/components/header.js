@@ -1,11 +1,10 @@
 import React from 'react';
+import styles from '../static/styles/header.scss';
 
 const Header = () =>
 {
     return (
-        <div>
-            Header
-        </div>
+        <div className={styles.bar}/>
     );
 }
 

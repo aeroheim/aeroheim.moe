@@ -34,7 +34,11 @@ module.exports =
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader'],
-                include: /flexboxgrid/
+                include:
+                [
+                    /flexboxgrid/,
+                    path.resolve(__dirname, './src/app/static/styles')
+                ]
             },
             {
                 test: /\.scss$/,
@@ -47,9 +51,18 @@ module.exports =
                 ]
             },
             {
-                test: /\.(jpg|png|svg)$/,
-                include: path.resolve(__dirname, './src/app/static/img'),
-                use: [ 'file-loader' ]
+                test: /\.svg$/,
+                include: path.resolve(__dirname, './src/app/static/img/icons'),
+                use: [ 'raw-loader' ]
+            },
+            {
+                test: /\.(jpg|png|woff|woff2|eot|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                include: 
+                [
+                    path.resolve(__dirname, './src/app/static/img'),
+                    path.resolve(__dirname, './src/app/static/styles/fonts')
+                ],
+                use: [ 'url-loader?limit=10000' ]
             }
         ]
     },
