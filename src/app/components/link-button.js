@@ -12,8 +12,8 @@ const LinkButton = ({ link, buttonStyle, children }) =>
     );
 
     return new RegExp('^(?:[a-z]+:)?//', 'i').test(link)
-        ? ( <a href={link}>{button}</a>)
-        : ( <Link to={link}>{button}</Link>);
+        ? ( <a href={link} className={styles.link}>{button}</a>)
+        : ( <Link to={link} className={styles.link}>{button}</Link>);
 };
 
 export default LinkButton;

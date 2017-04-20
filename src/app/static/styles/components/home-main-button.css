@@ -9,6 +9,9 @@
 
 .linkButton
 {
+    /* relative allows for colorBar to size itself relative to linkButton */
+    position: relative;
+
     background: rgba(0, 0, 0, 0.5);
     width: 100%;
     height: 100%;
@@ -19,13 +22,18 @@
 
 .colorBar
 {
+    /* absolute allows for colorBar to appear below header & subtext */
+    position: absolute;
+
     width: 2%;
     height: 100%;
-    float: left;
 }
 
 .header
 {
+    /* relative enforces correct z-index against colorBar */
+    position: relative;
+
     font-family: 'M+P1-Thin';
     color: white;
     margin-top: 1%;
@@ -34,9 +42,17 @@
 
 .subtext
 {
+    /* relative enforces correct z-index against colorBar */
+    position: relative;
+
     font-family: 'M+P1-Thin';
     color: white;
     margin-top: -1%;
+}
+
+.linkButton:hover > .colorBar
+{   
+    width: 100%;
 }
 
 @media small
