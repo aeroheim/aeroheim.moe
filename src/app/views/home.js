@@ -8,7 +8,7 @@ import Logo from '../static/img/icons/aeroheim.svg';
 import GithubIcon from '../static/img/icons/github.svg';
 import TwitterIcon from '../static/img/icons/twitter.svg';
 import LinkedInIcon from '../static/img/icons/linkedin.svg';
-import styles from '../static/styles/home.scss';
+import styles from '../static/styles/views/home.css';
 
 const Home = () =>
 {

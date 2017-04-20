@@ -1,17 +1,17 @@
 @font-face
 {
     font-family: 'M+P1-Thin';
-    src: url('mplus-1p-thin-sub.eot');
-    src: url('mplus-1p-thin-sub.eot?#iefix') format('embedded-opentype'),
-         url('mplus-1p-thin-sub.woff') format('woff'),
-         url('mplus-1p-thin-sub.ttf') format('truetype');
+    src: url('./mplus-1p-thin-sub.eot');
+    src: url('./mplus-1p-thin-sub.eot?#iefix') format('embedded-opentype'),
+         url('./mplus-1p-thin-sub.woff') format('woff'),
+         url('./mplus-1p-thin-sub.ttf') format('truetype');
 }
 
 @font-face
 {
     font-family: 'M+P1-Light';
-    src: url('mplus-1p-light-sub.eot');
-    src: url('mplus-1p-light-sub.eot?#iefix') format('embedded-opentype'),
-         url('mplus-1p-light-sub.woff') format('woff'),
-         url('mplus-1p-light-sub.ttf') format('truetype');
+    src: url('./mplus-1p-light-sub.eot');
+    src: url('./mplus-1p-light-sub.eot?#iefix') format('embedded-opentype'),
+         url('./mplus-1p-light-sub.woff') format('woff'),
+         url('./mplus-1p-light-sub.ttf') format('truetype');
 }

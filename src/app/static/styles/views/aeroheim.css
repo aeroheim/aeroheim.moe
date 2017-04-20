@@ -1,7 +1,7 @@
 .background
 {
     position: fixed;
-    background-image: url(../img/bg.jpg);
+    background-image: url(../../img/bg.jpg);
     background-color: rgba(0, 0, 0, 0.2);
     background-blend-mode: multiply;
     background-size: cover;

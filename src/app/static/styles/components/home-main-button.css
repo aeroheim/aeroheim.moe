@@ -1,0 +1,92 @@
+@value breakpoints: "../global/breakpoints.css";
+@value smallBreakpoint, largeBreakpoint, small, medium, large from breakpoints;
+
+@value minHeaderFontSize: 20px;
+@value maxHeaderFontSize: 36px;
+
+@value minSubtextFontSize: 12px;
+@value maxSubtextFontSize: 16px;
+
+.linkButton
+{
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    text-indent: 8%;
+    text-align: left;
+}
+
+.colorBar
+{
+    width: 2%;
+    height: 100%;
+    float: left;
+}
+
+.header
+{
+    font-family: 'M+P1-Thin';
+    color: white;
+    margin-top: 1%;
+    margin-bottom: 0;
+}
+
+.subtext
+{
+    font-family: 'M+P1-Thin';
+    color: white;
+    margin-top: -1%;
+}
+
+@media small
+{
+    .colorBar
+    {
+        composes: colorBar;
+        width: 1%;
+        height: 60px;
+    }
+
+    .header
+    {
+        composes: header;
+        font-size: minHeaderFontSize;
+    }
+
+    .subtext
+    {
+        composes: subtext;
+        font-size: minSubtextFontSize;
+    }
+}
+
+@media medium
+{
+    .header
+    {
+        composes: header;
+        font-size: calc(3.8vw - 12.76px);
+    }
+
+    .subtext
+    {
+        composes: subtext;
+        font-size: calc(.952vw + 3.81px);
+    }
+}
+
+@media large
+{
+    .header
+    {
+        composes: header;
+        font-size: maxHeaderFontSize;
+    }
+
+    .subtext
+    {
+        composes: subtext;
+        font-size: maxSubtextFontSize;
+    }
+}

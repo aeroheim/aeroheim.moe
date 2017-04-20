@@ -3,5 +3,7 @@
     background-color: rgba(0, 0, 0, 0.65);
     width: 100%;
     height: 35px;
+
+    /* bottom margin prevents other elements from eating into header */
     margin-bottom: 5%;
 }

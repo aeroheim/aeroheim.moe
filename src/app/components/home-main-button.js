@@ -1,6 +1,6 @@
 import React from 'react';
 import LinkButton from './link-button';
-import styles from '../static/styles/home-main-button.scss';
+import styles from '../static/styles/components/home-main-button.css';
 
 const HomeMainButton = ({ link, header, subtext, color }) =>
 {

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Aeroheim from './views/aeroheim';
-import styles from './static/styles/global.scss';
+import styles from './static/styles/global/global.css';
 import fonts from './static/styles/fonts/fonts.css';
 
 document.getElementById('root').className = styles.root;

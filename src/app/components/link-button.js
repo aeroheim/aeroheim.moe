@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from '../static/styles/link-button.scss';
+import styles from '../static/styles/components/link-button.css';
 
 const LinkButton = ({ link, buttonStyle, children }) =>
 {

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../static/styles/vertical-align.scss';
+import styles from '../static/styles/components/vertical-align.css';
 
 const VerticalAlign = ({ children }) =>
 {
