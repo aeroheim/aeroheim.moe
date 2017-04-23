@@ -3,4 +3,4 @@
 
 @value small: (max-width: smallBreakpoint);
 @value medium: (min-width: smallBreakpoint) and (max-width: largeBreakpoint);
-@value large: (min-width: largeBreakpoint); 
+@value large: (min-width: largeBreakpoint);

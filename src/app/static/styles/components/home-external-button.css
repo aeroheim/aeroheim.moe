@@ -1,0 +1,22 @@
+@value easeOutCubic from "../global/animations.css";
+
+.externalLinkButton
+{
+    background-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    cursor: pointer;
+
+    composes: fadeIn from "../global/animations.css";
+    animation-delay: 0.15s;
+}
+
+.linkIcon
+{
+    opacity: 0.5;
+    transition: opacity 0.75s easeOutCubic 0s;
+}
+
+.externalLinkButton:hover > .linkIcon
+{
+    opacity: 0.9;
+}

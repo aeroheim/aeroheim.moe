@@ -1,0 +1,75 @@
+@value easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+@keyframes revealHeader
+{
+    from { clip-path: polygon(-1% 0%, 0% 0%, -1% 100%, -2% 100%); }
+    to { clip-path: polygon(-1% 0%, 101% 0%, 100% 100%, -2% 100%); }
+}
+
+@keyframes revealSquare
+{
+    from { clip-path: polygon(-100% 0%, 0% 0%, -100% 100%, -200% 100%); }
+    to { clip-path: polygon(-100% 0%, 200% 0%, 100% 100%, -200% 100%); }
+}
+
+@keyframes revealRect
+{
+    from { clip-path: polygon(-30% 0%, 0% 0%, -30% 100%, -60% 100%); }
+    to { clip-path: polygon(-30% 0%, 130% 0%, 100% 100%, -60% 100%); }
+}
+
+@keyframes fadeIn
+{
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* path length of logo is 866px */
+@keyframes logoStroke
+{
+    from { stroke-dashoffset: 866px; }
+    to { stroke-dashoffset: 0px; }
+}
+
+.animateLogoStroke
+{
+    stroke-dasharray: 866px;
+    animation-name: logoStroke;
+    animation-duration: 0.85s;
+    animation-timing-function: easeOutCubic;
+}
+
+.animateRevealLogo
+{
+    animation-name: revealSquare, fadeIn;
+    animation-duration: 0.65s, 0.65s;
+    animation-timing-function: easeOutCubic, easeOutCubic;
+}
+
+.animateRevealHeader
+{
+    animation-name: revealHeader;
+    animation-duration: 0.75s;
+    animation-timing-function: easeOutCubic;
+}
+
+.animateRevealSquare
+{
+    animation-name: revealSquare;
+    animation-duration: 0.65s;
+    animation-timing-function: easeOutCubic;
+}
+.animateRevealRect
+{
+    animation-name: revealRect;
+    animation-duration: 0.65s;
+    animation-timing-function: easeOutCubic;
+}
+
+.fadeIn
+{
+    animation-name: fadeIn;
+    animation-duration: 0.65s;
+    animation-timing-function: easeOutCubic;
+    animation-fill-mode: backwards;
+}
