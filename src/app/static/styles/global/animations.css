@@ -1,4 +1,5 @@
 @value easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+@value easeOutSine: cubic-bezier(0.39, 0.575, 0.565, 1);
 
 @keyframes revealHeader
 {
@@ -35,8 +36,8 @@
 {
     stroke-dasharray: 866px;
     animation-name: logoStroke;
-    animation-duration: 0.85s;
-    animation-timing-function: easeOutCubic;
+    animation-duration: 0.65s;
+    animation-timing-function: easeOutSine;
 }
 
 .animateRevealLogo

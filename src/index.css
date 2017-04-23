@@ -1,0 +1,49 @@
+/* half of path length of logo-shape is 881px */
+@keyframes logoStroke
+{
+    from { stroke-dashoffset: 1782px; }
+    to { stroke-dashoffset: 0px; }
+}
+
+@keyframes fadeIn
+{
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+html, body
+{
+    height: 100%;
+}
+
+body
+{
+    margin: 0;
+    padding: 0;
+}
+
+.root
+{
+    height: 100%;
+}
+
+#loadingLogo
+{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    fill: none;
+    stroke: #9ff15d;
+    width: 15%;
+    min-width: 128px;
+    stroke-width: 5%;
+    stroke-dasharray: 881px;
+    animation-name: fadeIn, logoStroke;
+    animation-duration: 2s, 3.5s;
+    animation-timing-function: linear, cubic-bezier(0.645, 0.045, 0.355, 1);
+    animation-iteration-count: 1, infinite;
+    animation-direction: normal, alternate;
+}

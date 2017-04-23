@@ -5,7 +5,7 @@ import HomeMainButton from '../components/home-main-button';
 import HomeExternalButton from '../components/home-external-button';
 import VerticalAlign from '../components/vertical-align';
 import SVGInline from 'react-svg-inline';
-import Logo from '../static/img/icons/logo.svg';
+import Logo from '../static/img/icons/logo-path.svg';
 import GithubIcon from '../static/img/icons/github.svg';
 import TwitterIcon from '../static/img/icons/twitter.svg';
 import LinkedInIcon from '../static/img/icons/linkedin.svg';
