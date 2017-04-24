@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../static/styles/components/link-button.css';
 
-const LinkButton = ({ link, buttonStyle, children }) =>
+const LinkButton = ({ link, className, children }) =>
 {
-    var button = 
+    const button = 
     (
-        <button className={styles.button + ' ' + buttonStyle} type="button" tabIndex="-1">
+        <button className={`${styles.button} ${className}`} type="button" tabIndex="-1">
             {children}
         </button>
     );
