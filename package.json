@@ -28,8 +28,7 @@
     "cross-env": "^3.2.4",
     "express": "^4.15.2",
     "react-router": "^4.0.0",
-    "react-router-dom": "^4.0.0",
-    "react-router-transition": "0.0.6"
+    "react-router-dom": "^4.0.0"
   },
   "devDependencies": {
     "cross-env": "^3.2.3",
