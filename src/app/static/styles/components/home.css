@@ -1,11 +1,19 @@
 @value moonlightColor, bumpsColor, blogColor from "../global/colors.css";
 @value small, large, largeBreakpoint from "../global/breakpoints.css";
 
+.page
+{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
 .content
 {
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 15%;
+    margin-top: 5%;
+    margin-bottom: 10%;
 }
 
 .scroll

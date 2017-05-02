@@ -98,35 +98,37 @@ const Home = ({ match }) =>
                 }
 
                 return (
-                    <VerticalAlign>
-                        <div className={styles.content}>
-                            <div className={styles.logoFrame} style={logoFrameTransition}>
-                                <SVGInline svg={Logo} className={styles.logo} style={logoStrokeTransition}/>
+                    <div className={styles.page}>
+                        <VerticalAlign>
+                            <div className={styles.content}>
+                                <div className={styles.logoFrame} style={logoFrameTransition}>
+                                    <SVGInline svg={Logo} className={styles.logo} style={logoStrokeTransition}/>
+                                </div>
+                                <nav className={styles.mainLinksRow} style={buttonsTransition}>
+                                    <div className={styles.link}>
+                                        <HomeMainButton link="/moonlight" header="moonlight" subtext="aesthetic music player" color={styles.moonlightColor}/>
+                                    </div>
+                                    <div className={styles.link}>
+                                        <HomeMainButton link="/bumps" header="bumps" subtext="favorite beats with art" color={styles.bumpsColor}/>
+                                    </div>
+                                    <div className={styles.link}>
+                                        <HomeMainButton link="/blog" header="blog" subtext="thoughts and reflections" color={styles.blogColor}/>
+                                    </div>
+                                </nav>
+                                <nav className={styles.externalLinksRow} style={buttonsTransition}>
+                                    <div className={styles.externalLink}>
+                                        <HomeExternalButton link="https://github.com/aeroheim" icon={GithubIcon}/>
+                                    </div>
+                                    <div className={styles.externalLink}>
+                                        <HomeExternalButton link="https://twitter.com/aeroheim" icon={TwitterIcon}/>
+                                    </div>
+                                    <div className={styles.externalLink}>
+                                        <HomeExternalButton link="https://www.linkedin.com/in/benjamin-pang-45621290" icon={LinkedInIcon}/>
+                                    </div>
+                                </nav>
                             </div>
-                            <nav className={styles.mainLinksRow} style={buttonsTransition}>
-                                <div className={styles.link}>
-                                    <HomeMainButton link="/moonlight" header="moonlight" subtext="aesthetic music player" color={styles.moonlightColor}/>
-                                </div>
-                                <div className={styles.link}>
-                                    <HomeMainButton link="/bumps" header="bumps" subtext="favorite beats with art" color={styles.bumpsColor}/>
-                                </div>
-                                <div className={styles.link}>
-                                    <HomeMainButton link="/blog" header="blog" subtext="thoughts and reflections" color={styles.blogColor}/>
-                                </div>
-                            </nav>
-                            <nav className={styles.externalLinksRow} style={buttonsTransition}>
-                                <div className={styles.externalLink}>
-                                    <HomeExternalButton link="https://github.com/aeroheim" icon={GithubIcon}/>
-                                </div>
-                                <div className={styles.externalLink}>
-                                    <HomeExternalButton link="https://twitter.com/aeroheim" icon={TwitterIcon}/>
-                                </div>
-                                <div className={styles.externalLink}>
-                                    <HomeExternalButton link="https://www.linkedin.com/in/benjamin-pang-45621290" icon={LinkedInIcon}/>
-                                </div>
-                            </nav>
-                        </div>
-                    </VerticalAlign>
+                        </VerticalAlign>
+                    </div>
                 );
             }}
         </AnimatedTransition>
