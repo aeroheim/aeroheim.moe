@@ -1,5 +1,6 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import SwitchTransition from './switch-transition';
 import Home from './home';
 import Moonlight from './moonlight';
 import Bumps from './bumps';
@@ -13,13 +14,13 @@ const Aeroheim = () =>
     return (
         <div className={styles.background}>
             <Header/>
-            <Switch>
-                <Route exact path="/" component={Home}/>
+            <SwitchTransition>
+                <Route exact path="/" children={(props) => <Home {...props}/>}/>
                 <Route exact path="/moonlight" component={Moonlight}/>
                 <Route path="/bumps" component={Bumps}/>
                 <Route path="/blog" component={Blog}/>
-                <Route path="*" component={ErrorNotFound}/>
-            </Switch>
+                <Route component={ErrorNotFound}/>
+            </SwitchTransition>
         </div>
     );
 }

@@ -22,9 +22,6 @@
     text-indent: 8%;
     text-align: left;
     cursor: pointer;
-
-    composes: fadeIn from "../global/animations.css";
-    animation-delay: 0.15s;
 }
 
 .colorBar
