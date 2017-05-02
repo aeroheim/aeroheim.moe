@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import RouteTransition from './route-transition';
+import AnimatedTransition from './animated-transition';
 import LinkButton from './link-button';
 import HomeMainButton from './home-main-button';
 import HomeExternalButton from './home-external-button';
@@ -80,7 +80,7 @@ const Home = ({ match }) =>
     }
 
     return (
-        <RouteTransition transitionIns={transitionIns} transitionOuts={transitionOuts} match={match}>
+        <AnimatedTransition transitionIns={transitionIns} transitionOuts={transitionOuts} show={match ? true : false}>
             {({ transitionValues }) => {
 
                 const logoFrameTransition =
@@ -129,7 +129,7 @@ const Home = ({ match }) =>
                     </VerticalAlign>
                 );
             }}
-        </RouteTransition>
+        </AnimatedTransition>
     );
 };
 

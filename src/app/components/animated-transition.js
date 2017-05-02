@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Interpolator from './interpolator.js';
 
-class RouteTransition extends React.Component
+class AnimatedTransition extends React.Component
 {
     constructor(props)
     {
         super(props);
 
-        this.match = false;
+        this.show = false;
 
         this.interpolatorIns = {};
         Object.keys(props.transitionIns).forEach(key =>
@@ -42,8 +42,8 @@ class RouteTransition extends React.Component
         {
             const interpolator = this.interpolators[key];
             this.transitionValues[key] = this.interpolators === this.interpolatorIns 
-                ? interpolator.interpolate(this.match ? elapsedTime : -elapsedTime)
-                : interpolator.interpolate(this.match ? -elapsedTime : elapsedTime);
+                ? interpolator.interpolate(this.show ? elapsedTime : -elapsedTime)
+                : interpolator.interpolate(this.show ? -elapsedTime : elapsedTime);
         });
 
         const isDone = this.isDone();
@@ -51,7 +51,7 @@ class RouteTransition extends React.Component
         // interpolators switch and reset once finished
         if (isDone)
         {
-            if (this.match)
+            if (this.show)
             {
                 this.interpolators = this.interpolatorOuts;
                 Object.keys(this.interpolatorIns).forEach(key =>
@@ -92,24 +92,24 @@ class RouteTransition extends React.Component
     render()
     {
         const isDone = this.isDone();
-        this.match = this.props.match ? true : false;
+        this.show = this.props.show;
 
-        if ((this.match !== this.state.active) || !isDone)
+        if ((this.show !== this.state.active) || !isDone)
         {
             this.previousRenderTimestamp = new Date().getTime();
             requestAnimationFrame(this.transition);
         }
 
-        return (this.match || this.state.active || !isDone) 
+        return (this.show || this.state.active || !isDone) 
             ? this.props.children(this.state)
             : null;
     }
 }
 
-RouteTransition.propTypes = 
+AnimatedTransition.propTypes = 
 {
     transitionIns: PropTypes.object.isRequired,
     transitionOuts: PropTypes.object.isRequired,
 }
 
-export default RouteTransition;
+export default AnimatedTransition;
