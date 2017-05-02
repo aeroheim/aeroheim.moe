@@ -8,11 +8,7 @@ class RouteTransition extends React.Component
     {
         super(props);
 
-        this.transition = this.transition.bind(this);
-
-        this.router = props.router;
-        this.path = props.path;
-        this.refreshMatch();
+        this.match = false;
 
         this.interpolatorIns = {};
         Object.keys(props.transitionIns).forEach(key =>
@@ -33,6 +29,8 @@ class RouteTransition extends React.Component
             active: false,
             transitionValues: this.transitionValues,
         }
+
+        this.transition = this.transition.bind(this);
     }
 
     transition()
@@ -78,11 +76,6 @@ class RouteTransition extends React.Component
         });
     }
 
-    refreshMatch()
-    {
-        this.match = this.router.getLocation().pathname === this.path;
-    }
-
     isDone()
     {
         for (const key of Object.keys(this.interpolators))
@@ -90,7 +83,7 @@ class RouteTransition extends React.Component
             if (!this.interpolators[key].isDone())
             {
                 return false;
-            }   
+            }
         }
 
         return true;
@@ -98,8 +91,8 @@ class RouteTransition extends React.Component
 
     render()
     {
-        this.refreshMatch();
         const isDone = this.isDone();
+        this.match = this.props.match ? true : false;
 
         if ((this.match !== this.state.active) || !isDone)
         {
@@ -117,8 +110,6 @@ RouteTransition.propTypes =
 {
     transitionIns: PropTypes.object.isRequired,
     transitionOuts: PropTypes.object.isRequired,
-    router: PropTypes.object.isRequired,
-    path: PropTypes.string.isRequired,
 }
 
 export default RouteTransition;
