@@ -18,7 +18,7 @@ const Aeroheim = () =>
                 <Route exact path="/" children={(props) => <Home {...props}/>}/>
                 <Route exact path="/moonlight" component={Moonlight}/>
                 <Route path="/bumps" component={Bumps}/>
-                <Route path="/blog" component={Blog}/>
+                <Route path="/blog" children={(props) => <Blog {...props}/>}/>
                 <Route component={ErrorNotFound}/>
             </SwitchTransition>
         </div>
