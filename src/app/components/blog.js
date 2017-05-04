@@ -46,14 +46,6 @@ const Blog = ({ match }) =>
         <AnimatedTransition transitionIns={transitionIns} transitionOuts={transitionOuts} show={match ? true : false}>
             {({ transitionValues }) => {
 
-                /*
-                @keyframes revealRect
-                {
-                    from { clip-path: polygon(-15% 0%, 0% 0%, -15% 100%, -30% 100%); }
-                    to { clip-path: polygon(-15% 0%, 115% 0%, 100% 100%, -30% 100%); }
-                }
-                */
-
                 const frameTransition = 
                 {
                     clipPath: `polygon(-15% 0%, ${transitionValues['revealFrame']}% 0%, ${-15 + transitionValues['revealFrame']}% 100%, -30% 100%)`
