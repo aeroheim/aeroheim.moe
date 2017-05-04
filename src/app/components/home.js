@@ -14,6 +14,8 @@ import styles from '../static/styles/components/home.css';
 
 const Home = ({ match }) =>
 {
+    const transitionInDelay = 200;
+
     const transitionIns = 
     {
         strokeLogo: 
@@ -21,6 +23,7 @@ const Home = ({ match }) =>
             from: 866,
             to: 0,
             duration: 650,
+            delay: transitionInDelay,
             easing: 'easeSinOut'
         },
         revealLogo: 
@@ -28,6 +31,7 @@ const Home = ({ match }) =>
             from: 0,
             to: 200,
             duration: 650,
+            delay: transitionInDelay,
             easing: 'easeCubicOut'
         },
         fadeLogo:
@@ -35,6 +39,7 @@ const Home = ({ match }) =>
             from: 0,
             to: 1,
             duration: 650,
+            delay: transitionInDelay,
             easing: 'easeCubicOut'
         },
         fadeButtons:
@@ -42,7 +47,7 @@ const Home = ({ match }) =>
             from: 0,
             to: 1,
             duration: 650,
-            delay: 150,
+            delay: transitionInDelay + 150,
             easing: 'easeCubicOut'
         }
     }

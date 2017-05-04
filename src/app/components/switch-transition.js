@@ -3,7 +3,7 @@ import { withRouter, matchPath } from 'react-router';
 import { Route } from 'react-router-dom';
 
 // Behaves the same as react-router's Switch, except that Routes using the 'children' prop are always rendered.
-// This is required to correctly animate components that use RouteTransitions, since they always be rendered no matter what.
+// This is required to correctly animate components that use RouteTransitions, since they should always be rendered no matter what.
 const SwitchTransition = (props) =>
 {
     let matchFound = false;
