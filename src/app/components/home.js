@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AnimatedTransition from './animated-transition';
+import AnimatedCSSTransition from './animated-css-transition';
 import LinkButton from './link-button';
 import HomeMainButton from './home-main-button';
 import HomeExternalButton from './home-external-button';
@@ -14,102 +15,45 @@ import styles from '../static/styles/components/home.css';
 
 const Home = ({ match }) =>
 {
-    const transitionInDelay = 200;
-
-    const transitionIns = 
+    const inTransitions =
     {
-        strokeLogo: 
-        {
-            from: 866,
-            to: 0,
-            duration: 650,
-            delay: transitionInDelay,
-            easing: 'easeSinOut'
-        },
-        revealLogo: 
-        {
-            from: 0,
-            to: 200,
-            duration: 650,
-            delay: transitionInDelay,
-            easing: 'easeCubicOut'
-        },
-        fadeLogo:
-        {
-            from: 0,
-            to: 1,
-            duration: 650,
-            delay: transitionInDelay,
-            easing: 'easeCubicOut'
-        },
-        fadeButtons:
-        {
-            from: 0,
-            to: 1,
-            duration: 650,
-            delay: transitionInDelay + 150,
-            easing: 'easeCubicOut'
-        }
+        logoFrame: styles.logoFrameInTransition,
+        logo: styles.logoInTransition,
+        buttons: styles.buttonsInTransition,
     }
 
-    const transitionOuts =
+    const inStyles =
     {
-        strokeLogo: 
-        {
-            from: 0,
-            to: 866,
-            duration: 650,
-            easing: 'easeSinIn'
-        },
-        revealLogo: 
-        {
-            from: 200,
-            to: 0,
-            duration: 650,
-            easing: 'easeCubicIn'
-        },
-        fadeLogo:
-        {
-            from: 1,
-            to: 0,
-            duration: 650,
-            easing: 'easeCubicIn'
-        },
-        fadeButtons:
-        {
-            from: 1,
-            to: 0,
-            duration: 650,
-            easing: 'easeCubicIn'
-        }
+        logoFrame: styles.logoFrameInStyle,
+        logo: styles.logoInStyle,
+        buttons: styles.buttonsInStyle,
+    }
+
+    const outTransitions =
+    {
+        logoFrame: styles.logoFrameOutTransition,
+        logo: styles.logoOutTransition,
+        buttons: styles.buttonsOutTransition,
+    }
+
+    const outStyles =
+    {
+        logoFrame: styles.logoFrameOutStyle,
+        logo: styles.logoOutStyle,
+        buttons: styles.buttonsOutStyle,
     }
 
     return (
-        <AnimatedTransition transitionIns={transitionIns} transitionOuts={transitionOuts} show={match ? true : false}>
-            {({ transitionValues }) => {
-
-                const logoFrameTransition =
-                {
-                    clipPath: `polygon(-100% 0%, ${transitionValues['revealLogo']}% 0%, ${-100 + transitionValues['revealLogo']}% 100%, -200% 100%)`,
-                    opacity: transitionValues['fadeLogo']
-                };
-                const logoStrokeTransition =
-                {
-                    strokeDashoffset: `${transitionValues['strokeLogo']}px`
-                };
-                const buttonsTransition =
-                {
-                    opacity: transitionValues['fadeButtons']
-                }
-
+        <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match ? true : false}>
+            {({ transitionStyles, onTransitionEnd }) => {
                 return (
                     <div className={styles.page}>
                         <VerticalAlign>
                             <div className={styles.content}>
-                                <div className={styles.logoFrame} style={logoFrameTransition}>
-                                    <SVGInline svg={Logo} className={styles.logo} style={logoStrokeTransition}/>
+                                <div className={`${styles.logoFrame} ${transitionStyles['logoFrame']}`} onTransitionEnd={onTransitionEnd}>
+                                    <SVGInline svg={Logo} className={`${styles.logo} ${transitionStyles['logo']}`} onTransitionEnd={onTransitionEnd}/>
                                 </div>
-                                <nav className={styles.mainLinksRow} style={buttonsTransition}>
+                                <nav className={`${styles.mainLinksRow} ${transitionStyles['buttons']}`} onTransitionEnd={onTransitionEnd}>
                                     <div className={styles.link}>
                                         <HomeMainButton link="/moonlight" header="moonlight" subtext="aesthetic music player" color={styles.moonlightColor}/>
                                     </div>
@@ -120,7 +64,7 @@ const Home = ({ match }) =>
                                         <HomeMainButton link="/blog" header="blog" subtext="thoughts and reflections" color={styles.blogColor}/>
                                     </div>
                                 </nav>
-                                <nav className={styles.externalLinksRow} style={buttonsTransition}>
+                                <nav className={`${styles.externalLinksRow} ${transitionStyles['buttons']}`} onTransitionEnd={onTransitionEnd}>
                                     <div className={styles.externalLink}>
                                         <HomeExternalButton link="https://github.com/aeroheim" icon={GithubIcon}/>
                                     </div>
@@ -133,10 +77,9 @@ const Home = ({ match }) =>
                                 </nav>
                             </div>
                         </VerticalAlign>
-                    </div>
-                );
+                    </div>);
             }}
-        </AnimatedTransition>
+        </AnimatedCSSTransition>
     );
 };
 

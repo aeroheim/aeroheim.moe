@@ -31,11 +31,12 @@ class AnimatedTransition extends React.Component
         }
 
         this.transition = this.transition.bind(this);
+        this.isDone = this.isDone.bind(this);
     }
 
     transition()
     {
-        const elapsedTime = new Date().getTime() - this.previousRenderTimestamp;
+        const elapsedTime = Date.now() - this.previousRenderTimestamp;
 
         // match & interpolators determines direction of interpolations
         Object.keys(this.interpolators).forEach(key => 
@@ -96,7 +97,7 @@ class AnimatedTransition extends React.Component
 
         if ((this.show !== this.state.active) || !isDone)
         {
-            this.previousRenderTimestamp = new Date().getTime();
+            this.previousRenderTimestamp = Date.now();
             requestAnimationFrame(this.transition);
         }
 

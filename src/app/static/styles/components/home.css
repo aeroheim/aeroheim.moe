@@ -1,6 +1,11 @@
 @value moonlightColor, bumpsColor, blogColor from "../global/colors.css";
 @value small, large, largeBreakpoint from "../global/breakpoints.css";
 
+@value easeInCubic from "../global/animations.css";
+@value easeOutCubic from "../global/animations.css";
+@value easeInSine from "../global/animations.css";
+@value easeOutSine from "../global/animations.css";
+
 .page
 {
     width: 100%;
@@ -16,9 +21,38 @@
     margin-bottom: 15vh;
 }
 
-.scroll
+.logoFrame
 {
-    overflow: auto;
+    background-color: #9ff15d;
+    width: 18%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logoFrameInTransition
+{
+    opacity: 0;
+    clip-path: polygon(-100% 0%, 0% 0%, -100% 100%, -200% 100%);
+    transition: opacity 0.65s easeOutCubic 0s, clip-path 0.65s easeOutCubic 0s;
+}
+
+.logoFrameInStyle
+{
+    opacity: 1;
+    clip-path: polygon(-100% 0%, 200% 0%, 100% 100%, -200% 100%);
+}
+
+.logoFrameOutTransition
+{
+    opacity: 1;
+    clip-path: polygon(-100% 0%, 200% 0%, 100% 100%, -200% 100%);
+    transition: opacity 0.65s easeInCubic 0s, clip-path 0.65s easeInCubic 0s;
+}
+
+.logoFrameOutStyle
+{
+    opacity: 0;
+    clip-path: polygon(-100% 0%, 0% 0%, -100% 100%, -200% 100%);
 }
 
 .logo
@@ -28,12 +62,26 @@
     stroke-dasharray: 866px;
 }
 
-.logoFrame
+.logoInTransition
 {
-    background-color: #9ff15d;
-    width: 18%;
-    margin-left: auto;
-    margin-right: auto;
+    stroke-dashoffset: 866px;
+    transition: stroke-dashoffset 0.65s easeOutSine 0s;
+}
+
+.logoInStyle
+{
+    stroke-dashoffset: 0px;
+}
+
+.logoOutTransition
+{
+    stroke-dashoffset: 0px;
+    transition: stroke-dashoffset 0.65s easeInSine 0s;
+}
+
+.logoOutStyle
+{
+    stroke-dashoffset: 866px;
 }
 
 .moonlightColor
@@ -64,6 +112,28 @@
     margin-left: auto;
     margin-right: auto;
     justify-content: center;
+}
+
+.buttonsInTransition
+{
+    opacity: 0;
+    transition: opacity 0.65s easeOutCubic 0.2s;
+}
+
+.buttonsInStyle
+{
+    opacity: 1;
+}
+
+.buttonsOutTransition
+{
+    opacity: 1;
+}
+
+.buttonsOutStyle
+{
+    opacity: 0;
+    transition: opacity 0.65s easeInCubic 0s;
 }
 
 .link

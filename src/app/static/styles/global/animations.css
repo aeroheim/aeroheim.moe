@@ -1,4 +1,6 @@
+@value easeInCubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
 @value easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+@value easeInSine: cubic-bezier(0.47, 0, 0.745, 0.715);
 @value easeOutSine: cubic-bezier(0.39, 0.575, 0.565, 1);
 
 @keyframes revealHeader
