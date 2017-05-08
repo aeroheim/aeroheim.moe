@@ -1,27 +1,213 @@
-.page
-{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-}
+@value blogColor from "../global/colors.css";
 
-.background
-{
-    display: flex;
-    position: absolute;
-    top: 30%;
-    width: inherit;
-    min-height: 70%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
+@value easeInExp from "../global/animations.css";
+@value easeOutExp from "../global/animations.css";
+@value easeInCubic from "../global/animations.css";
+@value easeOutCubic from "../global/animations.css";
+@value easeInSine from "../global/animations.css";
+@value easeOutSine from "../global/animations.css";
 
 .content
 {
-    align-items: stretch;
-    width: 60%;
-    min-height: 100%;
+    position: absolute;
+    top: 10%;
+    width: 50%;
+    height: 65%;
     margin-left: auto;
     margin-right: auto;
-    background-color: white;
+}
+
+.contentInTransition
+{
+    margin-left: -40%;
+    transition: margin-left 0.65s easeOutCubic 0s;
+}
+
+.contentIn
+{
+    margin-left: 25%;
+}
+
+.contentOutTransition
+{
+    opacity: 1;
+    transition: opacity 0.65s easeOutCubic 0s;
+}
+
+.contentOut
+{
+    opacity: 0;
+}
+
+.header
+{
+    display: flex;
+    width: 100%;
+    height: 50px;
+}
+
+.headerOverlay
+{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    background-color: blogColor;
+    clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 0% 100%);
+}
+
+.headerOverlayInTransition
+{
+    width: 75%;
+    transition: width 0.35s easeOutCubic 0s;
+}
+
+.headerOverlayIn
+{
+    width: 25%;
+}
+
+.headerOverlayOutTransition
+{
+    opacity: 1;
+    transition: opacity 0.65s easeOutCubic 0s;
+}
+
+.headerOverlayOut
+{
+    opacity: 0;
+}
+
+.headerOverlayText
+{
+    font-family: 'M+P1-Thin';
+    font-size: 32px;
+    color: white;
+    margin-right: 10%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.headerBackground
+{
+    z-index: -1;
+    margin-left: -25%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+
+    /* force hardware acceleration for transitions - this prevents rendering artifacts in chrome */
+    -webkit-transform: translate3d(0,0,0);
+}
+
+.headerBackgroundInTransition
+{
+    width: 0%;
+    transition: width 1s easeOutExp 0s;
+}
+
+.headerBackgroundIn
+{
+    width: 100%;
+}
+
+.headerBackgroundOutTransition
+{
+    transition: opacity 0.65s easeOutCubic 0s;
+}
+
+.headerBackgroundOut
+{
+    opacity: 0;
+}
+
+.posts
+{
+    list-style: none;
+    padding: 0;
+    width: 90%;
+    height: 100%;
+    margin-top: 35px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-y: overlay;
+    /* show x-scroll when minimum post width exceeded */
+
+    /* force hardware acceleration for transitions - this prevents rendering artifacts in chrome */
+    -webkit-transform: translate3d(0,0,0);
+}
+
+.postsInTransition
+{
+    width: 0%;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+    transition: width 0.35s easeOutExp 0s, clip-path 0.65s easeOutCubic 0.35s;
+}
+
+.postsIn
+{
+    
+    width: 92%;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.postsOutTransition
+{
+    transition: opacity 0.65s easeOutCubic 0s;
+}
+
+.postsOut
+{
+    opacity: 0;
+}
+
+.post
+{
+    /* find a sensible minimum width */
+    display: flex;
+    height: 16%;
+    min-height: 75px;
+    max-height: 100px;
+    background-color: rgba(0, 0, 0, 0.4);
+    margin-top: 1px;
+}
+
+.postColorBar
+{
+    width: 5px;
+    height: 100%;
+    background-color: blogColor;
+}
+
+.postText
+{
+    width: 100%;
+    margin-top: 0.65vh;
+}
+
+.postTitle
+{
+    margin-left: 2.5%;
+    font-family: 'M+P1-Thin';
+    font-size: 36px;
+    color: white;
+}
+
+.postDate
+{
+    float: right;
+    text-align: right;
+    margin-top: 1vh;
+    margin-right: 2.5%;
+    font-family: 'M+P1-Thin';
+    font-size: 16px;
+    color: white;
+    line-height: 1.2em;
+}
+
+.postDescription
+{
+    margin-top: auto;
+    margin-left: 2.5%;
+    font-family: 'M+P1-Thin';
+    font-size: 16px;
+    color: white;
 }
