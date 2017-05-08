@@ -8,7 +8,7 @@ const HomeMainButton = ({ link, header, subtext, color }) =>
         <LinkButton link={link} className={styles.linkButton}>
             <div className={`${styles.colorBar} ${color}`}/>
             <div className={`${styles.colorBarTransition} ${color}`}/>
-            <h1 className={styles.header}>{header}</h1>
+            <p className={styles.header}>{header}</p>
             <p className={styles.subtext}>{subtext}</p>
         </LinkButton>
     );

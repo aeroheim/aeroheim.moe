@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AnimatedTransition from './animated-transition';
 import AnimatedCSSTransition from './animated-css-transition';
 import LinkButton from './link-button';
 import HomeMainButton from './home-main-button';
