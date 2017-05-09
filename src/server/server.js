@@ -1,7 +1,7 @@
 const frontend = require('./frontend');
 const backend= require('./backend');
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 7777;
 const PROD = process.env.NODE_ENV === "production";
 
 if (PROD)

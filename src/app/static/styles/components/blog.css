@@ -137,14 +137,15 @@
 
 .postsInTransition
 {
+    opacity: 0;
     width: 0%;
     clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
-    transition: width 0.35s easeOutExp 0s, clip-path 0.65s easeOutCubic 0.35s;
+    transition: opacity 0.65s easeOutCubic 0.35s, clip-path 0.65s easeOutCubic 0.35s;
 }
 
 .postsIn
 {
-    
+    opacity: 1;
     width: 92%;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
