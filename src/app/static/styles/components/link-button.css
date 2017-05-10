@@ -1,12 +1,13 @@
 .button
 {
+    padding: 0;
     border: none;
     outline: none;
+    cursor: pointer;
 }
 
 .link
 {
     display: inline-block;
     width: 100%;
-    height: 100%;
 }
