@@ -1,0 +1,87 @@
+@value blogColor from "../global/colors.css";
+
+@value easeInCubic from "../global/animations.css";
+@value easeOutCubic from "../global/animations.css";
+
+.post
+{
+    /* find a sensible minimum width */
+    display: flex;
+    height: 16%;
+    min-height: 75px;
+    max-height: 100px;
+    background-color: rgba(0, 0, 0, 0.4);
+    margin-top: 1px;
+}
+
+.postInTransition
+{
+    width: 50%;
+    transition: width 1s easeOutCubic 0s;
+}
+
+.postIn
+{
+    width: 100%;
+}
+
+.postOutTransition
+{
+
+}
+
+.postOut
+{
+    width: 75%;
+}
+
+.postColorBar
+{
+    width: 0.5%;
+    max-height: 100%;
+    background-color: blogColor;
+}
+
+.postText
+{
+    width: 99.5%;
+    margin-top: 0.65vh;
+}
+
+.postTitle
+{
+    display: inline-block;
+    width: 80%;
+    margin-left: 2.5%;
+    font-family: 'M+P1-Thin';
+    font-size: 36px;
+    color: white;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.postDate
+{
+    float: right;
+    text-align: right;
+    margin-top: 1vh;
+    margin-right: 2.5%;
+    font-family: 'M+P1-Thin';
+    font-size: 16px;
+    color: white;
+    line-height: 1.2em;
+}
+
+.postDescription
+{
+    width: 80%;
+    margin-top: auto;
+    margin-left: 2.5%;
+    font-family: 'M+P1-Thin';
+    font-size: 16px;
+    color: white;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

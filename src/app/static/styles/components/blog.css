@@ -124,7 +124,7 @@
     list-style: none;
     padding: 0;
     width: 90%;
-    height: 100%;
+    max-height: 100%;
     margin-top: 35px;
     margin-left: auto;
     margin-right: auto;
@@ -158,57 +158,4 @@
 .postsOut
 {
     opacity: 0;
-}
-
-.post
-{
-    /* find a sensible minimum width */
-    display: flex;
-    height: 16%;
-    min-height: 75px;
-    max-height: 100px;
-    background-color: rgba(0, 0, 0, 0.4);
-    margin-top: 1px;
-}
-
-.postColorBar
-{
-    width: 5px;
-    height: 100%;
-    background-color: blogColor;
-}
-
-.postText
-{
-    width: 100%;
-    margin-top: 0.65vh;
-}
-
-.postTitle
-{
-    margin-left: 2.5%;
-    font-family: 'M+P1-Thin';
-    font-size: 36px;
-    color: white;
-}
-
-.postDate
-{
-    float: right;
-    text-align: right;
-    margin-top: 1vh;
-    margin-right: 2.5%;
-    font-family: 'M+P1-Thin';
-    font-size: 16px;
-    color: white;
-    line-height: 1.2em;
-}
-
-.postDescription
-{
-    margin-top: auto;
-    margin-left: 2.5%;
-    font-family: 'M+P1-Thin';
-    font-size: 16px;
-    color: white;
 }

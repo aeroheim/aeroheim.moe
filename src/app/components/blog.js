@@ -1,78 +1,118 @@
 import React from 'react';
+import BlogListItem from './blog-list-item';
 import AnimatedCSSTransition from './animated-css-transition';
 import VerticalAlign from './vertical-align';
 import styles from '../static/styles/components/blog.css';
 
-const Blog = ({ match }) =>
+class Blog extends React.Component
 {
-    const inTransitions =
+    constructor(props)
     {
-        content: styles.contentInTransition,
-        headerOverlay: styles.headerOverlayInTransition,
-        headerBackground: styles.headerBackgroundInTransition,
-        posts: styles.postsInTransition,
+        super(props);
+        this.state =
+        {
+            posts: this.getPosts(),
+        }
     }
 
-    const inStyles =
+    componentWillReceiveProps(nextProps)
     {
-        content: styles.contentIn,
-        headerOverlay: styles.headerOverlayIn,
-        headerBackground: styles.headerBackgroundIn,
-        posts: styles.postsIn,
+        if (this.props !== nextProps && nextProps.match)
+        {
+            this.setState({
+                posts: this.getPosts(),
+            })
+        }
     }
 
-    const outTransitions =
+    getPosts()
     {
-        content: styles.contentOutTransition,
-        headerOverlay: styles.headerOverlayOutTransition,
-        headerBackground: styles.headerBackgroundOutTransition,
-        posts: styles.postsOutTransition,
+        /*
+            TODO: query for posts from backend
+            post:
+            {
+                id,
+                title,
+                description,
+                date, (should be a proper date object)
+            }
+        */
+        return [
+            {
+                id: 0,
+                title: 'First Blog Post',
+                description: 'DESCRIPTION',
+                date: new Date('2017/01/21'),
+            },
+            {
+                id: 1,
+                title: 'Sound Voltex Retrospective: 6 months',
+                description: 'how to get git gud @ knobs',
+                date: new Date('2017/02/21'),
+            },
+            {
+                id: 2,
+                title: 'Persona 5: The Waifu Compendium',
+                description: 'futaba is best; haru is a sadist',
+                date: new Date('2017/11/25'),
+            }
+        ]
     }
 
-    const outStyles =
+    render()
     {
-        content: styles.contentOut,
-        headerOverlay: styles.headerOverlayOut,
-        headerBackground: styles.headerBackgroundOut,
-        posts: styles.postsOut,
-    }
+        const inTransitions =
+        {
+            content: styles.contentInTransition,
+            headerOverlay: styles.headerOverlayInTransition,
+            headerBackground: styles.headerBackgroundInTransition,
+            posts: styles.postsInTransition,
+        }
 
-    return (
-        <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match ? true : false}>
-            {({ active, transitionStyles, onTransitionEnd }) => {
-                return (
-                    <div className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
-                        <div className={styles.header}>
-                            <div className={`${styles.headerOverlay} ${transitionStyles['headerOverlay']}`} onTransitionEnd={onTransitionEnd}>
-                                <span className={styles.headerOverlayText}>BLOG</span>
-                            </div>
-                            <div className={`${styles.headerBackground} ${transitionStyles['headerBackground']}`} onTransitionEnd={onTransitionEnd}/>
-                        </div>
-                        <ul className={`${styles.posts} ${transitionStyles['posts']}`} onTransitionEnd={onTransitionEnd}>
-                            <li className={styles.post}>
-                                <div className={styles.postColorBar}/>
-                                <div className={styles.postText}>
-                                    <span className={styles.postTitle}>TITLE</span>
-                                    <span className={styles.postDate}>JAN 21<br/>2017</span>
-                                    <p className={styles.postDescription}>DESCRIPTION</p>
+        const inStyles =
+        {
+            content: styles.contentIn,
+            headerOverlay: styles.headerOverlayIn,
+            headerBackground: styles.headerBackgroundIn,
+            posts: styles.postsIn,
+        }
+
+        const outTransitions =
+        {
+            content: styles.contentOutTransition,
+            headerOverlay: styles.headerOverlayOutTransition,
+            headerBackground: styles.headerBackgroundOutTransition,
+            posts: styles.postsOutTransition,
+        }
+
+        const outStyles =
+        {
+            content: styles.contentOut,
+            headerOverlay: styles.headerOverlayOut,
+            headerBackground: styles.headerBackgroundOut,
+            posts: styles.postsOut,
+        }
+
+        return (
+            <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match ? true : false}>
+                {({ active, transitionStyles, onTransitionEnd }) => {
+                    return (
+                        <div className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
+                            <div className={styles.header}>
+                                <div className={`${styles.headerOverlay} ${transitionStyles['headerOverlay']}`} onTransitionEnd={onTransitionEnd}>
+                                    <span className={styles.headerOverlayText}>BLOG</span>
                                 </div>
-                            </li>
-                            <li className={styles.post}>
-                            </li>
-                            <li className={styles.post}>
-                            </li>
-                            <li className={styles.post}>
-                            </li>
-                            <li className={styles.post}>
-                            </li>
-                            <li className={styles.post}>
-                            </li>
-                        </ul>
-                    </div>
-                );
-            }}
-        </AnimatedCSSTransition>
-    );
+                                <div className={`${styles.headerBackground} ${transitionStyles['headerBackground']}`} onTransitionEnd={onTransitionEnd}/>
+                            </div>
+                            <ul className={`${styles.posts} ${transitionStyles['posts']}`} onTransitionEnd={onTransitionEnd}>
+                                {this.state.posts.map((post) => <BlogListItem key={post.title} post={post} match={this.props.match}/>)}
+                            </ul>
+                        </div>
+                    );
+                }}
+            </AnimatedCSSTransition>
+        );
+    }
 }
 
 export default Blog;
