@@ -4,8 +4,6 @@
 @value easeOutExp from "../global/animations.css";
 @value easeInCubic from "../global/animations.css";
 @value easeOutCubic from "../global/animations.css";
-@value easeInSine from "../global/animations.css";
-@value easeOutSine from "../global/animations.css";
 
 .content
 {

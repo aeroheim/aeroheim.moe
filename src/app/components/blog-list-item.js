@@ -26,13 +26,14 @@ const BlogListItem = ({ post, match, url }) =>
     }
 
     const monthFormatter = new Intl.DateTimeFormat('en-us', { month: 'short' });
+    const titleFormatter = (title) => title.toLowerCase().replace(/\s/g, '-');
 
     return (
         <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match ? true : false}>
             {({ transitionStyles, onTransitionEnd }) => {
                 return (
                     <li className={`${styles.post} ${transitionStyles['post']}`} onTransitionEnd={onTransitionEnd}>
-                        <LinkButton link='/' className={styles.linkButton}>
+                        <LinkButton link={`/blog/${titleFormatter(post.title)}`} className={styles.linkButton}>
                             <div className={styles.postColorBar}/>
                             <div className={styles.postText}>
                                 <span className={styles.postTitle}>{post.title}</span>
