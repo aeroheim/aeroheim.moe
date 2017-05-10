@@ -12,7 +12,7 @@
     /* relative allows for colorBar to size itself relative to linkButton */
     position: relative;
 
-    /* used to implement skewed colorBar transition */
+    /* used to implement skewed colorBar hover */
     overflow: hidden;
 
     background: rgba(0, 0, 0, 0.5);
@@ -33,7 +33,7 @@
     height: 100%;
 }
 
-.colorBarTransition
+.colorBarHover
 {
     /* absolute allows for colorBar to appear below header & subtext */
     position: absolute;
@@ -43,6 +43,11 @@
     height: 100%;
     transform: skew(-30deg);
     transition: width 0.5s easeOutCubic 0s;
+}
+
+.linkButton:hover > .colorBarHover
+{   
+    width: 120%;
 }
 
 .header
@@ -66,11 +71,6 @@
     color: white;
     margin-top: -1%;
     text-shadow: 0px 0px 5px black;
-}
-
-.linkButton:hover > .colorBarTransition
-{   
-    width: 120%;
 }
 
 @media small

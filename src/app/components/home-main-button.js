@@ -7,7 +7,7 @@ const HomeMainButton = ({ link, header, subtext, color }) =>
     return (
         <LinkButton link={link} className={styles.linkButton}>
             <div className={`${styles.colorBar} ${color}`}/>
-            <div className={`${styles.colorBarTransition} ${color}`}/>
+            <div className={`${styles.colorBarHover} ${color}`}/>
             <p className={styles.header}>{header}</p>
             <p className={styles.subtext}>{subtext}</p>
         </LinkButton>
