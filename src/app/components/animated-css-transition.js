@@ -46,9 +46,12 @@ class AnimatedCSSTransition extends React.Component
     {
         if (this.props !== nextProps)
         {
-            // NOTE: Setting state via transition() inside of here leads to a weird situation in which styles 
-            // aren't applied to the children correctly. A callback is used to circumvent this issue.
-            setTimeout(() => this.transition(nextProps), 50);
+            if ((nextProps.show !== this.state.active) || !this.isDone())
+            {
+                // NOTE: Setting state via transition() inside of here leads to a weird situation in which styles 
+                // aren't applied to the children correctly. A callback is used to circumvent this issue.
+                setTimeout(() => this.transition(nextProps), 0);
+            }
         }
     }
 
@@ -99,16 +102,19 @@ class AnimatedCSSTransition extends React.Component
 
     onTransitionEnd(e)
     {
+        // onTransitionEnd events can bubble from children of elements with transition styles.
+        // Therefore events from those child elements must be filtered out.
+        let isTransitionElement = false;
         for (const key in this.transitions)
         {
             if (e.target.className.includes(this.transitions[key]))
             {
+                isTransitionElement = true;
                 this.finished[key] = true;
-                break;
             }
         }
 
-        if(this.isDone())
+        if(isTransitionElement && this.isDone())
         {
             this.transitions = this.props.show ? this.outTransitions : this.inTransitions;
 
