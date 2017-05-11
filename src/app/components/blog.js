@@ -36,21 +36,24 @@ class Blog extends React.Component
                 id,
                 title,
                 description,
-                date, (should be a proper date object)
+                date, 
             }
         */
         return [
             {
+                id: 'first-blog-post',
                 title: 'First Blog Post',
                 description: 'DESCRIPTION',
                 date: new Date('2017/01/21'),
             },
             {
+                id: 'sound-voltex-retrospective-6-months',
                 title: 'Sound Voltex Retrospective: 6 months',
                 description: 'how to get git gud @ knobs',
                 date: new Date('2017/02/21'),
             },
             {
+                id: 'persona-5-the-waifu-compendium',
                 title: 'Persona 5: The Waifu Compendium',
                 description: 'futaba is best; haru is a sadist',
                 date: new Date('2017/11/25'),
@@ -94,7 +97,7 @@ class Blog extends React.Component
 
         return (
             <div>
-                <Route path='/blog/:title' children={(props) => <BlogPost {...props}/>}/>
+                <Route path='/blog/:id' children={(props) => <BlogPost {...props}/>}/>
                 <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match && this.props.match.isExact ? true : false}>
                     {({ active, transitionStyles, onTransitionEnd }) => {
                         return (
@@ -106,7 +109,7 @@ class Blog extends React.Component
                                     <div className={`${styles.headerBackground} ${transitionStyles['headerBackground']}`} onTransitionEnd={onTransitionEnd}/>
                                 </div>
                                 <ul className={`${styles.posts} ${transitionStyles['posts']}`} onTransitionEnd={onTransitionEnd}>
-                                    {this.state.posts.map((post) => <BlogListItem key={post.title} post={post} match={this.props.match}/>)}
+                                    {this.state.posts.map((post) => <BlogListItem key={post.title} post={post} show={this.props.match && this.props.match.isExact}/>)}
                                 </ul>
                             </div>
                         );

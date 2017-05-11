@@ -1,0 +1,34 @@
+@value blogColor from "../global/colors.css";
+
+@value easeInCubic from "../global/animations.css";
+@value easeOutCubic from "../global/animations.css";
+
+.content
+{
+    width: 50%;
+    height: 65%;
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.contentInTransition
+{
+    opacity: 0;
+    transition: opacity 0.65s easeOutCubic 0s;
+}
+
+.contentIn
+{
+    opacity: 1;
+}
+
+.contentOutTransition
+{
+}
+
+.contentOut
+{
+    opacity: 0;
+}
