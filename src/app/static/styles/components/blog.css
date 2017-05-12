@@ -11,8 +11,6 @@
     top: 10%;
     width: 50%;
     height: 65%;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .contentInTransition
@@ -50,7 +48,7 @@
     justify-content: center;
     height: 100%;
     background-color: blogColor;
-    clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, calc(100% - 35px) 100%, 0% 100%);
 }
 
 .headerOverlayInTransition

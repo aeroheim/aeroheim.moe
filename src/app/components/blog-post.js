@@ -1,4 +1,5 @@
 import React from 'react';
+import LinkButton from './link-button';
 import AnimatedCSSTransition from './animated-css-transition';
 import styles from '../static/styles/components/blog-post.css';
 
@@ -51,7 +52,7 @@ Sed vitae venenatis est, sodales interdum ipsum. Pellentesque congue justo nec n
         return {
             title: 'An Example Blog Post',
             description: 'This is an example blog post!',
-            date: new Date(2017/11/25),
+            date: new Date('2017/11/25'),
             content: content,
         };
     }
@@ -78,12 +79,24 @@ Sed vitae venenatis est, sodales interdum ipsum. Pellentesque congue justo nec n
             content: styles.contentOut,
         }
 
+        const monthFormatter = new Intl.DateTimeFormat('en-us', { month: 'short' });
+
         return (
-            <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match && this.state.post}>
+            <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match != null && this.state.post}>
                 {({ transitionStyles, onTransitionEnd }) => {
                     return (
                         <div className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
-                            {this.state.post.content}
+                            <LinkButton link='/blog' className={styles.linkButton}>
+                                <div className={styles.postColorBar}/>
+                                <div className={styles.postText}>
+                                    <span className={styles.postTitle}>{this.state.post.title}</span>
+                                    <span className={styles.postDate}>{monthFormatter.format(this.state.post.date).toUpperCase()} {this.state.post.date.getDate()}<br/>{this.state.post.date.getFullYear()}</span>
+                                    <p className={styles.postDescription}>{this.state.post.description}</p>
+                                </div>
+                            </LinkButton>
+                            <div className={styles.post}>
+                                {this.state.post.content}
+                            </div>
                         </div>
                     );
                 }}
