@@ -11,4 +11,6 @@
 
     composes: fadeIn from "../global/animations.css";
     animation-duration: 1s;
+
+    overflow-y: overlay;
 }

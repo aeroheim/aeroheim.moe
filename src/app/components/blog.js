@@ -1,10 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import LinkButton from './link-button';
 import BlogListItem from './blog-list-item';
 import BlogPost from './blog-post';
 import AnimatedCSSTransition from './animated-css-transition';
-import VerticalAlign from './vertical-align';
 import styles from '../static/styles/components/blog.css';
 
 class Blog extends React.Component
