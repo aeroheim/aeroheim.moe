@@ -1,10 +1,7 @@
-@value moonlightColor, bumpsColor, blogColor from "../global/colors.css";
+@value homeColor, moonlightColor, bumpsColor, blogColor from "../global/colors.css";
 @value small, large, largeBreakpoint from "../global/breakpoints.css";
 
-@value easeInCubic from "../global/animations.css";
-@value easeOutCubic from "../global/animations.css";
-@value easeInSine from "../global/animations.css";
-@value easeOutSine from "../global/animations.css";
+@value easeInCubic, easeOutCubic, easeInSine, easeOutSine from "../global/animations.css";
 
 .page
 {
@@ -23,7 +20,7 @@
 
 .logoFrame
 {
-    background-color: #9ff15d;
+    background-color: homeColor;
     width: 18%;
     margin-left: auto;
     margin-right: auto;

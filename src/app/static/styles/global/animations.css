@@ -5,12 +5,6 @@
 @value easeInSine: cubic-bezier(0.47, 0, 0.745, 0.715);
 @value easeOutSine: cubic-bezier(0.39, 0.575, 0.565, 1);
 
-@keyframes revealHeader
-{
-    from { clip-path: polygon(-1% 0%, 0% 0%, -1% 100%, -2% 100%); }
-    to { clip-path: polygon(-1% 0%, 101% 0%, 100% 100%, -2% 100%); }
-}
-
 @keyframes revealSquare
 {
     from { clip-path: polygon(-100% 0%, 0% 0%, -100% 100%, -200% 100%); }
@@ -51,19 +45,13 @@
     animation-timing-function: easeOutCubic, easeOutCubic;
 }
 
-.animateRevealHeader
-{
-    animation-name: revealHeader;
-    animation-duration: 0.75s;
-    animation-timing-function: easeOutCubic;
-}
-
 .animateRevealSquare
 {
     animation-name: revealSquare;
     animation-duration: 0.65s;
     animation-timing-function: easeOutCubic;
 }
+
 .animateRevealRect
 {
     animation-name: revealRect;

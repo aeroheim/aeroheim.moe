@@ -1,8 +1,66 @@
-.bar
+@value homeColor, moonlightColor, bumpsColor, blogColor, aboutColor from "../global/colors.css";
+@value small from "../global/breakpoints.css";
+
+.navBar
 {
+    z-index: 999;
     position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     width: 100%;
     height: 35px;
     background-color: rgba(0, 0, 0, 0.5);
-    composes: animateRevealHeader from "../global/animations.css";
+
+    animation-name: revealHeader;
+    animation-duration: 1s;
+    animation-timing-function: easeOutCubic;
+}
+
+.headerButton
+{
+    margin-left: 35px;
+    margin-right: 35px;
+}
+
+.homeColor
+{
+    background-color: homeColor;
+}
+
+.moonlightColor
+{
+    background-color: moonlightColor;
+}
+
+.bumpsColor
+{
+    background-color: bumpsColor;
+}
+
+.blogColor
+{
+    background-color: blogColor;
+}
+
+.aboutColor
+{
+    background-color: aboutColor;
+}
+
+@keyframes revealHeader
+{
+    from { clip-path: polygon(-45px 0%, 0% 0%, -45px 100%, -90px 100%); }
+    to { clip-path: polygon(-45px 0%, calc(100% + 45px) 0%, 100% 100%, -90px 100%); }
+}
+
+@media small
+{
+    .headerButton
+    {
+        margin-left: 2%;
+        margin-right: 2%;
+    }
 }
