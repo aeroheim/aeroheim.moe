@@ -23,7 +23,7 @@
 
 .contentInTransition
 {
-    left: -100%;
+    left: -125%;
     transition: left 0.65s easeOutCubic 0s;
 }
 
