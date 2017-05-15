@@ -91,8 +91,8 @@ Sed vitae venenatis est, sodales interdum ipsum. Pellentesque congue justo nec n
                                 <div className={styles.postText}>
                                     <span className={styles.postTitle}>{this.state.post.title}</span>
                                     <span className={styles.postDate}>{monthFormatter.format(this.state.post.date).toUpperCase()} {this.state.post.date.getDate()}<br/>{this.state.post.date.getFullYear()}</span>
-                                    <p className={styles.postDescription}>{this.state.post.description}</p>
                                 </div>
+                                <p className={styles.postDescription}>{this.state.post.description}</p>
                             </LinkButton>
                             <div className={styles.post}>
                                 {this.state.post.content}

@@ -1,18 +1,11 @@
 @value homeColor, moonlightColor, bumpsColor, blogColor from "../global/colors.css";
 @value easeInCubic, easeOutCubic, easeInSine, easeOutSine from "../global/animations.css";
 @value small, large, largeBreakpoint from "../global/breakpoints.css";
-
-.page
-{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
+@value headerHeight from "./header.css";
 
 .content
 {
-    margin-top: 18vh;
-    margin-bottom: 18vh;
+    margin-top: calc(2 * headerHeight + 12vh);
     margin-left: auto;
     margin-right: auto;
 }
@@ -107,6 +100,7 @@
     display: flex;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: headerHeight;
     justify-content: center;
 }
 
@@ -152,6 +146,7 @@
     {
         composes: content;
         width: 258px;
+        margin-top: calc(headerHeight + 10vh);
         margin-bottom: 0;
     }
 

@@ -37,8 +37,8 @@ const BlogListItem = ({ post, show, url }) =>
                             <div className={styles.postText}>
                                 <span className={styles.postTitle}>{post.title}</span>
                                 <span className={styles.postDate}>{monthFormatter.format(post.date).toUpperCase()} {post.date.getDate()}<br/>{post.date.getFullYear()}</span>
-                                <p className={styles.postDescription}>{post.description}</p>
                             </div>
+                            <p className={styles.postDescription}>{post.description}</p>
                         </LinkButton>
                     </li>);
             }}

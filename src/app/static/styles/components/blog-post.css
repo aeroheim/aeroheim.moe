@@ -1,17 +1,25 @@
 @value blogColor from "../global/colors.css";
-
-@value easeInCubic from "../global/animations.css";
-@value easeOutCubic from "../global/animations.css";
+@value easeInCubic, easeOutCubic from "../global/animations.css";
+@value small from "../global/breakpoints.css";
+@value headerHeight from "./header.css";
 
 .content
 {
     display: flex;
     flex-direction: column;
+
     position: absolute;
-    width: 46%;
+    top: calc(2 * headerHeight);
+    left: 0;
+    right: 0;
+    
+    width: 90%;
+    max-width: 900px;
     height: 80%;
-    margin-top: 10vh;
-    margin-left: 27%;
+    margin-top: 1vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: headerHeight;
 }
 
 .contentInTransition
@@ -37,7 +45,6 @@
 .linkButton
 {
     composes: linkButton from './blog-list-item.css';
-    min-height: 100px;
     background-color: rgba(0, 0, 0, 0.65);
 }
 
@@ -46,7 +53,6 @@
     background-color: rgba(0, 0, 0, 0.85);
 }
 
-
 .postColorBar
 {
     composes: postColorBar from './blog-list-item.css';
@@ -54,7 +60,7 @@
 
 .postText
 {
-    composes: postText from './blog-list-item.css'
+    composes: postText from './blog-list-item.css';
 }
 
 .postTitle
@@ -74,10 +80,33 @@
 
 .post
 {
-    height: calc(100% - 100px);
-    background-color: rgba(0, 0, 0, 0.4);
-    padding: 50px;
-    overflow-y: auto;
     color: white;
     font-family: 'M+P1-Thin';
+
+    height: calc(100% - 100px);
+    padding: 35px 50px 35px 50px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.post::-webkit-scrollbar
+{
+    width: 3px;
+}
+
+.post::-webkit-scrollbar-thumb
+{
+    box-shadow: 0 0 35px black;
+    background-color: blogColor;
+}
+
+@media small
+{
+    .post
+    {
+        composes: post;
+        padding: 35px 20px 35px 20px;
+    }
 }

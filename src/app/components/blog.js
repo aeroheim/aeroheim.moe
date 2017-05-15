@@ -12,13 +12,13 @@ class Blog extends React.Component
         super(props);
         this.state =
         {
-            posts: this.getPosts(),
+            posts: props.match && props.match.isExact ? this.getPosts() : [],
         }
     }
 
     componentWillReceiveProps(nextProps)
     {
-        if (this.props !== nextProps && nextProps.match)
+        if (this.props !== nextProps && nextProps.match && nextProps.match.isExact)
         {
             this.setState({
                 posts: this.getPosts(),
@@ -56,7 +56,7 @@ class Blog extends React.Component
                 title: 'Persona 5: The Waifu Compendium',
                 description: 'futaba is best; haru is a sadist',
                 date: new Date('2017/11/25'),
-            }
+            },
         ]
     }
 
@@ -65,7 +65,6 @@ class Blog extends React.Component
         const inTransitions =
         {
             content: styles.contentInTransition,
-            headerOverlay: styles.headerOverlayInTransition,
             headerBackground: styles.headerBackgroundInTransition,
             posts: styles.postsInTransition,
         }
@@ -73,7 +72,6 @@ class Blog extends React.Component
         const inStyles =
         {
             content: styles.contentIn,
-            headerOverlay: styles.headerOverlayIn,
             headerBackground: styles.headerBackgroundIn,
             posts: styles.postsIn,
         }
@@ -81,7 +79,6 @@ class Blog extends React.Component
         const outTransitions =
         {
             content: styles.contentOutTransition,
-            headerOverlay: styles.headerOverlayOutTransition,
             headerBackground: styles.headerBackgroundOutTransition,
             posts: styles.postsOutTransition,
         }
@@ -89,7 +86,6 @@ class Blog extends React.Component
         const outStyles =
         {
             content: styles.contentOut,
-            headerOverlay: styles.headerOverlayOut,
             headerBackground: styles.headerBackgroundOut,
             posts: styles.postsOut,
         }
@@ -102,13 +98,13 @@ class Blog extends React.Component
                         return (
                             <div className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
                                 <div className={styles.header}>
-                                    <div className={`${styles.headerOverlay} ${transitionStyles['headerOverlay']}`} onTransitionEnd={onTransitionEnd}>
+                                    <div className={styles.headerOverlay}>
                                         <span className={styles.headerOverlayText}>BLOG</span>
                                     </div>
                                     <div className={`${styles.headerBackground} ${transitionStyles['headerBackground']}`} onTransitionEnd={onTransitionEnd}/>
                                 </div>
                                 <ul className={`${styles.posts} ${transitionStyles['posts']}`} onTransitionEnd={onTransitionEnd}>
-                                    {this.state.posts.map((post) => <BlogListItem key={post.title} post={post} show={this.props.match && this.props.match.isExact}/>)}
+                                    {this.state.posts.map((post) => <BlogListItem key={post.id} post={post} show={this.props.match && this.props.match.isExact}/>)}
                                 </ul>
                             </div>
                         );

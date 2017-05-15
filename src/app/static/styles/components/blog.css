@@ -1,27 +1,35 @@
 @value blogColor from "../global/colors.css";
+@value easeInExp, easeOutExp, easeInCubic, easeOutCubic from "../global/animations.css";
+@value small, large from "../global/breakpoints.css";
+@value headerHeight from "./header.css";
 
-@value easeInExp from "../global/animations.css";
-@value easeOutExp from "../global/animations.css";
-@value easeInCubic from "../global/animations.css";
-@value easeOutCubic from "../global/animations.css";
+@value minHeaderFontSize: 18px;
+@value maxHeaderFontSize: 28px;
 
 .content
 {
     position: absolute;
-    top: 10%;
+    top: calc(2 * headerHeight);
+    left: 0;
+    right: 0;
+
     width: 50%;
+    max-width: 900px;
     height: 65%;
+    margin-top: 1vh;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .contentInTransition
 {
-    margin-left: -40%;
-    transition: margin-left 0.65s easeOutCubic 0s;
+    left: -100%;
+    transition: left 0.65s easeOutCubic 0s;
 }
 
 .contentIn
 {
-    margin-left: 25%;
+    left: 0%;
 }
 
 .contentOutTransition
@@ -37,50 +45,35 @@
 
 .header
 {
+    position: relative;
     display: flex;
+
     width: 100%;
-    height: 50px;
+    height: 45px;
 }
 
 .headerOverlay
 {
     display: flex;
     justify-content: center;
+    min-width: 200px;
+    width: 25%;
+
     height: 100%;
     background-color: blogColor;
     clip-path: polygon(0% 0%, 100% 0%, calc(100% - 35px) 100%, 0% 100%);
 }
 
-.headerOverlayInTransition
-{
-    width: 75%;
-    transition: width 0.35s easeOutCubic 0s;
-}
-
-.headerOverlayIn
-{
-    width: 25%;
-}
-
-.headerOverlayOutTransition
-{
-    opacity: 1;
-    transition: opacity 0.65s easeOutCubic 0s;
-}
-
-.headerOverlayOut
-{
-    opacity: 0;
-}
-
 .headerOverlayText
 {
-    font-family: 'M+P1-Thin';
-    font-size: 32px;
-    color: white;
     margin-right: 10%;
     margin-top: auto;
     margin-bottom: auto;
+
+    /* responsive font size based on css locks calculations; see https://fvsch.com/code/css-locks/ */
+    font-size: calc(2.38vw - 2.468px);
+    font-family: 'M+P1-Thin';
+    color: white;
 }
 
 .headerBackground
@@ -97,7 +90,7 @@
 .headerBackgroundInTransition
 {
     width: 0%;
-    transition: width 1s easeOutExp 0s;
+    transition: width 1s easeOutCubic 0s;
 }
 
 .headerBackgroundIn
@@ -118,17 +111,29 @@
 .posts
 {
     list-style: none;
+    overflow-y: overlay;
     padding: 0;
-    width: 90%;
+
+    width: auto;
     max-height: 100%;
     margin-top: 35px;
+    margin-bottom: headerHeight;
     margin-left: auto;
     margin-right: auto;
-    overflow-y: overlay;
-    /* show x-scroll when minimum post width exceeded */
 
     /* force hardware acceleration for transitions - this prevents rendering artifacts in chrome */
     -webkit-transform: translate3d(0,0,0);
+}
+
+.posts::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.posts::-webkit-scrollbar-thumb
+{
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .postsInTransition
@@ -154,4 +159,52 @@
 .postsOut
 {
     opacity: 0;
+}
+
+@media small
+{
+    .content
+    {
+        composes: content;
+        width: 90%;
+    }
+
+    .contentIn
+    {
+        composes: contentIn;
+        margin-left: 5%;
+    }
+
+    .header
+    {
+        composes: header;
+        height: 35px;
+    }
+    
+    .headerOverlay
+    {
+        composes: headerOverlay;
+        min-width: 150px;
+    }
+
+    .headerOverlayText
+    {
+        composes: headerOverlayText;
+        font-size: minHeaderFontSize;
+    }
+
+    .posts
+    {
+        composes: posts;
+        margin-top: 15px;
+    }
+}
+
+@media large
+{
+    .headerOverlayText
+    {
+        composes: headerOverlayText;
+        font-size: maxHeaderFontSize;
+    }
 }
