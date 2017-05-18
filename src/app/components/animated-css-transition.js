@@ -29,6 +29,7 @@ class AnimatedCSSTransition extends React.Component
 
         this.isDone = this.isDone.bind(this);
         this.transition = this.transition.bind(this);
+        this.transitionInternal = this.transitionInternal.bind(this);
         this.onTransitionEnd = this.onTransitionEnd.bind(this);
     }
 
@@ -36,9 +37,7 @@ class AnimatedCSSTransition extends React.Component
     {
         if (this.props.show)
         {
-            // NOTE: Setting state via transition() inside of here leads to a weird situation in which styles 
-            // aren't applied to the children correctly. A callback is used to circumvent this issue.
-            setTimeout(() => this.transition(), 0);
+            this.transition();
         }
     }
 
@@ -48,9 +47,7 @@ class AnimatedCSSTransition extends React.Component
         {
             if ((nextProps.show !== this.state.active) || !this.isDone())
             {
-                // NOTE: Setting state via transition() inside of here leads to a weird situation in which styles 
-                // aren't applied to the children correctly. A callback is used to circumvent this issue.
-                setTimeout(() => this.transition(nextProps), 0);
+                this.transition(nextProps);
             }
         }
     }
@@ -71,6 +68,13 @@ class AnimatedCSSTransition extends React.Component
     }
 
     transition(nextProps)
+    {
+        // NOTE: React can sometimes apply styles to mounted components that haven't rendered yet, which makes
+        // transitions fail to trigger. To prevent this, a set delay is added to all transitions.
+        setTimeout(() => this.transitionInternal(nextProps), 50);
+    }
+
+    transitionInternal(nextProps)
     {
         const props = nextProps !== undefined ? nextProps : this.props;
 
@@ -145,6 +149,8 @@ AnimatedCSSTransition.propTypes =
     inTransitions: PropTypes.object.isRequired,
     outStyles: PropTypes.object.isRequired,
     outTransitions: PropTypes.object.isRequired,
+    onActive: PropTypes.func,
+    onInactive: PropTypes.func,
 }
 
 export default AnimatedCSSTransition;
