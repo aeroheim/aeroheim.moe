@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import Axios from 'axios';
 import BlogListItem from './blog-list-item';
 import BlogPost from './blog-post';
 import AnimatedCSSTransition from './animated-css-transition';
@@ -12,7 +13,15 @@ class Blog extends React.Component
         super(props);
         this.state =
         {
-            posts: props.match && props.match.isExact ? this.getPosts() : [],
+            posts: [],
+        }
+    }
+
+    componentDidMount()
+    {
+        if (this.props.match && this.props.match.isExact)
+        {
+            this.getPosts();
         }
     }
 
@@ -20,44 +29,25 @@ class Blog extends React.Component
     {
         if (this.props !== nextProps && nextProps.match && nextProps.match.isExact)
         {
-            this.setState({
-                posts: this.getPosts(),
-            })
+            this.getPosts();
         }
     }
 
     getPosts()
     {
-        /*
-            TODO: query for posts from backend
-            post:
-            {
-                id,
-                title,
-                description,
-                date, 
-            }
-        */
-        return [
-            {
-                id: 'first-blog-post',
-                title: 'First Blog Post',
-                description: 'DESCRIPTION',
-                date: new Date('2017/01/21'),
-            },
-            {
-                id: 'sound-voltex-retrospective-6-months',
-                title: 'Sound Voltex Retrospective: 6 months',
-                description: 'how to get git gud @ knobs',
-                date: new Date('2017/02/21'),
-            },
-            {
-                id: 'persona-5-the-waifu-compendium',
-                title: 'Persona 5: The Waifu Compendium',
-                description: 'futaba is best; haru is a sadist',
-                date: new Date('2017/11/25'),
-            },
-        ]
+        Axios.get('/api/blog')
+        .then((res) =>
+        {
+            this.setState({
+                posts: res.data,
+            })
+        })
+        .catch((err) =>
+        {
+            this.setState({
+                posts: [],
+            });
+        });
     }
 
     render()
@@ -104,7 +94,7 @@ class Blog extends React.Component
                                     <div className={`${styles.headerBackground} ${transitionStyles['headerBackground']}`} onTransitionEnd={onTransitionEnd}/>
                                 </div>
                                 <ul className={`${styles.posts} ${transitionStyles['posts']}`} onTransitionEnd={onTransitionEnd}>
-                                    {this.state.posts.map((post) => <BlogListItem key={post.id} post={post} show={this.props.match && this.props.match.isExact}/>)}
+                                    {this.state.posts.map((post) => <BlogListItem key={post._id} post={post} show={this.props.match && this.props.match.isExact}/>)}
                                 </ul>
                             </div>
                         );

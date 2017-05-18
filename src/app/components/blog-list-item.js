@@ -25,6 +25,8 @@ const BlogListItem = ({ post, show, url }) =>
         post: styles.postOut,
     }
 
+    // convert ISO date to JS date
+    post.date = new Date(post.date);
     const monthFormatter = new Intl.DateTimeFormat('en-us', { month: 'short' });
 
     return (
@@ -32,7 +34,7 @@ const BlogListItem = ({ post, show, url }) =>
             {({ transitionStyles, onTransitionEnd }) => {
                 return (
                     <li className={`${styles.post} ${transitionStyles['post']}`} onTransitionEnd={onTransitionEnd}>
-                        <LinkButton link={`/blog/${post.id}`} className={styles.linkButton}>
+                        <LinkButton link={`/blog/${post._id}`} className={styles.linkButton}>
                             <div className={styles.postColorBar}/>
                             <div className={styles.postText}>
                                 <span className={styles.postTitle}>{post.title}</span>
