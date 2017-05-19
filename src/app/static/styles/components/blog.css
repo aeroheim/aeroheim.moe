@@ -1,15 +1,12 @@
 @value blogColor from "../global/colors.css";
 @value easeInExp, easeOutExp, easeInCubic, easeOutCubic from "../global/animations.css";
-@value small, large from "../global/breakpoints.css";
+@value small from "../global/breakpoints.css";
 @value headerHeight from "./header.css";
-
-@value minHeaderFontSize: 18px;
-@value maxHeaderFontSize: 28px;
 
 .content
 {
     position: absolute;
-    top: calc(2 * headerHeight);
+    top: calc(1.25 * headerHeight);
     left: 0;
     right: 0;
 
@@ -43,69 +40,15 @@
     opacity: 0;
 }
 
-.header
+.headerStyle
 {
-    position: relative;
-    display: flex;
-
-    width: 100%;
-    height: 45px;
+    font-size: responsive 48px 72px;
+    font-range: 860px 1280px;
 }
 
-.headerOverlay
+.headerColor
 {
-    display: flex;
-    justify-content: center;
-    min-width: 200px;
-    width: 25%;
-
-    height: 100%;
     background-color: blogColor;
-    clip-path: polygon(0% 0%, 100% 0%, calc(100% - 35px) 100%, 0% 100%);
-}
-
-.headerOverlayText
-{
-    margin-right: 10%;
-    margin-top: auto;
-    margin-bottom: auto;
-
-    /* responsive font size based on css locks calculations; see https://fvsch.com/code/css-locks/ */
-    font-size: calc(2.38vw - 2.468px);
-    font-family: 'M+P1-Thin';
-    color: white;
-}
-
-.headerBackground
-{
-    z-index: -1;
-    margin-left: -25%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-
-    /* force hardware acceleration for transitions - this prevents rendering artifacts in chrome */
-    -webkit-transform: translate3d(0,0,0);
-}
-
-.headerBackgroundInTransition
-{
-    width: 0%;
-    transition: width 1s easeOutCubic 0s;
-}
-
-.headerBackgroundIn
-{
-    width: 100%;
-}
-
-.headerBackgroundOutTransition
-{
-    transition: opacity 0.65s easeOutCubic 0s;
-}
-
-.headerBackgroundOut
-{
-    opacity: 0;
 }
 
 .posts
@@ -116,7 +59,7 @@
 
     width: auto;
     max-height: 100%;
-    margin-top: 35px;
+    margin-top: 25px;
     margin-bottom: headerHeight;
     margin-left: auto;
     margin-right: auto;
@@ -175,36 +118,9 @@
         margin-left: 5%;
     }
 
-    .header
-    {
-        composes: header;
-        height: 35px;
-    }
-    
-    .headerOverlay
-    {
-        composes: headerOverlay;
-        min-width: 150px;
-    }
-
-    .headerOverlayText
-    {
-        composes: headerOverlayText;
-        font-size: minHeaderFontSize;
-    }
-
     .posts
     {
         composes: posts;
         margin-top: 15px;
-    }
-}
-
-@media large
-{
-    .headerOverlayText
-    {
-        composes: headerOverlayText;
-        font-size: maxHeaderFontSize;
     }
 }
