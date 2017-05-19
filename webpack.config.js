@@ -38,10 +38,10 @@ module.exports =
                 [
                     { loader: 'style-loader'} , 
                     { loader: 'css-loader', options: { modules: true } },
+                    { loader: 'postcss-loader' },
                 ],
                 include:
                 [
-                    /flexboxgrid/,
                     path.resolve(__dirname, './src/app/static/styles')
                 ]
             },

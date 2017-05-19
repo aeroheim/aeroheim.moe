@@ -33,13 +33,17 @@
     "react-router-dom": "^4.1.1"
   },
   "devDependencies": {
+    "autoprefixer": "^7.1.1",
     "cross-env": "^3.2.3",
     "css-loader": "^0.28.0",
     "d3-ease": "^1.0.3",
     "express": "^4.15.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
+    "postcss": "^6.0.1",
+    "postcss-loader": "^2.0.5",
     "postcss-modules-values": "^1.2.2",
+    "postcss-responsive-type": "^0.5.1",
     "raw-loader": "^0.5.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
