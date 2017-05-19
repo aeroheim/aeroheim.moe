@@ -1,0 +1,93 @@
+@value easeOutCubic, easeOutExp from "../global/animations.css";
+
+.header
+{
+    position: relative;
+}
+
+.headerInTransition
+{
+    width: 0%;
+    opacity: 0;
+    transition: width 1s easeOutCubic 0s, opacity 1s easeOutCubic 0s;
+}
+
+.headerIn
+{
+    width: 100%;
+    opacity: 1;
+}
+
+.headerOutTransition
+{
+    transition: opacity 0.65s easeOutCubic 0s;
+}
+
+.headerOut
+{
+    opacity: 0;
+}
+
+.headerText
+{
+    display: inline-block;
+
+    margin: 0;
+    max-width: 100%;
+
+    font-size: inherit;
+    font-weight: normal;
+    font-family: 'M+P1-Thin';
+    color: white;
+
+    vertical-align: bottom;
+    text-shadow: 0 0 0.15em black;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+}
+
+.headerTextDecoration
+{
+    height: 0.075em;
+    margin-top: -0.1em;
+
+    clip-path: polygon(0% 0%, 100% 0%, calc(100% - 0.075em) 100%, 0% 100%);
+}
+
+.headerTextInTransition
+{
+    clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+    opacity: 0;
+    transition: clip-path 0.65s easeOutExp 0.35s, opacity 0.65s easeOutCubic 0.35s;
+}
+
+.headerTextIn
+{
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    opacity: 1;
+}
+
+.headerTextOutTransition
+{
+    opacity: 1;
+    transition: opacity 0.65s easeOutCubic 0s;
+}
+
+.headerTextOut
+{
+    opacity: 0;
+}
+
+.headerBar
+{
+    z-index: -1;
+    position: absolute;
+
+    width: 100%;
+    height: 0.075em;
+    margin-top: -0.075em;
+
+    background-color: rgba(0, 0, 0, 0.4);
+}
