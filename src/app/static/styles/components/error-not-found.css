@@ -1,0 +1,64 @@
+@value easeOutCubic from "../global/animations.css";
+
+.content
+{
+    display: flex;
+    justify-content: center;
+
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.contentInTransition
+{
+    opacity: 0;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+    transition: opacity 0.65s easeOutCubic 0s, clip-path 0.65s easeOutCubic 0s;
+}
+
+.contentIn
+{
+    opacity: 1;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.contentOutTransition
+{
+    opacity: 1;
+    transition: opacity 0.65s easeOutCubic 0s;
+}
+
+.contentOut
+{
+    opacity: 0;
+}
+
+.container
+{
+    display: inline-block;
+
+    font-family: 'M+P1-Thin';
+    color: white;
+
+    text-align: center;
+
+    background-color: rgba(0, 0, 0, 0.65);
+}
+
+.header
+{
+    margin: 0 0.5em 0 0.5em;
+
+    font-size: responsive 64px 192px;
+    font-range: 215px 1280px;
+}
+
+.subtext
+{
+    margin-top: -1em;
+    font-size: responsive 16px 24px;
+    font-range: 215px 1280px;
+}

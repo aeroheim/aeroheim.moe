@@ -6,7 +6,7 @@ import Moonlight from './moonlight';
 import Bumps from './bumps';
 import Blog from './blog';
 import Header from './header';
-import ErrorNotFound from './404';
+import ErrorNotFound from './error-not-found';
 import styles from '../static/styles/components/aeroheim.css';
 
 const Aeroheim = () =>
