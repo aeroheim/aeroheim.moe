@@ -25,7 +25,7 @@ const ErrorNotFound = (props) =>
     }
 
     return (
-        <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={props.match}>
+        <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={props.matchCount === 0}>
             {({ transitionStyles, onTransitionEnd }) => {
                 return (
                     <div className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
