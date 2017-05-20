@@ -1,0 +1,92 @@
+@value aboutColor from "../global/colors.css";
+@value easeInExp, easeOutExp, easeInCubic, easeOutCubic from "../global/animations.css";
+@value headerHeight from "./header.css";
+
+.content
+{
+    position: absolute;
+    top: calc(1.25 * headerHeight);
+    left: 0;
+    right: 0;
+
+    width: 35%;
+    min-width: 250px;
+    max-width: 900px;
+    height: 35%;
+    min-height: 150px;
+    max-height: 300px;
+    margin-top: 5%;
+    margin-bottom: 15%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.headerStyle
+{
+    font-size: responsive 48px 72px;
+    font-range: 860px 1280px;
+}
+
+.headerColor
+{
+    background-color: aboutColor;
+}
+
+.bio
+{
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+    margin-top: 15px;
+    padding: 1em 2em 1em 2em;
+
+    font-size: responsive 12px 15px;
+    font-range: 215px 1280px;
+    font-family: 'M+P1-Light';
+    color: white;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.bioInTransition
+{
+    opacity: 0;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+    transition: opacity 0.65s easeOutCubic 0.35s, clip-path 0.65s easeOutCubic 0.35s;
+}
+
+.bioIn
+{
+    opacity: 1;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.bioOutTransition
+{
+    opacity: 1;
+    transition: opacity 0.65s easeOutCubic 0s;
+}
+
+.bioOut
+{
+    opacity: 0;
+}
+
+.bio::-webkit-scrollbar
+{
+    width: 3px;
+}
+
+.bio::-webkit-scrollbar-thumb
+{
+    box-shadow: 0 0 25px black;
+    background-color: aboutColor;
+}
+
+.bioLink
+{
+    color: white;
+}
