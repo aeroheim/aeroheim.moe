@@ -42,7 +42,7 @@ const Home = ({ match }) =>
     }
 
     return (
-        <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match ? true : false}>
+        <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match !== null}>
             {({ transitionStyles, onTransitionEnd }) => {
                 return (
                     <div className={styles.content}>
