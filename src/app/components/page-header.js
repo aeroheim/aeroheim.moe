@@ -2,7 +2,7 @@ import React from 'react';
 import AnimatedCSSTransition from './animated-css-transition';
 import styles from '../static/styles/components/page-header.css';
 
-const PageHeader = ({ text, className, color, show }) =>
+const PageHeader = ({ children, className, color, show }) =>
 {
     const inTransitions =
     {
@@ -34,7 +34,7 @@ const PageHeader = ({ text, className, color, show }) =>
                 return (
                     <header className={`${styles.header} ${className} ${transitionStyles['header']}`} onTransitionEnd={onTransitionEnd}>
                         <h1 className={`${styles.headerText} ${transitionStyles['headerText']}`} onTransitionEnd={onTransitionEnd}>
-                            {text}
+                            {children}
                             <div className={`${styles.headerTextDecoration} ${color}`}/>
                         </h1>
                         <div className={styles.headerBar}/>

@@ -86,7 +86,7 @@ class Blog extends React.Component
                     {({ active, transitionStyles, onTransitionEnd }) => {
                         return (
                             <div className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
-                                <PageHeader text='BLOG' className={styles.headerStyle} color={styles.headerColor} show={show}/>
+                                <PageHeader className={styles.headerStyle} color={styles.headerColor} show={show}>BLOG</PageHeader>
                                 <ul className={`${styles.posts} ${transitionStyles['posts']}`} onTransitionEnd={onTransitionEnd}>
                                     {this.state.posts.map((post) => <BlogListItem key={post._id} post={post} show={this.props.match && this.props.match.isExact}/>)}
                                 </ul>
