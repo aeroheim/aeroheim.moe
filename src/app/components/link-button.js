@@ -4,16 +4,21 @@ import styles from '../static/styles/components/link-button.css';
 
 const LinkButton = ({ link, className, children }) =>
 {
-    const button = 
-    (
-        <button className={`${styles.button} ${className}`} type="button" tabIndex="-1">
-            {children}
-        </button>
-    );
-
     return new RegExp('^(?:[a-z]+:)?//', 'i').test(link)
-        ? ( <a href={link}>{button}</a>)
-        : ( <Link to={link}>{button}</Link>);
-};
+        ? ( 
+            <a className={styles.link} href={link}>
+                <div className={className}>
+                    {children}
+                </div>
+            </a>
+        )
+        : ( 
+            <Link className={styles.link} to={link}>
+                <div className={className}>
+                    {children}
+                </div>
+            </Link>
+        );
+}
 
 export default LinkButton;

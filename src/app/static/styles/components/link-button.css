@@ -1,8 +1,4 @@
-.button
+.link
 {
-    padding: 0;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    background: none;
+    text-decoration: none;
 }
