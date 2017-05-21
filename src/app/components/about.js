@@ -36,7 +36,7 @@ const About = (props) =>
                         <article className={`${styles.bio} ${transitionStyles['bio']}`} onTransitionEnd={onTransitionEnd}>
                             <h1>Benjamin Pang (龐天擇).</h1>
                             <p>{`I'm a ${age}-year-old Software Engineer working in Austin, Texas. I graduated from The University of Texas at Austin with a B.S. in Computer Science in 2015.`}</p>
-                            <p>Hobbies include collecting keyboards, coding, and gaming (especially rhythm games).</p>
+                            <p>My hobbies include mechanical keyboards, coding, and gaming (especially rhythm games).</p>
                             <p>contact: <a href='mailto:aeroheim@gmail.com' className={styles.bioLink}>aeroheim@gmail.com</a></p>
                         </article>
                     </div>
