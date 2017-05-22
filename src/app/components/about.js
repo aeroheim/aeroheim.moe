@@ -31,14 +31,16 @@ const About = (props) =>
         <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={props.match !== null}>
             {({ transitionStyles, onTransitionEnd }) => {
                 return (
-                    <div className={styles.content}>
-                        <PageHeader className={styles.headerStyle} color={styles.headerColor} show={props.match !== null}>ABOUT</PageHeader>
-                        <article className={`${styles.bio} ${transitionStyles['bio']}`} onTransitionEnd={onTransitionEnd}>
-                            <h1>Benjamin Pang (龐天擇).</h1>
-                            <p>{`I'm a ${age}-year-old Software Engineer working in Austin, Texas. I graduated from The University of Texas at Austin with a B.S. in Computer Science in 2015.`}</p>
-                            <p>My hobbies include mechanical keyboards, coding, and gaming (especially rhythm games).</p>
-                            <p>contact: <a href='mailto:aeroheim@gmail.com' className={styles.bioLink}>aeroheim@gmail.com</a></p>
-                        </article>
+                    <div className={styles.page}>
+                        <div className={styles.content}>
+                            <PageHeader className={styles.headerStyle} color={styles.headerColor} show={props.match !== null}>ABOUT</PageHeader>
+                            <article className={`${styles.bio} ${transitionStyles['bio']}`} onTransitionEnd={onTransitionEnd}>
+                                <h1>Benjamin Pang (龐天擇).</h1>
+                                <p>{`I'm a ${age}-year-old Software Engineer working in Austin, Texas. I graduated from The University of Texas at Austin with a B.S. in Computer Science in 2015.`}</p>
+                                <p>Hobbies include mechanical keyboards, coding, and gaming (especially rhythm games).</p>
+                                <p><a href='mailto:aeroheim@gmail.com' className={styles.bioLink}>aeroheim@gmail.com</a></p>
+                            </article>
+                        </div>
                     </div>
                 );
             }}
