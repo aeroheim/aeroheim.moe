@@ -1,29 +1,16 @@
 @value small, large from "../global/breakpoints.css";
 @value easeOutCubic from "../global/animations.css";
 
-@value minHeaderFontSize: 20px;
-@value maxHeaderFontSize: 36px;
-
-@value minSubtextFontSize: 12px;
-@value maxSubtextFontSize: 16px;
-
 .linkButton
 {
     /* relative allows for colorBar to size itself relative to linkButton */
     position: relative;
-
-    /* used to implement skewed colorBar hover */
     overflow: hidden;
 
-    width: 100%;
-    height: 100%;
+    padding-left: calc(10px + 5%);
+    padding-right: calc(10px + 5%);
 
-    font-family: 'M+P1-Thin';
     color: white;
-    text-indent: 8%;
-    text-align: left;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 
     background: rgba(0, 0, 0, 0.5);
 }
@@ -32,8 +19,10 @@
 {
     /* absolute allows for colorBar to appear below header & subtext */
     position: absolute;
+    top: 0;
+    left: 0;
 
-    width: 2%;
+    width: calc(1px + 1%);
     height: 100%;
 }
 
@@ -41,76 +30,54 @@
 {
     /* absolute allows for colorBar to appear below header & subtext */
     position: absolute;
+    top: 0;
+    left: 0;
 
-    margin-left: -10%;
     width: 0%;
     height: 100%;
+    margin-left: -15%;
+
     transform: skew(-30deg);
     transition: width 0.5s easeOutCubic 0s;
 }
 
 .linkButton:hover > .colorBarHover
-{   
-    width: 120%;
+{
+    width: 130%;
 }
 
 .header
 {
     /* relative enforces correct z-index against colorBar */
     position: relative;
+    overflow: hidden;
 
-    margin-top: 1%;
+    margin-top: 0;
     margin-bottom: 0;
 
-    /* responsive font size based on css locks calculations; see https://fvsch.com/code/css-locks/ */
-    font-size: calc(3.8vw - 12.76px);
+    font-size: responsive 20px 44px;
+    font-range: 640px 2560px;
+    font-family: 'M+P1-Thin';
+    font-weight: 400;
+
     text-shadow: 0px 0px 10px black;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .subtext
 {
     /* relative enforces correct z-index against colorBar */
     position: relative;
+    overflow: hidden;
 
-    margin-top: -1%;
+    margin-top: 0;
 
-    /* responsive font size based on css locks calculations; see https://fvsch.com/code/css-locks/ */
-    font-size: calc(.952vw + 3.81px);
+    font-size: responsive 12px 20px;
+    font-range: 640px 2560px;
+    font-family: 'M+P1-Thin';
+
     text-shadow: 0px 0px 5px black;
-}
-
-@media small
-{
-    .colorBar
-    {
-        composes: colorBar;
-        width: 1%;
-    }
-
-    .header
-    {
-        composes: header;
-        font-size: minHeaderFontSize;
-    }
-
-    .subtext
-    {
-        composes: subtext;
-        font-size: minSubtextFontSize;
-    }
-}
-
-@media large
-{
-    .header
-    {
-        composes: header;
-        font-size: maxHeaderFontSize;
-    }
-
-    .subtext
-    {
-        composes: subtext;
-        font-size: maxSubtextFontSize;
-    }
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

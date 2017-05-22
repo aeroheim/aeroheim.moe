@@ -2,9 +2,9 @@
 
 .headerLinkButton
 {
-    font-family: 'M+P1-Light';
-    font-size: responsive 12px 14px;
-    font-range: 215px 1280px;
+    font-family: 'M+P1-Thin';
+    font-size: responsive 12px 16px;
+    font-range: 250px 2560px;
     color: white;
 
     opacity: 0.5;
@@ -30,11 +30,6 @@
 }
 
 .activeHeaderItemHover
-{
-    width: 100%;
-}
-
-.headerLinkButton:hover > .headerItemHoverBar
 {
     width: 100%;
 }

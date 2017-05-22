@@ -1,11 +1,5 @@
 @value blogColor from "../global/colors.css";
-@value easeInCubic, easeOutCubic from "../global/animations.css";
-@value small, large from "../global/breakpoints.css";
-
-@value minTitleFontSize: 20px;
-@value maxTitleFontSize: 32px;
-@value minSubFontSize: 12px;
-@value maxSubFontSize: 16px;
+@value easeOutCubic from "../global/animations.css";
 
 .post
 {
@@ -25,6 +19,8 @@
 
 .postOutTransition
 {
+    width: 100%;
+    transition: width 0.65s easeOutCubic 0s;
 }
 
 .postOut
@@ -37,13 +33,11 @@
     /* relative allows for colorBar to size itself relative to linkButton */
     position: relative;
     overflow: hidden;
-    cursor: pointer;
 
-    width: 100%;
-    min-height: 100px;
+    padding-left: calc(5px + 2.5%);
+    padding-right: calc(5px + 2.5%);
 
     text-align: left;
-    font-family: 'M+P1-Thin';
     color: white;
 
     background-color: rgba(0, 0, 0, 0.4);
@@ -70,7 +64,6 @@
 .postText
 {
     display: flex;
-    align-items: center;
     justify-content: space-between;
 
     width: calc(100% - 3px);
@@ -79,11 +72,15 @@
 .postTitle
 {
     flex: 1 1;
-    margin-left: 25px;
+    margin-top: 0.35em;
+    margin-bottom: 0;
     margin-right: 10px;
 
-    /* responsive font size based on css locks calculations; see https://fvsch.com/code/css-locks/ */
-    font-size: calc(2.857vw - 4.57px);
+    font-size: responsive 20px 44px;
+    font-range: 420px 2560px;
+    font-family: 'M+P1-Thin';
+    font-weight: 400;
+
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -92,71 +89,25 @@
 .postDate
 {
     flex: 0 0 content;
-    margin-right: 25px;
+    align-self: flex-end;
 
-    /* responsive font size based on css locks calculations; see https://fvsch.com/code/css-locks/ */
-    font-size: calc(0.952vw + 3.8128px);
+    font-size: responsive 12px 20px;
+    font-range: 420px 2560px;
+    font-family: 'M+P1-Thin';
+
     line-height: 1.2em;
     text-align: right;
 }
 
 .postDescription
 {
-    margin-top: 0px;
-    margin-left: 25px;
-    margin-right: 25px;
+    margin-top: 0;
 
-    /* responsive font size based on css locks calculations; see https://fvsch.com/code/css-locks/ */
-    font-size: calc(0.952vw + 3.8128px);
+    font-size: responsive 12px 20px;
+    font-range: 420px 2560px;
+    font-family: 'M+P1-Thin';
+
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-}
-
-@media small
-{
-    .linkButton
-    {
-        composes: linkButton;
-        min-height: 75px;
-    }
-
-    .postTitle
-    {
-        composes: postTitle;
-        font-size: minTitleFontSize;
-    }
-
-    .postDate
-    {
-        composes: postDate;
-        font-size: minSubFontSize;
-    }
-    
-    .postDescription
-    {
-        composes: postDescription;
-        font-size: minSubFontSize;
-    }
-}
-
-@media large
-{
-    .postTitle
-    {
-        composes: postTitle;
-        font-size: maxTitleFontSize;
-    }
-
-    .postDate
-    {
-        composes: postDate;
-        font-size: maxSubFontSize;
-    }
-
-    .postDescription
-    {
-        composes: postDescription;
-        font-size: maxSubFontSize;
-    }
 }

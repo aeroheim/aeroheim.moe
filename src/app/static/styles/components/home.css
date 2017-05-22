@@ -1,20 +1,37 @@
-@value homeColor, moonlightColor, bumpsColor, blogColor from "../global/colors.css";
-@value easeInCubic, easeOutCubic, easeInSine, easeOutSine from "../global/animations.css";
-@value small, large, largeBreakpoint from "../global/breakpoints.css";
-@value headerHeight from "./header.css";
+@value homeColor, moonlightColor, bumpsColor, blogColor from '../global/colors.css';
+@value easeInCubic, easeOutCubic, easeInSine, easeOutSine from '../global/animations.css';
+@value small, large from '../global/breakpoints.css';
+@value headerMargin from './header.css';
+
+.page
+{
+    display: flex;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    min-height: calc(100% - 4 * headerMargin);
+    padding-top: calc(2 * headerMargin);
+    padding-bottom: calc(2 * headerMargin);
+}
 
 .content
 {
-    margin-top: calc(2 * headerHeight + 12vh);
-    margin-left: auto;
-    margin-right: auto;
+    width: 80%;
+    min-width: small;
+    max-width: large;
+    margin: auto;
 }
 
 .logoFrame
 {
-    width: 18%;
+    width: 17%;
+    min-width: 175px;
     margin-left: auto;
     margin-right: auto;
+
     background-color: homeColor;
 }
 
@@ -73,35 +90,44 @@
     stroke-dashoffset: 866px;
 }
 
-.moonlightColor
-{
-    background-color: moonlightColor;
-}
-
-.bumpsColor
-{
-    background-color: bumpsColor;
-}
-
-.blogColor
-{
-    background-color: blogColor;
-}
-
-.mainLinksRow
+.mainLinks
 {
     display: flex;
-    margin: 5% auto;
-    width: 90%;
-}
+    justify-content: center;
+    flex-wrap: wrap;
 
-.externalLinksRow
-{
-    display: flex;
+    width: 100%;
+    margin-top: calc(10px + 3%);
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: headerHeight;
+}
+
+.link
+{
+    width: 22.5%;
+    min-width: 185px;
+    margin-bottom: calc(5px + 0.5%);
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.externalLinks
+{
+    display: flex;
     justify-content: center;
+
+    width: 100%;
+    margin-top: calc(30px + 1%);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.externalLink
+{
+    width: 5%;
+    min-width: 45px;
+    margin-left: calc(5px + 3.5%);
+    margin-right: calc(5px + 3.5%);
 }
 
 .buttonsInTransition
@@ -126,72 +152,17 @@
     transition: opacity 0.65s easeInCubic 0s;
 }
 
-.link
+.moonlightColor
 {
-    width: 33.33%;
-    margin-left: 3%;
-    margin-right: 3%;
+    background-color: moonlightColor;
 }
 
-.externalLink
+.bumpsColor
 {
-    width: 6%;
-    margin-left: 3.5%;
-    margin-right: 3.5%;
+    background-color: bumpsColor;
 }
 
-@media small
+.blogColor
 {
-    .content
-    {
-        composes: content;
-        width: 258px;
-        margin-top: calc(headerHeight + 10vh);
-        margin-bottom: 0;
-    }
-
-    .logoFrame
-    {
-        composes: logoFrame;
-        width: 60%;
-    }
-
-    .mainLinksRow
-    {
-        composes: mainLinksRow;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 10%;
-    }
-
-    .externalLinksRow
-    {
-        composes: externalLinksRow;
-        justify-content: space-around;
-        margin-top: 10%;
-    }
-
-    .link
-    {
-        composes: link;
-        width: 100%;
-        margin-bottom: 2%;
-    }
-
-    .externalLink
-    {
-        composes: externalLink;
-        width: 20%;
-    }
+    background-color: blogColor;
 }
-
-@media large
-{
-    .content
-    {
-        composes: content;
-        width: largeBreakpoint;
-    }
-}
-

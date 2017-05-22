@@ -1,7 +1,7 @@
 @value homeColor, moonlightColor, bumpsColor, blogColor, aboutColor from "../global/colors.css";
-@value small from "../global/breakpoints.css";
 
 @value headerHeight: 35px;
+@value headerMargin: calc(headerHeight * 1.5);
 
 .navBar
 {
@@ -23,8 +23,8 @@
 
 .headerButton
 {
-    margin-left: 35px;
-    margin-right: 35px;
+    margin-left: calc(5px + 1.5%);
+    margin-right: calc(5px + 1.5%);
 }
 
 .homeColor
@@ -56,13 +56,4 @@
 {
     from { clip-path: polygon(-45px 0%, 0% 0%, -45px 100%, -90px 100%); }
     to { clip-path: polygon(-45px 0%, calc(100% + 45px) 0%, 100% 100%, -90px 100%); }
-}
-
-@media small
-{
-    .headerButton
-    {
-        margin-left: 2%;
-        margin-right: 2%;
-    }
 }

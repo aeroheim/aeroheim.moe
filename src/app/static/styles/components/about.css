@@ -1,28 +1,35 @@
 @value aboutColor from "../global/colors.css";
-@value easeInExp, easeOutExp, easeInCubic, easeOutCubic from "../global/animations.css";
-@value headerHeight from "./header.css";
+@value easeOutCubic from "../global/animations.css";
+@value small, large from '../global/breakpoints.css';
+@value headerMargin from "./header.css";
 
-.content
+.page
 {
+    display: flex;
+
     position: absolute;
-    top: calc(1.25 * headerHeight);
+    top: 0;
     left: 0;
     right: 0;
 
+    min-height: calc(100% - 2 * headerMargin);
+    padding-top: headerMargin;
+    padding-bottom: headerMargin;
+}
+
+.content
+{
     width: 35%;
-    min-width: 250px;
-    max-width: 900px;
+    min-width: small;
+    max-width: large;
     min-height: 150px;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
 }
 
 .headerStyle
 {
-    font-size: responsive 48px 72px;
-    font-range: 860px 1280px;
+    font-size: responsive 48px 96px;
+    font-range: 860px 2560px;
 }
 
 .headerColor
@@ -36,12 +43,12 @@
     flex-direction: column;
 
     margin-top: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     padding: 1em 2em 1em 2em;
 
-    font-size: responsive 12px 15px;
-    font-range: 215px 1280px;
-    font-family: 'M+P1-Light';
+    font-size: responsive 12px 20px;
+    font-range: 250px 2560px;
+    font-family: 'M+P1-Thin';
     color: white;
     overflow-y: auto;
     overflow-x: hidden;

@@ -1,19 +1,27 @@
 @value blogColor from "../global/colors.css";
-@value easeInExp, easeOutExp, easeInCubic, easeOutCubic from "../global/animations.css";
-@value small from "../global/breakpoints.css";
-@value headerHeight from "./header.css";
+@value easeOutCubic from "../global/animations.css";
+@value small, large from '../global/breakpoints.css';
+@value headerMargin from "./header.css";
 
-.content
+.page
 {
+    display: flex;
+
     position: absolute;
-    top: calc(1.25 * headerHeight);
+    top: 0;
     left: 0;
     right: 0;
 
-    width: 50%;
-    max-width: 900px;
-    height: 65%;
-    margin-top: 1vh;
+    min-height: calc(100% - 2 * headerMargin);
+    padding-top: headerMargin;
+    padding-bottom: headerMargin;
+}
+
+.content
+{
+    width: 60%;
+    min-width: small;
+    max-width: large;
     margin-left: auto;
     margin-right: auto;
 }
@@ -42,8 +50,8 @@
 
 .headerStyle
 {
-    font-size: responsive 48px 72px;
-    font-range: 860px 1280px;
+    font-size: responsive 48px 96px;
+    font-range: 860px 2560px;
 }
 
 .headerColor
@@ -57,26 +65,9 @@
     overflow-y: overlay;
     padding: 0;
 
-    width: auto;
-    max-height: 100%;
     margin-top: 25px;
-    margin-bottom: headerHeight;
     margin-left: auto;
     margin-right: auto;
-
-    /* force hardware acceleration for transitions - this prevents rendering artifacts in chrome */
-    -webkit-transform: translate3d(0,0,0);
-}
-
-.posts::-webkit-scrollbar
-{
-    width: 6px;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.posts::-webkit-scrollbar-thumb
-{
-    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .postsInTransition
@@ -102,25 +93,4 @@
 .postsOut
 {
     opacity: 0;
-}
-
-@media small
-{
-    .content
-    {
-        composes: content;
-        width: 90%;
-    }
-
-    .contentIn
-    {
-        composes: contentIn;
-        margin-left: 5%;
-    }
-
-    .posts
-    {
-        composes: posts;
-        margin-top: 15px;
-    }
 }
