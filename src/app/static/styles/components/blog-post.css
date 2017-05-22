@@ -1,25 +1,33 @@
 @value blogColor from "../global/colors.css";
 @value easeInCubic, easeOutCubic from "../global/animations.css";
-@value small from "../global/breakpoints.css";
-@value headerHeight from "./header.css";
+@value small, large from "../global/breakpoints.css";
+@value headerMargin from "./header.css";
+
+@value sideMargin: 15px;
+
+.page
+{
+    display: flex;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    min-height: calc(100% - 2.5 * headerMargin);
+    padding: calc(1.5 * headerMargin) sideMargin headerMargin sideMargin;
+}
 
 .content
 {
     display: flex;
     flex-direction: column;
 
-    position: absolute;
-    top: calc(2 * headerHeight);
-    left: 0;
-    right: 0;
-    
-    width: 90%;
-    max-width: 900px;
-    height: 80%;
-    margin-top: 1vh;
+    width: calc(small + 40%);
+    min-width: calc(small - 2 * sideMargin);
+    max-width: large;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: headerHeight;
 }
 
 .contentInTransition
@@ -35,6 +43,8 @@
 
 .contentOutTransition
 {
+    opacity: 1;
+    transition: opacity 0.65s easeOutCubic 0s;
 }
 
 .contentOut
@@ -80,33 +90,11 @@
 
 .post
 {
-    color: white;
-    font-family: 'M+P1-Thin';
-
-    height: calc(100% - 100px);
+    flex: 1;
     padding: 35px 50px 35px 50px;
-    overflow-y: auto;
-    overflow-x: hidden;
+
+    font-family: 'M+P1-Thin';
+    color: white;
 
     background-color: rgba(0, 0, 0, 0.4);
-}
-
-.post::-webkit-scrollbar
-{
-    width: 3px;
-}
-
-.post::-webkit-scrollbar-thumb
-{
-    box-shadow: 0 0 35px black;
-    background-color: blogColor;
-}
-
-@media small
-{
-    .post
-    {
-        composes: post;
-        padding: 35px 20px 35px 20px;
-    }
 }

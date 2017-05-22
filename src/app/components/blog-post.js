@@ -92,17 +92,19 @@ class BlogPost extends React.Component
             <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null && this.state.responseReceived && this.state.responseValid}>
                 {({ transitionStyles, onTransitionEnd }) => {
                     return (
-                        <div className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
-                            <LinkButton link='/blog' className={styles.linkButton}>
-                                <div className={styles.postColorBar}/>
-                                <div className={styles.postText}>
-                                    <span className={styles.postTitle}>{this.state.post.title}</span>
-                                    <span className={styles.postDate}>{monthFormatter.format(this.state.post.date).toUpperCase()} {this.state.post.date.getDate()}<br/>{this.state.post.date.getFullYear()}</span>
+                        <div className={styles.page}>
+                            <div className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
+                                <LinkButton link='/blog' className={styles.linkButton}>
+                                    <div className={styles.postColorBar}/>
+                                    <div className={styles.postText}>
+                                        <span className={styles.postTitle}>{this.state.post.title}</span>
+                                        <span className={styles.postDate}>{monthFormatter.format(this.state.post.date).toUpperCase()} {this.state.post.date.getDate()}<br/>{this.state.post.date.getFullYear()}</span>
+                                    </div>
+                                    <p className={styles.postDescription}>{this.state.post.description}</p>
+                                </LinkButton>
+                                <div className={styles.post}>
+                                    {this.state.post.content}
                                 </div>
-                                <p className={styles.postDescription}>{this.state.post.description}</p>
-                            </LinkButton>
-                            <div className={styles.post}>
-                                {this.state.post.content}
                             </div>
                         </div>
                     );

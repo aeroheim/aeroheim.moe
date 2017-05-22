@@ -3,6 +3,8 @@
 @value small, large from '../global/breakpoints.css';
 @value headerMargin from "./header.css";
 
+@value sideMargin: 15px;
+
 .page
 {
     display: flex;
@@ -13,14 +15,13 @@
     right: 0;
 
     min-height: calc(100% - 2 * headerMargin);
-    padding-top: headerMargin;
-    padding-bottom: headerMargin;
+    padding: headerMargin sideMargin headerMargin sideMargin;
 }
 
 .content
 {
-    width: 35%;
-    min-width: small;
+    width: calc(small + 25%);
+    min-width: calc(small - 2 * sideMargin);
     max-width: large;
     min-height: 150px;
     margin: auto;
