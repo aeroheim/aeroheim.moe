@@ -30,7 +30,9 @@
     "express": "^4.15.2",
     "mongodb": "^2.2.26",
     "react-router": "^4.1.1",
-    "react-router-dom": "^4.1.1"
+    "react-router-dom": "^4.1.1",
+    "react-visibility-sensor": "^3.9.0",
+    "showdown": "^1.6.4"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",
