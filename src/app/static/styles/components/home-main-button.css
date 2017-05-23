@@ -52,7 +52,7 @@
     position: relative;
     overflow: hidden;
 
-    margin-top: 0;
+    margin-top: 1%;
     margin-bottom: 0;
 
     font-size: responsive 20px 44px;
@@ -71,7 +71,7 @@
     position: relative;
     overflow: hidden;
 
-    margin-top: 0;
+    margin-top: -2%;
 
     font-size: responsive 12px 20px;
     font-range: 640px 2560px;
