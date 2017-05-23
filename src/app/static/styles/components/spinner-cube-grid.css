@@ -1,0 +1,90 @@
+/*
+* Spinner positions
+* 1 2 3
+* 4 5 6
+* 7 8 9
+*/
+
+.cubeGrid 
+{
+    width: 40px;
+    height: 40px;
+    margin: 40px auto;
+}
+
+.cube 
+{
+    float: left;
+    width: 33.33%;
+    height: 33.33%;
+
+    background-color: #333;
+
+    animation: cubeGridScaleDelay 1.3s infinite ease-in-out; 
+}
+
+.cubeOne
+{
+    composes: cube;
+    animation-delay: 0.2s; 
+}
+
+.cubeTwo
+{
+    composes: cube;
+    animation-delay: 0.3s; 
+}
+
+.cubeThree
+{
+    composes: cube;
+    animation-delay: 0.4s; 
+}
+
+.cubeFour
+{
+    composes: cube;
+    animation-delay: 0.1s; 
+}
+
+.cubeFive
+{
+    composes: cube;
+    animation-delay: 0.2s; 
+}
+
+.cubeSix
+{
+    composes: cube;
+    animation-delay: 0.3s; 
+}
+
+.cubeSeven
+{
+    composes: cube;
+    animation-delay: 0.0s; 
+}
+
+.cubeEight
+{
+    composes: cube;
+    animation-delay: 0.1s; 
+}
+
+.cubeNine
+{
+    composes: cube;
+    animation-delay: 0.2s; 
+}
+
+@keyframes cubeGridScaleDelay 
+{
+    0%, 70%, 100% 
+    {
+        transform: scale3D(1, 1, 1); 
+    }
+    35% 
+    {
+        transform: scale3D(0, 0, 1); 
+    } 
+}
