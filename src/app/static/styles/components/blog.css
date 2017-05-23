@@ -20,6 +20,7 @@
 
 .content
 {
+    position: relative;
     width: calc(small + 45%);
     min-width: calc(small - 2 * sideMargin);
     max-width: large;
@@ -29,7 +30,7 @@
 
 .contentInTransition
 {
-    left: -125%;
+    left: -25%;
     transition: left 0.65s easeOutCubic 0s;
 }
 
