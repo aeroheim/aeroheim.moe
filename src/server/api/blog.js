@@ -3,27 +3,31 @@ const router = express.Router();
 
 router.get('/blog', (req, res) =>
 {
-    req.app.locals.db.collection('blog').find().toArray()
-    .then((result) =>
+    req.app.locals.db.blog.find({}, (err, posts) =>
     {
-        res.send(result);
-    })
-    .catch((err) =>
-    {
-        res.sendStatus(404);
+        if (err)
+        {
+            res.sendStatus(404);
+        }
+        else
+        {
+            res.send(posts);
+        }
     });
 });
 
 router.get('/blog/:id', (req, res) =>
 {
-    req.app.locals.db.collection('blog').findOne({'_id': req.params.id})
-    .then((result) =>
+    req.app.locals.db.blog.findOne({'_id': req.params.id}, (err, post) =>
     {
-        res.send(result);
-    })
-    .catch((err) =>
-    {
-        res.sendStatus(404);
+        if (err)
+        {
+            res.sendStatus(404);
+        }
+        else
+        {
+            res.send(post);
+        }
     });
 });
 

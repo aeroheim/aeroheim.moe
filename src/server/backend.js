@@ -1,9 +1,8 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
+const Datastore = require('nedb');
 const blog = require('./api/blog');
-
-const MongoClient = require('mongodb').MongoClient;
-const mongoUrl = 'mongodb://localhost:27017/aeroheim';
 
 function logError(error)
 {
@@ -13,22 +12,54 @@ function logError(error)
     }
 }
 
+function loadJsonData(path, callback)
+{
+    return new Promise((resolve, reject) =>
+    {
+        fs.readFile(path, 'utf8', (err, data) =>
+        {
+            if (err)
+            {
+                reject(err);
+            }
+            else
+            {
+                resolve(JSON.parse(data));
+            }
+        });
+    });
+}
+
+function initializeStoreFromDisk(store, path)
+{
+    store.remove({}, { multi: true }, (err, numRemoved) =>
+    {
+        if (err)
+        {
+            console.log('Failed to clear store for initialization.');
+        }
+        else
+        {
+            loadJsonData(path)
+            .then((data) => store.insert(data))
+            .catch((err) => console.log('Failed to load JSON data'));
+        }
+    });
+}
+
 module.exports = (PORT) => 
 {
     const app = express();
 
-    MongoClient.connect(mongoUrl, (err, db) => 
-    {
-        if (err)
-        {
-            logError(err);
-        }
-        else
-        {
-            app.locals.db = db;
-        }
-    });
+    // Initialize in-memory database
+    let db = {};
+    db.bumps = new Datastore();
+    db.blog = new Datastore();
+    initializeStoreFromDisk(db.bumps, path.join(__dirname, '../../data/bumps', 'index.json'));
+    initializeStoreFromDisk(db.blog, path.join(__dirname, '../../data/blog', 'index.json'));
+    app.locals.db = db;
 
+    // Apply routes
     app.use('/api', blog);
     app.get('/index.css', (req, res) =>
     {
