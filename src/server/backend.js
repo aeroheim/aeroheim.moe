@@ -19,15 +19,19 @@ function initializeStoreFromDisk(store, path)
 
 module.exports = (PORT) => 
 {
+    // Initialize in-memory db
     const db = {};
     db.blog = new Datastore();
     initializeStoreFromDisk(db.blog, blog.storePath);
 
+    // Initialize express
     const app = express();
     app.locals.db = db;
 
-    // Apply routes
-    app.use('/api', blog.router);
+    // Initialize express routes
+    app.use('/api', blog.apiRouter);
+    app.use('/', blog.router);
+
     app.get('/index.css', (req, res) =>
     {
         res.sendFile(path.join(__dirname, '..', 'index.css'), {}, (error) => 
