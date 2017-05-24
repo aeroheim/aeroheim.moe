@@ -2,11 +2,24 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 
-const router = express.Router();
-const apiRouter = express.Router();
 const contentPath = path.join(__dirname, '../../../content/blog');
+const router = express.Router();
 
-apiRouter.get('/blog', (req, res) =>
+const filterStaticFiles = (req, res, next) =>
+{
+    if (req.params['0'] && (req.params['0'].endsWith('.md') || req.params['0'].endsWith('.json')))
+    {
+        res.sendStatus(403);
+    }
+    else
+    {
+        next();
+    }
+}
+
+router.use('/blog/*', filterStaticFiles);
+router.use('/blog', express.static(contentPath));
+router.get('/api/blog', (req, res) =>
 {
     req.app.locals.db.blog.find({}, (err, posts) =>
     {
@@ -20,8 +33,7 @@ apiRouter.get('/blog', (req, res) =>
         }
     });
 });
-
-apiRouter.get('/blog/:id', (req, res) =>
+router.get('/api/blog/:id', (req, res) =>
 {
     req.app.locals.db.blog.findOne({'_id': req.params.id}, (err, post) =>
     {
@@ -46,26 +58,8 @@ apiRouter.get('/blog/:id', (req, res) =>
     });
 });
 
-router.get('/blog/:id/:file', (req, res) =>
-{
-    const asset = path.join(contentPath, req.params.id, req.params.file);
-    console.log(asset);
-    fs.exists(path.join(contentPath, req.params.id, req.params.file), (exists) =>
-    {
-        if (exists)
-        {
-            res.sendFile(asset);
-        }
-        else
-        {
-            res.sendStatus(404);
-        }
-    });
-});
-
 module.exports = 
 {
     router: router,
-    apiRouter: apiRouter,
     storePath: path.join(contentPath, 'blog.json')
 }
