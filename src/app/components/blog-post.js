@@ -1,5 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
+import Showdown from 'showdown';
 import LinkButton from './link-button';
 import AnimatedCSSTransition from './animated-css-transition';
 import styles from '../static/styles/components/blog-post.css';
@@ -9,6 +10,8 @@ class BlogPost extends React.Component
     constructor(props)
     {
         super(props);
+        this.converter = new Showdown.Converter();
+        this.converter.setFlavor('github');
         this.state =
         {
             post: null,
@@ -46,8 +49,9 @@ class BlogPost extends React.Component
         Axios.get(`/api/blog/${props.match.params.id}`)
         .then((res) =>
         {
-            // convert ISO date to JS date
             res.data.date = new Date(res.data.date);
+            res.data.content = this.converter.makeHtml(res.data.content);
+
             this.setState({
                 post: res.data,
                 responseReceived: true,
@@ -102,9 +106,7 @@ class BlogPost extends React.Component
                                     </div>
                                     <p className={styles.postDescription}>{this.state.post.description}</p>
                                 </LinkButton>
-                                <div className={styles.post}>
-                                    {this.state.post.content}
-                                </div>
+                                <div className={styles.post} dangerouslySetInnerHTML={{__html: this.state.post.content}}/>
                             </div>
                         </div>
                     );

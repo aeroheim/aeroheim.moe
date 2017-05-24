@@ -25,7 +25,6 @@ const BlogListItem = ({ post, show, url }) =>
         post: styles.postOut,
     }
 
-    // convert ISO date to JS date
     post.date = new Date(post.date);
     const monthFormatter = new Intl.DateTimeFormat('en-us', { month: 'short' });
 
