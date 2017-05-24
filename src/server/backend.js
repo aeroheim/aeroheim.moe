@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const Datastore = require('nedb');
+const log = require('./log');
 const blog = require('./api/blog');
 
 function logError(error)
@@ -26,9 +27,9 @@ module.exports = (PORT) =>
     const app = express();
     app.locals.db = db;
 
+    app.use(log.morgan);
     app.use('/', blog.router);
     
-
     app.get('/index.css', (req, res) => res.sendFile(path.join(__dirname, '..', 'index.css')));
     app.get('*', (req, res) => res.sendFile(path.join(__dirname, '..', 'index.html')));
 
