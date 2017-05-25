@@ -28,11 +28,11 @@
     "babel-preset-react": "^6.23.0",
     "cross-env": "^3.2.4",
     "express": "^4.15.2",
+    "marksy": "^0.4.2",
     "nedb": "^1.8.0",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
-    "react-visibility-sensor": "^3.9.0",
-    "showdown": "^1.6.4"
+    "react-visibility-sensor": "^3.9.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",
