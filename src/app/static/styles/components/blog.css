@@ -18,9 +18,40 @@
     padding: headerMargin sideMargin headerMargin sideMargin;
 }
 
-.content
+.spinner
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 5vw;
+    height: 5vw;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.spinnerColor
+{
+    background-color: blogColor;
+}
+
+.postsContent
 {
     position: relative;
+    flex: 1;
+}
+
+.content
+{
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+
     width: calc(small + 45%);
     min-width: calc(small - 2 * sideMargin);
     max-width: large;

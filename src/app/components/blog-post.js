@@ -1,7 +1,8 @@
 import React from 'react';
-import Axios from 'axios';
-import Showdown from 'showdown';
+import axios from 'axios';
+import marksy from 'marksy';
 import LinkButton from './link-button';
+import SpinnerCubeGrid from './spinner-cube-grid';
 import AnimatedCSSTransition from './animated-css-transition';
 import styles from '../static/styles/components/blog-post.css';
 
@@ -10,8 +11,9 @@ class BlogPost extends React.Component
     constructor(props)
     {
         super(props);
-        this.converter = new Showdown.Converter();
-        this.converter.setFlavor('github');
+        this.parser = marksy({
+            components: {}
+        });
         this.state =
         {
             post: null,
@@ -46,11 +48,11 @@ class BlogPost extends React.Component
             responseValid: false,
         });
 
-        Axios.get(`/api/blog/${props.match.params.id}`)
+        axios.get(`/api/blog/${props.match.params.id}`)
         .then((res) =>
         {
             res.data.date = new Date(res.data.date);
-            res.data.content = this.converter.makeHtml(res.data.content);
+            res.data.content = this.parser(res.data.content).tree;
 
             this.setState({
                 post: res.data,
@@ -91,27 +93,33 @@ class BlogPost extends React.Component
         }
 
         const monthFormatter = new Intl.DateTimeFormat('en-us', { month: 'short' });
+        const hasData = this.state.responseReceived && this.state.responseValid;
 
         return (
-            <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null && this.state.responseReceived && this.state.responseValid}>
-                {({ transitionStyles, onTransitionEnd }) => {
-                    return (
-                        <div className={styles.page}>
-                            <div className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
-                                <LinkButton link='/blog' className={styles.linkButton}>
-                                    <div className={styles.postColorBar}/>
-                                    <div className={styles.postText}>
-                                        <span className={styles.postTitle}>{this.state.post.title}</span>
-                                        <span className={styles.postDate}>{monthFormatter.format(this.state.post.date).toUpperCase()} {this.state.post.date.getDate()}<br/>{this.state.post.date.getFullYear()}</span>
+            <div>
+                <SpinnerCubeGrid className={styles.spinner} color={styles.spinnerColor} show={this.props.match !== null && !hasData}/>
+                <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null && hasData}>
+                    {({ transitionStyles, onTransitionEnd }) => {
+                        return (
+                            <div className={styles.page}>
+                                <div className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
+                                    <LinkButton link='/blog' className={styles.linkButton}>
+                                        <div className={styles.postColorBar}/>
+                                        <div className={styles.postText}>
+                                            <span className={styles.postTitle}>{this.state.post.title}</span>
+                                            <span className={styles.postDate}>{monthFormatter.format(this.state.post.date).toUpperCase()} {this.state.post.date.getDate()}<br/>{this.state.post.date.getFullYear()}</span>
+                                        </div>
+                                        <p className={styles.postDescription}>{this.state.post.description}</p>
+                                    </LinkButton>
+                                    <div className={styles.post}>
+                                        {this.state.post.content}
                                     </div>
-                                    <p className={styles.postDescription}>{this.state.post.description}</p>
-                                </LinkButton>
-                                <div className={styles.post} dangerouslySetInnerHTML={{__html: this.state.post.content}}/>
+                                </div>
                             </div>
-                        </div>
-                    );
-                }}
-            </AnimatedCSSTransition>
+                        );
+                    }}
+                </AnimatedCSSTransition>
+            </div>
         );
     }
 }

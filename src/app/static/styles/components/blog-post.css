@@ -23,6 +23,8 @@
     display: flex;
     flex-direction: column;
 
+    position: relative;
+
     width: calc(small + 40%);
     min-width: calc(small - 2 * sideMargin);
     max-width: large;
@@ -50,6 +52,16 @@
 .contentOut
 {
     opacity: 0;
+}
+
+.spinner
+{
+    composes: spinner from './blog.css';
+}
+
+.spinnerColor
+{
+    composes: spinnerColor from './blog.css';
 }
 
 .linkButton
@@ -95,6 +107,8 @@
 
     font-family: 'M+P1-Thin';
     color: white;
+
+    overflow-x: hidden;
 
     background-color: rgba(0, 0, 0, 0.4);
 }
