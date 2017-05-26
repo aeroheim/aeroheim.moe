@@ -8,13 +8,15 @@
 
 .postInTransition
 {
-    width: 50%;
-    transition: width 1s easeOutCubic 0s;
+    width: 75%;
+    opacity: 0;
+    transition: width 1s easeOutCubic 0s, opacity 1s easeOutCubic 0s;
 }
 
 .postIn
 {
     width: 100%;
+    opacity: 1;
 }
 
 .postOutTransition
