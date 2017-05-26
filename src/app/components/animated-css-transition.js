@@ -27,6 +27,7 @@ class AnimatedCSSTransition extends React.Component
             transitionStyles: this.styles,
         }
 
+        this.mounted = false;
         this.isDone = this.isDone.bind(this);
         this.transition = this.transition.bind(this);
         this.transitionInternal = this.transitionInternal.bind(this);
@@ -35,10 +36,16 @@ class AnimatedCSSTransition extends React.Component
 
     componentDidMount()
     {
+        this.mounted = true;
         if (this.props.show)
         {
             this.transition();
         }
+    }
+
+    componentWillUnmount()
+    {
+        this.mounted = false;
     }
 
     componentWillReceiveProps(nextProps)
@@ -47,7 +54,8 @@ class AnimatedCSSTransition extends React.Component
         {
             if ((nextProps.show !== this.state.active) || !this.isDone())
             {
-                this.transition(nextProps);
+                // transitionInternal() will be called after render(), so this.props will already be set to nextProps when it runs.
+                this.transition();
             }
         }
     }
@@ -67,18 +75,19 @@ class AnimatedCSSTransition extends React.Component
         return isDone;
     }
 
-    transition(nextProps)
+    transition()
     {
-        // NOTE: React can sometimes apply styles to mounted components that haven't rendered yet, which makes
-        // transitions fail to trigger. To prevent this, a set delay is added to all transitions.
-        setTimeout(() => this.transitionInternal(nextProps), 50);
+        // Need to wait until the children have been rendered at least once with the transition style before applying
+        // the target style, otherwise no transition occurs. Call requestAnimationFrame to ensure that the transition
+        // occurs after render().
+        setTimeout(() => requestAnimationFrame(() => this.transitionInternal()), 0);
     }
 
-    transitionInternal(nextProps)
+    transitionInternal()
     {
-        const props = nextProps !== undefined ? nextProps : this.props;
-
-        if (this.isDone())
+        // Reset the finished state to begin the transition. The show & active values need to be verified 
+        // again since they may have changed between the time transition() was called and now.
+        if (this.isDone() && this.props.show !== this.state.active)
         {
             for (const key in this.finished)
             {
@@ -86,22 +95,28 @@ class AnimatedCSSTransition extends React.Component
             }
         }
 
-        for (const key in this.transitions)
+        if (!this.isDone())
         {
-            if (this.transitions === this.inTransitions)
+            for (const key in this.transitions)
             {
-                this.styles[key] = `${this.inTransitions[key]} ${props.show ? this.inStyles[key] : ''}`;
+                if (this.transitions === this.inTransitions)
+                {
+                    this.styles[key] = `${this.inTransitions[key]} ${this.props.show ? this.inStyles[key] : ''}`;
+                }
+                else
+                {
+                    this.styles[key] = `${this.inTransitions[key]} ${this.inStyles[key]} ${this.outTransitions[key]} ${!this.props.show ? this.outStyles[key] : ''}`;
+                }
             }
-            else
+
+            if (this.mounted)
             {
-                this.styles[key] = `${this.inTransitions[key]} ${this.inStyles[key]} ${this.outTransitions[key]} ${!props.show ? this.outStyles[key] : ''}`;
+                this.setState({
+                    active: this.state.active,
+                    transitionStyles: this.styles,
+                });
             }
         }
-
-        this.setState({
-            active: this.state.active,
-            transitionStyles: this.styles,
-        });
     }
 
     onTransitionEnd(e)
@@ -128,10 +143,13 @@ class AnimatedCSSTransition extends React.Component
                 this.styles[key] = this.props.show ? `${this.inTransitions[key]} ${this.inStyles[key]} ${this.outTransitions[key]}`: this.inTransitions[key];
             }
 
-            this.setState({
-                active: this.props.show,
-                transitionStyles: this.styles,
-            });
+            if (this.mounted)
+            {
+                this.setState({
+                    active: this.props.show,
+                    transitionStyles: this.styles,
+                });
+            }
         }
     }
 
@@ -149,8 +167,6 @@ AnimatedCSSTransition.propTypes =
     inTransitions: PropTypes.object.isRequired,
     outStyles: PropTypes.object.isRequired,
     outTransitions: PropTypes.object.isRequired,
-    onActive: PropTypes.func,
-    onInactive: PropTypes.func,
 }
 
 export default AnimatedCSSTransition;
