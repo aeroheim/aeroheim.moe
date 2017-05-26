@@ -39,6 +39,12 @@ class Blog extends React.Component
 
     getPosts()
     {
+        this.setState({
+            posts: [],
+            responseReceived: false,
+            responseValid: false,
+        });
+
         Axios.get('/api/blog')
         .then((res) =>
         {
@@ -93,13 +99,13 @@ class Blog extends React.Component
             <div>
                 <Route path='/blog/:id' children={(props) => <BlogPost {...props}/>}/>
                 <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match}>
-                    {({ active, transitionStyles, onTransitionEnd }) => {
+                    {({ transitionStyles, onTransitionEnd }) => {
                         return (
                             <div className={styles.page}>
                                 <div className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
+                                    <SpinnerCubeGrid className={styles.spinner} color={styles.spinnerColor} show={match && !hasData}/>
                                     <PageHeader className={styles.headerStyle} color={styles.headerColor} show={match}>BLOG</PageHeader>
                                     <div className={styles.postsContent}>
-                                        <SpinnerCubeGrid className={styles.spinner} color={styles.spinnerColor} show={match && !hasData}/>
                                         <ul className={`${styles.posts} ${transitionStyles['posts']}`} onTransitionEnd={onTransitionEnd}>
                                             {this.state.posts.map((post) => <BlogListItem key={post._id} post={post} show={this.props.match !== null && this.props.match.isExact}/>)}
                                         </ul>

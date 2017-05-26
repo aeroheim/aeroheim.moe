@@ -58,7 +58,7 @@ class BlogPost extends React.Component
                 post: res.data,
                 responseReceived: true,
                 responseValid: true,
-            })
+            });
         })
         .catch((err) =>
         {
