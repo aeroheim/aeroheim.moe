@@ -9,8 +9,18 @@
 
 .cubeGrid 
 {
+    position: absolute;
+
     min-width: 40px;
     min-height: 40px;
+    margin: auto;
+}
+
+.cubeGrid::after
+{
+    content: '';
+    display: block;
+    padding-bottom: 100%;
 }
 
 .cubeGridInTransition
@@ -33,6 +43,13 @@
 .cubeGridOut
 {
     opacity: 0;
+}
+
+.content
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 .cube 
