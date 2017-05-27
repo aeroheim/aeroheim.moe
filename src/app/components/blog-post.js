@@ -97,7 +97,7 @@ class BlogPost extends React.Component
 
         return (
             <div>
-                <SpinnerCubeGrid className={styles.spinner} color={styles.spinnerColor} show={this.props.match !== null && !hasData}/>
+                <SpinnerCubeGrid className={styles.postSpinner} color={styles.postSpinnerColor} show={this.props.match !== null && !hasData}/>
                 <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null && hasData}>
                     {({ transitionStyles, onTransitionEnd }) => {
                         return (

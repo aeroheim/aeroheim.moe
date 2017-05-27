@@ -54,14 +54,14 @@
     opacity: 0;
 }
 
-.spinner
+.postSpinner
 {
-    composes: spinner from './blog.css';
+    composes: postsSpinner from './blog.css';
 }
 
-.spinnerColor
+.postSpinnerColor
 {
-    composes: spinnerColor from './blog.css';
+    composes: postsSpinnerColor from './blog.css';
 }
 
 .linkButton
