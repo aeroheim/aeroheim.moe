@@ -103,7 +103,7 @@
 .post
 {
     flex: 1;
-    padding: 35px 50px 35px 50px;
+    padding: 15px calc(10px + 5%) 35px calc(10px + 5%);
 
     font-family: 'M+P1-Thin';
     color: white;

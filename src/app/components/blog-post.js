@@ -109,9 +109,9 @@ class BlogPost extends React.Component
                                         </div>
                                         <p className={styles.postDescription}>{this.state.post.description}</p>
                                     </LinkButton>
-                                    <div className={styles.post}>
+                                    <article className={styles.post}>
                                         {this.state.post.content}
-                                    </div>
+                                    </article>
                                 </div>
                             </div>
                         );
