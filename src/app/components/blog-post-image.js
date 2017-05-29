@@ -3,7 +3,7 @@ import styles from '../static/styles/components/blog-post-image.css';
 
 const ImageBlock = ({ children }) =>
 {
-    return <div className={styles.imageBlock}>{children}</div>;
+    return <figure className={styles.imageBlock}>{children}</figure>;
 }
 
 const ImageGroup = ({ children, maxImagePerRow }) =>
@@ -14,18 +14,28 @@ const ImageGroup = ({ children, maxImagePerRow }) =>
         flex: `1 1 calc(${100 / maxImagePerRow}% - ${maxImagePerRow * imageMargin}px)`,
     };
 
+    let key = 0;
+
     const childrenWithProps = children.map((child) => React.cloneElement(child, 
     {
+        key: key++,
         style: style,
     }));
 
-    return <div className={styles.imageGroup}>{childrenWithProps}</div>
+    return <figure className={styles.imageGroup}>{childrenWithProps}</figure>
 }
 
-const Image = ({ src, alt, title, style }) =>
+const Image = ({ src, alt, title, caption, style }) =>
 {
-    console.log(style);
-    return <img className={styles.img} style={style} src={src} alt={alt} title={title}/>;
+    return (
+        <figure className={styles.imgCell} style={style}>
+            <img className={styles.img} src={src} alt={alt} title={title}/>
+            <figcaption className={styles.imgCaptionGroup}>
+                <h3 className={styles.imgCaptionHeader}>{title}</h3>
+                <p className={styles.imgCaptionDescription}>{caption}</p>
+            </figcaption>
+        </figure>
+    );
 }
 
 export { ImageBlock, ImageGroup, Image };

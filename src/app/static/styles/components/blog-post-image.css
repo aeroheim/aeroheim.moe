@@ -1,3 +1,6 @@
+@value easeOutCubic from "../global/animations.css";
+@value blogColor from "../global/colors.css";
+
 @value imageMargin: 2px;
 
 .imageBlock
@@ -5,32 +8,84 @@
     display: flex;
     flex-direction: column;
 
-    margin-top: 2em;
-    margin-bottom: 2em;
-}
+    margin: 2em 0 2em 0;
 
-.imageBlock > img
-{
-    width: calc(100% - calc(2 * imageMargin));
+    overflow: hidden;
 }
 
 .imageGroup
 {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
+    margin: 0;
 }
 
-.imageGroup > *
+.imgCell
 {
+    position: relative;
+
     min-width: 200px;
     max-width: 100%;
+    margin: imageMargin;
+
+    cursor: zoom-in;
+
+    overflow: hidden;
+    background-color: black;
 }
 
 .img
 {
+    display: block;
+
     width: 100%;
     height: auto;
-    margin: imageMargin;
+
+    transition: opacity 0.65s easeOutCubic 0s, transform 0.65s easeOutCubic 0s;
+}
+
+.imgCell:hover > img
+{
+    transform: scale(1.05);
+}
+
+.imgCaptionGroup
+{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    max-width: 50%;
+    margin-left: 1em;
+    margin-bottom: 1em;
+    padding: 0.5em;
+
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0);
+    transition: opacity 0.5s easeOutCubic 0s, background-color 0.5s easeOutCubic 0s;
+}
+
+.imgCell:hover > .imgCaptionGroup
+{
+    opacity: 1;
+    background-color: blogColor;
+}
+
+.imgCaptionHeader
+{
+    margin: 0;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.imgCaptionDescription
+{
+    margin: 0;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
