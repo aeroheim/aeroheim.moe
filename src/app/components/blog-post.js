@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import marksy from 'marksy';
+import marksy from 'marksy/components';
 import LinkButton from './link-button';
 import SpinnerCubeGrid from './spinner-cube-grid';
+import BlogPostParser from './blog-post-parser';
 import AnimatedCSSTransition from './animated-css-transition';
 import styles from '../static/styles/components/blog-post.css';
 
@@ -11,9 +12,6 @@ class BlogPost extends React.Component
     constructor(props)
     {
         super(props);
-        this.parser = marksy({
-            components: {}
-        });
         this.state =
         {
             post: null,
@@ -52,7 +50,7 @@ class BlogPost extends React.Component
         .then((res) =>
         {
             res.data.date = new Date(res.data.date);
-            res.data.content = this.parser(res.data.content).tree;
+            res.data.content = BlogPostParser(res.data.content).tree;
 
             this.setState({
                 post: res.data,
@@ -97,7 +95,7 @@ class BlogPost extends React.Component
 
         return (
             <div>
-                <SpinnerCubeGrid className={styles.spinner} color={styles.spinnerColor} show={this.props.match !== null && !hasData}/>
+                <SpinnerCubeGrid className={styles.postSpinner} color={styles.postSpinnerColor} show={this.props.match !== null && !hasData}/>
                 <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null && hasData}>
                     {({ transitionStyles, onTransitionEnd }) => {
                         return (
@@ -111,9 +109,9 @@ class BlogPost extends React.Component
                                         </div>
                                         <p className={styles.postDescription}>{this.state.post.description}</p>
                                     </LinkButton>
-                                    <div className={styles.post}>
+                                    <article className={styles.post}>
                                         {this.state.post.content}
-                                    </div>
+                                    </article>
                                 </div>
                             </div>
                         );

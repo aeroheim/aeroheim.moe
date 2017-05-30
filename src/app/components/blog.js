@@ -98,12 +98,12 @@ class Blog extends React.Component
         return (
             <div>
                 <Route path='/blog/:id' children={(props) => <BlogPost {...props}/>}/>
-                <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match}>
+                <SpinnerCubeGrid className={styles.postsSpinner} color={styles.postsSpinnerColor} show={match && !hasData}/>
+                <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match && hasData}>
                     {({ transitionStyles, onTransitionEnd }) => {
                         return (
                             <div className={styles.page}>
                                 <div className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
-                                    <SpinnerCubeGrid className={styles.spinner} color={styles.spinnerColor} show={match && !hasData}/>
                                     <PageHeader className={styles.headerStyle} color={styles.headerColor} show={match}>BLOG</PageHeader>
                                     <div className={styles.postsContent}>
                                         <ul className={`${styles.posts} ${transitionStyles['posts']}`} onTransitionEnd={onTransitionEnd}>
