@@ -1,8 +1,14 @@
+const webpack = require('webpack');
 const path = require('path');
 
 module.exports = 
 {
-    entry: './src/app/app.js',
+    entry: 
+    [
+        'webpack-dev-server/client?http://localhost:8080/',
+        'webpack/hot/dev-server',
+        './src/app/app.js',
+    ],
     target: 'web',
     output:
     {
@@ -20,7 +26,7 @@ module.exports =
                 use:
                 [
                     {
-                        loader: "babel-loader",
+                        loader: 'babel-loader',
                         options:
                         {
                             presets:
@@ -62,6 +68,10 @@ module.exports =
             }
         ]
     },
+    plugins:
+    [
+        new webpack.HotModuleReplacementPlugin()
+    ],
     devtool: 'source-map'
 }
 

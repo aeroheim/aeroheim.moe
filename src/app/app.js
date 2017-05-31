@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -13,12 +13,25 @@ const store = createStore(
     applyMiddleware(thunkMiddleware),
 );
 
-document.getElementById("loadingLogo").remove();
-render(
-    <Provider store={store}>
-        <BrowserRouter>
-            <Route path="/" component={Aeroheim}/>
-        </BrowserRouter>
-    </Provider>, 
-    document.getElementById("root")
-);
+const App = () =>
+{
+    return (
+        <Provider store={store}>
+            <BrowserRouter>
+                <Route path='/' component={Aeroheim}/>
+            </BrowserRouter>
+        </Provider>
+    );
+}
+
+document.getElementById('loadingLogo').remove();
+ReactDOM.render(<App/>, document.getElementById('root'));
+
+if (module.hot)
+{
+    module.hot.accept('./app', () =>
+    {
+        let app = App;
+        ReactDOM.render(<app/>, document.getElementById('root'));
+    });
+}
