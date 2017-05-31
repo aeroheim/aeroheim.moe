@@ -1,6 +1,5 @@
 import Axios from 'axios';
 
-export const FETCH_POSTS = 'FETCH_POSTS';
 export const fetchPosts = () =>
 {
     return (dispatch) => 

@@ -11,8 +11,6 @@ const blogReducer = (state = initialState, action) =>
 {
     switch(action.type)
     {
-        case FETCH_POSTS:
-            return initialState;
         case REQUEST_POSTS:
             return state;
         case RECEIVE_POSTS:
