@@ -28,7 +28,7 @@ const ImageGroup = ({ children, maxImagePerRow }) =>
 const Image = ({ src, alt, title, caption, style }) =>
 {
     return (
-        <figure className={styles.imgCell} style={style}>
+        <figure tabIndex='0' className={styles.imgCell} style={style}>
             <img className={styles.img} src={src} alt={alt} title={title}/>
             <figcaption className={styles.imgCaptionGroup}>
                 <h3 className={styles.imgCaptionHeader}>{title}</h3>
