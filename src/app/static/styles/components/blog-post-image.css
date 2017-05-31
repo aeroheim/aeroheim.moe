@@ -32,7 +32,7 @@
     cursor: zoom-in;
 
     overflow: hidden;
-    background-color: black;
+    background-color: white;
 }
 
 .img
@@ -42,12 +42,15 @@
     width: 100%;
     height: auto;
 
+    /* hack: rotate prevents jerky scaling transitions in firefox */
+    transform: translateZ(0) scale(1.01) rotate(0.02deg);
     transition: opacity 0.65s easeOutCubic 0s, transform 0.65s easeOutCubic 0s;
 }
 
 .imgCell:hover > img
 {
-    transform: scale(1.05);
+    opacity: 0.75;
+    transform: translateZ(0) scale(1.025) rotate(0.02deg);
 }
 
 .imgCaptionGroup
@@ -63,7 +66,7 @@
 
     opacity: 0;
     background-color: rgba(0, 0, 0, 0);
-    transition: opacity 0.5s easeOutCubic 0s, background-color 0.5s easeOutCubic 0s;
+    transition: opacity 0.55s easeOutCubic 0s, background-color 0.55s easeOutCubic 0s;
 }
 
 .imgCell:hover > .imgCaptionGroup

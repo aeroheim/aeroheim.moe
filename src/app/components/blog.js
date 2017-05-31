@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import Axios from 'axios';
 import PageHeader from './page-header';
@@ -8,62 +9,29 @@ import SpinnerCubeGrid from './spinner-cube-grid';
 import AnimatedCSSTransition from './animated-css-transition';
 import styles from '../static/styles/components/blog.css';
 
+import { fetchPosts } from '../actions/blog-actions';
+
 class Blog extends React.Component
 {
     constructor(props)
     {
         super(props);
-        this.state =
-        {
-            posts: [],
-            responseReceived: false,
-            responseValid: false,
-        }
     }
 
     componentDidMount()
     {
         if (this.props.match && this.props.match.isExact)
         {
-            this.getPosts();
+            this.props.fetchPosts();
         }
     }
 
     componentWillReceiveProps(nextProps)
     {
-        if (this.props !== nextProps && nextProps.match && nextProps.match.isExact)
+        if (this.props !== nextProps && nextProps.match && nextProps.match.isExact && !this.props.loaded)
         {
-            this.getPosts();
+            this.props.fetchPosts();
         }
-    }
-
-    getPosts()
-    {
-        this.setState({
-            posts: [],
-            responseReceived: false,
-            responseValid: false,
-        });
-
-        Axios.get('/api/blog')
-        .then((res) =>
-        {
-            this.setState({
-                posts: res.data,
-                responseReceived: true,
-                responseValid: true,
-            })
-        })
-        .catch((err) =>
-        {
-            this.setState({
-                posts: [],
-                responseReceived: true,
-                responseValid: false,
-            });
-
-            // TODO: render an error component
-        });
     }
 
     render()
@@ -93,13 +61,12 @@ class Blog extends React.Component
         }
 
         const match = this.props.match && this.props.match.isExact ? true : false;
-        const hasData = this.state.responseReceived && this.state.responseValid;
 
         return (
             <div>
                 <Route path='/blog/:id' children={(props) => <BlogPost {...props}/>}/>
-                <SpinnerCubeGrid className={styles.postsSpinner} color={styles.postsSpinnerColor} show={match && !hasData}/>
-                <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match && hasData}>
+                <SpinnerCubeGrid className={styles.postsSpinner} color={styles.postsSpinnerColor} show={match && !this.props.loaded}/>
+                <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match && this.props.loaded}>
                     {({ transitionStyles, onTransitionEnd }) => {
                         return (
                             <div className={styles.page}>
@@ -107,7 +74,7 @@ class Blog extends React.Component
                                     <PageHeader className={styles.headerStyle} color={styles.headerColor} show={match}>BLOG</PageHeader>
                                     <div className={styles.postsContent}>
                                         <ul className={`${styles.posts} ${transitionStyles['posts']}`} onTransitionEnd={onTransitionEnd}>
-                                            {this.state.posts.map((post) => <BlogListItem key={post._id} post={post} show={this.props.match !== null && this.props.match.isExact}/>)}
+                                            {this.props.posts.map((post) => <BlogListItem key={post._id} post={post} show={this.props.match !== null && this.props.match.isExact}/>)}
                                         </ul>
                                     </div>
                                 </div>
@@ -120,4 +87,21 @@ class Blog extends React.Component
     }
 }
 
-export default Blog;
+const mapStateToProps = (state) =>
+{
+    const props = state.blog;
+    return {
+        posts: props.posts !== null ? props.posts : [],
+        loaded: props.loaded,
+        err: props.err,
+    };
+}
+
+const mapDispatchToProps = (dispatch) =>
+{
+    return {
+        fetchPosts: () => dispatch(fetchPosts()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Blog);

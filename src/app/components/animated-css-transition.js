@@ -80,7 +80,7 @@ class AnimatedCSSTransition extends React.Component
         // Need to wait until the children have been rendered at least once with the transition style before applying
         // the target style, otherwise no transition occurs. Call requestAnimationFrame to ensure that the transition
         // occurs after render().
-        setTimeout(() => requestAnimationFrame(() => this.transitionInternal()), 0);
+        setTimeout(() => requestAnimationFrame(() => this.transitionInternal()), 50);
     }
 
     transitionInternal()

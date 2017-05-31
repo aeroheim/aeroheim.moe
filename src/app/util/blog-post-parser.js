@@ -1,6 +1,6 @@
 import React from 'react';
 import marksy from 'marksy/components';
-import { ImageBlock, ImageGroup, Image } from './blog-post-image';
+import { ImageBlock, ImageGroup, Image } from '../components/blog-post-image';
 
 const BlogPostParser = marksy({
     components: {

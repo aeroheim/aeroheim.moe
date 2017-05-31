@@ -30,12 +30,15 @@
     "express": "^4.15.2",
     "marksy": "^1.0.0",
     "nedb": "^1.8.0",
+    "prismjs": "^1.6.0",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
-    "react-visibility-sensor": "^3.9.0"
+    "react-visibility-sensor": "^3.9.0",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",
+    "babel-preset-stage-2": "^6.24.1",
     "cross-env": "^5.0.0",
     "css-loader": "^0.28.0",
     "d3-ease": "^1.0.3",
