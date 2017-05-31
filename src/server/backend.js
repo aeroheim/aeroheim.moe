@@ -28,8 +28,14 @@ module.exports = (PORT) =>
     app.locals.db = db;
 
     app.use(log.morgan);
-    app.use('/', blog.router);
-    
+    app.get('*.js', (req, res, next) =>
+    {
+        req.url = req.url + '.gz';
+        res.set('Content-Encoding', 'gzip');
+        next();
+    });
+    app.use('/', express.static(path.join(__dirname, '../../dist/')));
+    app.use('/', blog.router);   
     app.get('/index.css', (req, res) => res.sendFile(path.join(__dirname, '..', 'index.css')));
     app.get('*', (req, res) => res.sendFile(path.join(__dirname, '..', 'index.html')));
 

@@ -4,11 +4,12 @@
   "description": "stuff",
   "main": "app.js",
   "scripts": {
-    "start-dev": "node ./src/server/server.js",
-    "start-prod": "cross-env node NODE_ENV=production ./src/server/server.js",
     "clean": "rimraf ./dist",
     "prebuild": "npm run clean",
-    "build": "webpack"
+    "build-dev": "webpack --env=dev --progress --profile --colors",
+    "build-prod": "webpack -p --env=prod --progress --profile --colors",
+    "start-dev": "node ./src/server/server.js",
+    "start-prod": "cross-env NODE_ENV=production node ./src/server/server.js"
   },
   "repository": {
     "type": "git",
@@ -39,11 +40,11 @@
   "devDependencies": {
     "autoprefixer": "^7.1.1",
     "babel-preset-stage-2": "^6.24.1",
+    "compression-webpack-plugin": "^0.4.0",
     "cross-env": "^5.0.0",
     "css-loader": "^0.28.0",
     "d3-ease": "^1.0.3",
     "express": "^4.15.0",
-    "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
     "morgan": "^1.8.2",
     "postcss": "^6.0.1",
