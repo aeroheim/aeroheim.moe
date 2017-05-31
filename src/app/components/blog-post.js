@@ -3,7 +3,7 @@ import axios from 'axios';
 import marksy from 'marksy/components';
 import LinkButton from './link-button';
 import SpinnerCubeGrid from './spinner-cube-grid';
-import BlogPostParser from './blog-post-parser';
+import BlogPostParser from '../util/blog-post-parser';
 import AnimatedCSSTransition from './animated-css-transition';
 import styles from '../static/styles/components/blog-post.css';
 

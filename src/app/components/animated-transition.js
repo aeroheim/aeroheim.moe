@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Interpolator from './interpolator.js';
+import Interpolator from '../util/interpolator.js';
 
 class AnimatedTransition extends React.Component
 {
