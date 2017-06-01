@@ -5,13 +5,15 @@ module.exports =
 {
     entry: 
     [
-        // bundle the client for webpack-dev-server
-        // and connect to the provided endpoint
-        'webpack-dev-server/client?http://localhost:8080/',
+        // bundle the client for webpack-dev-server and connect to the provided endpoint.
+        // for development, connect to http://localhost:8080/ to use webpack features
+        'webpack-dev-server/client?http://localhost:8080',
 
-        // bundle the client for hot reloading
-        // only - means to only hot reload for successful updates
+        // bundle the client for hot reloading; only hot reload for successful updates
         'webpack/hot/only-dev-server',
+
+        // react-hot-loader is used to preserve component states when hot reloading
+        'react-hot-loader/patch',
 
         // entry point for this app
         './src/app/app.js',
@@ -24,8 +26,8 @@ module.exports =
         publicPath: '/',
     },
 
-    // generate full source-map for accurate debugging
-    devtool: 'source-map',
+    // more accurate source map for debugging
+    devtool: 'cheap-module-eval-source-map',
 
     module:
     {
@@ -36,8 +38,8 @@ module.exports =
                 exclude: /node_modules/,
                 use:
                 [
-                    {
-                        loader: 'babel-loader',
+                    { loader: 'react-hot-loader/webpack' },
+                    { loader: 'babel-loader',
                         options:
                         {
                             presets:
@@ -54,7 +56,7 @@ module.exports =
                 test: /\.css$/,
                 use: 
                 [
-                    { loader: 'style-loader'},
+                    { loader: 'style-loader' },
                     { loader: 'css-loader', options: { modules: true, importLoaders: 1 } },
                     { loader: 'postcss-loader' },
                 ],
