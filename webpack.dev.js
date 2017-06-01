@@ -5,17 +5,28 @@ module.exports =
 {
     entry: 
     [
+        // bundle the client for webpack-dev-server
+        // and connect to the provided endpoint
         'webpack-dev-server/client?http://localhost:8080/',
-        'webpack/hot/dev-server',
+
+        // bundle the client for hot reloading
+        // only - means to only hot reload for successful updates
+        'webpack/hot/only-dev-server',
+
+        // entry point for this app
         './src/app/app.js',
     ],
-    target: 'web',
+
     output:
     {
         filename: 'bundle.js',
         path: path.resolve('dist'),
         publicPath: '/',
     },
+
+    // generate full source-map for accurate debugging
+    devtool: 'source-map',
+
     module:
     {
         rules:
@@ -70,8 +81,11 @@ module.exports =
     },
     plugins:
     [
+        // enable HMR globally
         new webpack.HotModuleReplacementPlugin(),
+
+        // prints more readable module names in the browser console on HMR updates
+        // new webpack.NamedModulesPlugin(),
     ],
-    devtool: 'source-map'
 }
 

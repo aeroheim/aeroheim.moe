@@ -3,14 +3,19 @@ const path = require('path');
 
 module.exports = 
 {
+    // entry point for this app
     entry: './src/app/app.js',
-    target: 'web',
+
     output:
     {
         filename: 'bundle.js',
         path: path.resolve('dist'),
         publicPath: '/',
     },
+
+    // generate smaller source-map for prod usage
+    devtool: 'cheap-module-source-map'
+
     module:
     {
         rules:
@@ -63,16 +68,17 @@ module.exports =
             }
         ]
     },
+
     plugins:
     [
+        // gzip bundled output 
         new CompressionPlugin({
             asset: '[path].gz[query]',
             algorithm: 'gzip',
-            test: /\.(js|css)$/,
+            test: /\.(js)$/,
             threshold: 10240,
             minRatio: 0.8
         })
     ],
-    devtool: 'cheap-module-source-map'
 }
 
