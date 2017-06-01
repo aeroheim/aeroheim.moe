@@ -1,37 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import rootReducer from './reducers/reducers';
-import Aeroheim from './components/aeroheim';
+import App from './components/aeroheim';
 import fonts from './static/styles/fonts/fonts.css';
 
 const store = createStore(
     rootReducer,
     applyMiddleware(thunkMiddleware),
-);
+)
 
-const App = () =>
+const render = (Component) =>
 {
-    return (
-        <Provider store={store}>
-            <BrowserRouter>
-                <Route path='/' component={Aeroheim}/>
-            </BrowserRouter>
-        </Provider>
-    );
+    ReactDOM.render(<Component store={store}/>, document.getElementById('root'));
 }
 
-document.getElementById('loadingLogo').remove();
-ReactDOM.render(<App/>, document.getElementById('root'));
+render(App);
 
+console.log('main');
+
+// For webpack hot module reloading
 if (module.hot)
 {
-    module.hot.accept('./app', () =>
+    module.hot.accept('./components/aeroheim.js', () =>
     {
-        let app = App;
-        ReactDOM.render(<app/>, document.getElementById('root'));
+        const NextApp = require('./components/aeroheim').default;
+        render(NextApp);
     });
 }

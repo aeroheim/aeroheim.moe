@@ -43,7 +43,7 @@ module.exports =
                 test: /\.css$/,
                 use: 
                 [
-                    { loader: 'style-loader'} , 
+                    { loader: 'style-loader'},
                     { loader: 'css-loader', options: { modules: true, importLoaders: 1 } },
                     { loader: 'postcss-loader' },
                 ],
@@ -70,7 +70,7 @@ module.exports =
     },
     plugins:
     [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
     ],
     devtool: 'source-map'
 }

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import ErrorNotFoundHandler from './error-not-found-handler';
 import Header from './header';
 import Home from './home';
@@ -25,4 +26,15 @@ const Aeroheim = () =>
     );
 }
 
-export default Aeroheim;
+const App = ({ store }) =>
+{
+    return (
+        <Provider store={store}>
+            <BrowserRouter>
+                <Route path='/' component={Aeroheim}/>
+            </BrowserRouter>
+        </Provider>
+    );
+}
+
+export default App;

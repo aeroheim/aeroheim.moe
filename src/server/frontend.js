@@ -6,12 +6,12 @@ module.exports = (PORT) =>
 {
     const frontend = new WebpackDevServer(webpack(webpackConfig), 
     {
+        hot: true,
         historyApiFallback: true,
         proxy: 
         {
             '*' : `http://localhost:${PORT - 1}`
         },
-        hot: true,
     });
 
     frontend.listen(PORT, 'localhost');
