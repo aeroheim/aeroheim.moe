@@ -19,7 +19,7 @@ const Aeroheim = () =>
                 <Route exact path='/' children={(props) => <Home {...props}/>}/>
                 <Route exact path='/moonlight' component={Moonlight}/>
                 <Route path='/bumps' component={Bumps}/>
-                <Route path='/blog' children={(props) => <Blog {...props}/>}/>
+                <Route exact path='/blog' children={(props) => <Blog {...props}/>}/>
                 <Route exact path='/about' children={(props) => <About {...props}/>}/>
             </ErrorNotFoundHandler>
         </div>

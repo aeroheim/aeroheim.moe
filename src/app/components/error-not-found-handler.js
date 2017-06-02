@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter, matchPath } from 'react-router';
 import { Route } from 'react-router-dom';
-import ErrorNotFound from './error-not-found';
+import { ErrorNotFound } from './error';
 
 const ErrorNotFoundHandler = (props) =>
 {
@@ -15,10 +15,11 @@ const ErrorNotFoundHandler = (props) =>
         }
     });
 
+    console.log(props);
+
     return (
         <span>
             {props.children}
-            <Route children={(props) => <ErrorNotFound {...props} show={matchCount === 0}/>}/>
         </span>
     );
 }

@@ -20,7 +20,7 @@ class Blog extends React.Component
 
     componentDidMount()
     {
-        if (this.props.match && this.props.match.isExact)
+        if (this.props.match)
         {
             this.props.fetchPosts();
         }
@@ -28,7 +28,7 @@ class Blog extends React.Component
 
     componentWillReceiveProps(nextProps)
     {
-        if (this.props !== nextProps && nextProps.match && nextProps.match.isExact && !this.props.loaded)
+        if (this.props !== nextProps && nextProps.match && !this.props.loaded)
         {
             this.props.fetchPosts();
         }
@@ -60,11 +60,11 @@ class Blog extends React.Component
             posts: styles.postsOut,
         }
 
-        const match = this.props.match && this.props.match.isExact ? true : false;
+        const match = this.props.match !== null;
 
         return (
             <div>
-                <Route path='/blog/:id' children={(props) => <BlogPost {...props}/>}/>
+                <Route exact path='/blog/:id' children={(props) => <BlogPost {...props}/>}/>
                 <SpinnerCubeGrid className={styles.postsSpinner} color={styles.postsSpinnerColor} show={match && !this.props.loaded}/>
                 <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match && this.props.loaded}>
                     {({ transitionStyles, onTransitionEnd }) => {
@@ -74,7 +74,7 @@ class Blog extends React.Component
                                     <PageHeader className={styles.headerStyle} color={styles.headerColor} show={match}>BLOG</PageHeader>
                                     <div className={styles.postsContent}>
                                         <ul className={`${styles.posts} ${transitionStyles['posts']}`} onTransitionEnd={onTransitionEnd}>
-                                            {this.props.posts.map((post) => <BlogListItem key={post._id} post={post} show={this.props.match !== null && this.props.match.isExact}/>)}
+                                            {this.props.posts.map((post) => <BlogListItem key={post._id} post={post} show={match}/>)}
                                         </ul>
                                     </div>
                                 </div>

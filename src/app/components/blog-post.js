@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import LinkButton from './link-button';
 import SpinnerCubeGrid from './spinner-cube-grid';
-import BlogPostParser from '../util/blog-post-parser';
+import { ErrorNotFound } from './error';
 import AnimatedCSSTransition from './animated-css-transition';
 import styles from '../static/styles/components/blog-post.css';
 
-import { fetchPost } from '../actions/blog-post-actions';
+import { fetchPost, invalidatePost } from '../actions/blog-post-actions';
 
 class BlogPost extends React.Component
 {
@@ -17,7 +17,7 @@ class BlogPost extends React.Component
 
     componentDidMount()
     {
-        if (this.props.match && !this.props.loaded)
+        if (this.props.match)
         {
             this.props.fetchPost(this.props.match.params.id);
         }
@@ -25,9 +25,16 @@ class BlogPost extends React.Component
 
     componentWillReceiveProps(nextProps)
     {
-        if ((this.props !== nextProps) && nextProps.match !== null && (nextProps.match.params.id !== this.props.id))
+        if (this.props.match === null || nextProps.match === null)
         {
-            this.props.fetchPost(nextProps.match.params.id);
+            if (nextProps.match)
+            {
+                this.props.fetchPost(nextProps.match.params.id);
+            }
+            else
+            {
+                this.props.invalidatePost();
+            }
         }
     }
 
@@ -54,11 +61,14 @@ class BlogPost extends React.Component
         }
 
         const monthFormatter = new Intl.DateTimeFormat('en-us', { month: 'short' });
+        const match = this.props.match !== null;
+        const err = this.props.err !== null;
 
         return (
             <div>
-                <SpinnerCubeGrid className={styles.postSpinner} color={styles.postSpinnerColor} show={this.props.match !== null && !this.props.loaded}/>
-                <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null && this.props.loaded}>
+                <ErrorNotFound show={err}/>
+                <SpinnerCubeGrid className={styles.postSpinner} color={styles.postSpinnerColor} show={match && !err && !this.props.loaded}/>
+                <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match && this.props.loaded}>
                     {({ transitionStyles, onTransitionEnd }) => {
                         return (
                             <div className={styles.page}>
@@ -88,7 +98,6 @@ const mapStateToProps = (state) =>
 {
     const props = state.blogPost;
     return {
-        id: props.id,
         title: props.title,
         description: props.description,
         date: props.date,
@@ -101,7 +110,8 @@ const mapStateToProps = (state) =>
 const mapDispatchToProps = (dispatch) =>
 {
     return {
-        fetchPost: (id) => { console.log('request'); dispatch(fetchPost(id)); },
+        fetchPost: (id) => dispatch(fetchPost(id)),
+        invalidatePost: () => dispatch(invalidatePost()),
     }
 }
 

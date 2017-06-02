@@ -5,7 +5,7 @@ export const fetchPost = (id) =>
 {
     return (dispatch) =>
     {
-        dispatch(requestPost());
+        dispatch(requestPost(id));
         return Axios.get(`/api/blog/${id}`)
             .then((res) => 
             {
@@ -18,10 +18,11 @@ export const fetchPost = (id) =>
 }
 
 export const REQUEST_POST = 'REQUEST_POST';
-const requestPost = () =>
+const requestPost = (id) =>
 {
     return {
         type: REQUEST_POST,
+        id: id,
     };
 }
 
@@ -41,5 +42,13 @@ const errorPost = (err) =>
     return {
         type: ERROR_POST,
         err: err,
+    }
+}
+
+export const INVALIDATE_POST = 'INVALIDATE_POST';
+export const invalidatePost = (err) =>
+{
+    return {
+        type: INVALIDATE_POST,
     }
 }

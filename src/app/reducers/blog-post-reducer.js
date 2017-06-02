@@ -1,4 +1,4 @@
-import { FETCH_POST, REQUEST_POST, RECEIVE_POST, ERROR_POST } from '../actions/blog-post-actions';
+import { REQUEST_POST, RECEIVE_POST, ERROR_POST, INVALIDATE_POST } from '../actions/blog-post-actions';
 
 const initialState =
 {
@@ -15,22 +15,25 @@ const blogPostReducer = (state = initialState, action) =>
 {
     switch(action.type)
     {
-        case FETCH_POST:
-            return state;
         case REQUEST_POST:
-            return state;
+            return { ...state, id: action.id };
         case RECEIVE_POST:
-            return { 
-                id: action.id,
-                title: action.post.title,
-                description: action.post.description,
-                date: action.post.date,
-                content: action.post.content,
-                loaded: true,
-                err: null,
-            };
+            // only accept the receive if it's for the latest request.
+            return action.id === state.id 
+                ? { 
+                    id: action.id,
+                    title: action.post.title,
+                    description: action.post.description,
+                    date: action.post.date,
+                    content: action.post.content,
+                    loaded: true,
+                    err: null,
+                }
+                : {};
         case ERROR_POST:
             return { ...state, err: action.err };
+        case INVALIDATE_POST:
+            return { ...state, id: null, loaded: false, err: null };
         default:
             return state;
     }
