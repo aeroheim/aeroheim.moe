@@ -45,9 +45,37 @@ const ErrorNotFound = ({ show }) =>
     return <Error title='404' text="there's nothing here" show={show}/>;
 }
 
-const ErrorCode = ({ errorCode, show }) =>
+const ErrorStatus = ({ status, show }) =>
 {
-    return <Error title={errorCode} text="something went wrong. try again later" show={show}/>;
+    return <Error title={status} text="something went wrong. try again later" show={show}/>;
 }
 
-export { ErrorNotFound, ErrorCode };
+class ErrorHandler extends React.Component
+{
+    constructor(props)
+    {
+        super(props);
+        this.title = 'error';
+        this.text = "something went wrong. try again later";
+    }
+
+    render()
+    {
+        if (this.props.err)
+        {
+            this.title = `${this.props.err.response.status}`;
+            switch(this.props.err.response.status)
+            {
+                case 404:
+                    this.text = "there's nothing here";
+                    break;
+                default:
+                    this.text = "something went wrong. try again later";
+            }
+        }
+
+        return <Error title={this.title} text={this.text} show={this.props.err !== null}/>;
+    }
+}
+
+export { ErrorNotFound, ErrorStatus, ErrorHandler };

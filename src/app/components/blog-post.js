@@ -1,11 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import LinkButton from './link-button';
+import { ErrorHandler } from './error';
 import SpinnerCubeGrid from './spinner-cube-grid';
-import { ErrorNotFound } from './error';
 import AnimatedCSSTransition from './animated-css-transition';
 import styles from '../static/styles/components/blog-post.css';
 
+import { connect } from 'react-redux';
 import { fetchPost, invalidatePost } from '../actions/blog-post-actions';
 import { matchRoute, unmatchRoute} from '../actions/routes-actions';
 import handleMatch from '../util/handle-match';
@@ -78,7 +78,7 @@ class BlogPost extends React.Component
 
         return (
             <div>
-                <ErrorNotFound show={err}/>
+                <ErrorHandler err={this.props.err}/>
                 <SpinnerCubeGrid className={styles.postSpinner} color={styles.postSpinnerColor} show={match && !err && !this.props.loaded}/>
                 <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match && this.props.loaded}>
                     {({ transitionStyles, onTransitionEnd }) => {

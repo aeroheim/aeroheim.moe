@@ -1,14 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
-import Axios from 'axios';
 import PageHeader from './page-header';
 import BlogListItem from './blog-list-item';
 import BlogPost from './blog-post';
+import { ErrorHandler } from './error';
 import SpinnerCubeGrid from './spinner-cube-grid';
 import AnimatedCSSTransition from './animated-css-transition';
 import styles from '../static/styles/components/blog.css';
 
+import { connect } from 'react-redux';
 import { fetchPosts, invalidatePosts } from '../actions/blog-actions';
 import { matchRoute, unmatchRoute} from '../actions/routes-actions';
 import handleMatch from '../util/handle-match';
@@ -81,11 +81,13 @@ class Blog extends React.Component
         }
 
         const match = this.props.match !== null;
+        const err = this.props.err !== null;
 
         return (
             <div>
                 <Route exact path={this.blogPostPath} children={(props) => <BlogPost { ...props } path={this.blogPostPath}/>}/>
-                <SpinnerCubeGrid className={styles.postsSpinner} color={styles.postsSpinnerColor} show={match && !this.props.loaded}/>
+                <ErrorHandler err={this.props.err}/>
+                <SpinnerCubeGrid className={styles.postsSpinner} color={styles.postsSpinnerColor} show={match && !err && !this.props.loaded}/>
                 <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match && this.props.loaded}>
                     {({ transitionStyles, onTransitionEnd }) => {
                         return (
