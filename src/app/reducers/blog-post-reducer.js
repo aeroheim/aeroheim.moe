@@ -21,7 +21,7 @@ const blogPostReducer = (state = initialState, action) =>
             // only accept the receive if it's for the latest request.
             return action.id === state.id 
                 ? { 
-                    id: action.id,
+                    ...state,
                     title: action.post.title,
                     description: action.post.description,
                     date: action.post.date,
@@ -29,7 +29,7 @@ const blogPostReducer = (state = initialState, action) =>
                     loaded: true,
                     err: null,
                 }
-                : {};
+                : state;
         case ERROR_POST:
             return { ...state, err: action.err };
         case INVALIDATE_POST:
