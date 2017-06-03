@@ -1,27 +1,32 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import ErrorNotFoundHandler from './error-not-found-handler';
 import Header from './header';
 import Home from './home';
 import Moonlight from './moonlight';
 import Bumps from './bumps';
 import Blog from './blog';
 import About from './about';
+import ErrorNotFoundRoute from './error-route';
 import styles from '../static/styles/components/aeroheim.css';
+
+const homePath = '/';
+const moonlightPath ='/moonlight';
+const bumpsPath ='/bumps';
+const blogPath = '/blog';
+const aboutPath = '/about';
 
 const Aeroheim = () =>
 {
     return (
         <div className={styles.background}>
             <Header/>
-            <ErrorNotFoundHandler>
-                <Route exact path='/' children={(props) => <Home {...props}/>}/>
-                <Route exact path='/moonlight' component={Moonlight}/>
-                <Route path='/bumps' component={Bumps}/>
-                <Route exact path='/blog' children={(props) => <Blog {...props}/>}/>
-                <Route exact path='/about' children={(props) => <About {...props}/>}/>
-            </ErrorNotFoundHandler>
+            <Route exact path={homePath} children={(props) => <Home {...props} path={homePath}/>}/>
+            <Route exact path={moonlightPath} component={Moonlight}/>
+            <Route exact path={bumpsPath} component={Bumps}/>
+            <Route exact path={blogPath} children={(props) => <Blog {...props} path={blogPath}/>}/>
+            <Route exact path={aboutPath} children={(props) => <About {...props} path={aboutPath}/>}/>
+            <ErrorNotFoundRoute/>
         </div>
     );
 }

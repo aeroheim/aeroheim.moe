@@ -11,6 +11,7 @@ export const fetchPost = (id) =>
             {
                 res.data.date = new Date(res.data.date);
                 res.data.content = BlogPostParser(res.data.content).tree;
+                
                 dispatch(receivePost(id, res.data))
             })
             .catch((err) => dispatch(errorPost(err)));
@@ -46,7 +47,7 @@ const errorPost = (err) =>
 }
 
 export const INVALIDATE_POST = 'INVALIDATE_POST';
-export const invalidatePost = (err) =>
+export const invalidatePost = () =>
 {
     return {
         type: INVALIDATE_POST,

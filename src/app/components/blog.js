@@ -9,29 +9,49 @@ import SpinnerCubeGrid from './spinner-cube-grid';
 import AnimatedCSSTransition from './animated-css-transition';
 import styles from '../static/styles/components/blog.css';
 
-import { fetchPosts } from '../actions/blog-actions';
+import { fetchPosts, invalidatePosts } from '../actions/blog-actions';
+import { matchRoute, unmatchRoute} from '../actions/routes-actions';
+import handleMatch from '../util/handle-match';
 
 class Blog extends React.Component
 {
     constructor(props)
     {
         super(props);
+        this.blogPostPath = `${props.path}/:id`;
+        this.onMatch.bind(this);
+        this.onUnmatch.bind(this);
     }
 
     componentDidMount()
     {
-        if (this.props.match)
+        if (this.props.match !== null)
         {
-            this.props.fetchPosts();
+            this.onMatch();
         }
     }
 
     componentWillReceiveProps(nextProps)
     {
-        if (this.props !== nextProps && nextProps.match && !this.props.loaded)
+        if (this.props !== nextProps)
         {
-            this.props.fetchPosts();
+            handleMatch(this.props, nextProps, 
+                () => this.onMatch(), 
+                () => this.onUnmatch());
         }
+    }
+
+    onMatch()
+    {
+        const id = Math.random();
+        this.props.fetchPosts(id);
+        this.props.matchRoute(this.props.path);
+    }
+
+    onUnmatch()
+    {
+        this.props.invalidatePosts();
+        this.props.unmatchRoute(this.props.path);
     }
 
     render()
@@ -64,7 +84,7 @@ class Blog extends React.Component
 
         return (
             <div>
-                <Route exact path='/blog/:id' children={(props) => <BlogPost {...props}/>}/>
+                <Route exact path={this.blogPostPath} children={(props) => <BlogPost { ...props } path={this.blogPostPath}/>}/>
                 <SpinnerCubeGrid className={styles.postsSpinner} color={styles.postsSpinnerColor} show={match && !this.props.loaded}/>
                 <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match && this.props.loaded}>
                     {({ transitionStyles, onTransitionEnd }) => {
@@ -100,7 +120,10 @@ const mapStateToProps = (state) =>
 const mapDispatchToProps = (dispatch) =>
 {
     return {
-        fetchPosts: () => dispatch(fetchPosts()),
+        fetchPosts: (id) => dispatch(fetchPosts(id)),
+        invalidatePosts: () => dispatch(invalidatePosts()),
+        matchRoute: (path) => dispatch(matchRoute(path)),
+        unmatchRoute: (path) => dispatch(unmatchRoute(path)),
     }
 }
 

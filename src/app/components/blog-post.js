@@ -7,35 +7,47 @@ import AnimatedCSSTransition from './animated-css-transition';
 import styles from '../static/styles/components/blog-post.css';
 
 import { fetchPost, invalidatePost } from '../actions/blog-post-actions';
+import { matchRoute, unmatchRoute} from '../actions/routes-actions';
+import handleMatch from '../util/handle-match';
 
 class BlogPost extends React.Component
 {
     constructor(props)
     {
         super(props);
+        this.onMatch.bind(this);
+        this.onUnmatch.bind(this);
     }
 
     componentDidMount()
     {
-        if (this.props.match)
+        if (this.props.match !== null)
         {
-            this.props.fetchPost(this.props.match.params.id);
+            this.onMatch();
         }
     }
 
     componentWillReceiveProps(nextProps)
     {
-        if (this.props.match === null || nextProps.match === null)
+        if (this.props !== nextProps)
         {
-            if (nextProps.match)
-            {
-                this.props.fetchPost(nextProps.match.params.id);
-            }
-            else
-            {
-                this.props.invalidatePost();
-            }
+            handleMatch(this.props, nextProps, 
+                () => this.onMatch(nextProps), 
+                () => this.onUnmatch());
         }
+    }
+
+    onMatch(nextProps)
+    {
+        const props = nextProps !== undefined ? nextProps : this.props;
+        this.props.fetchPost(props.match.params.id);
+        this.props.matchRoute(props.path);
+    }
+
+    onUnmatch()
+    {
+        this.props.invalidatePost();
+        this.props.unmatchRoute(this.props.path);
     }
 
     render()
@@ -112,6 +124,8 @@ const mapDispatchToProps = (dispatch) =>
     return {
         fetchPost: (id) => dispatch(fetchPost(id)),
         invalidatePost: () => dispatch(invalidatePost()),
+        matchRoute: (path) => dispatch(matchRoute(path)),
+        unmatchRoute: (path) => dispatch(unmatchRoute(path)),
     }
 }
 
