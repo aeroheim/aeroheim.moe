@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import LinkButton from './link-button';
 import styles from '../static/styles/components/header-button.css';
 
-const isRouteActive = (path, exact) =>
+function isRouteActive(path, exact)
 {
     return exact ? location.pathname === path : location.pathname.startsWith(path);
 }

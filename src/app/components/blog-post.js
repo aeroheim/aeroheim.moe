@@ -106,7 +106,7 @@ class BlogPost extends React.Component
     }
 }
 
-const mapStateToProps = (state) =>
+function mapStateToProps(state)
 {
     const props = state.blogPost;
     return {
@@ -119,7 +119,7 @@ const mapStateToProps = (state) =>
     };
 }
 
-const mapDispatchToProps = (dispatch) =>
+function mapDispatchToProps(dispatch)
 {
     return {
         fetchPost: (id) => dispatch(fetchPost(id)),

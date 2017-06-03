@@ -8,7 +8,7 @@ const ErrorNotFoundRoute = ({ activeRoutes }) =>
     return <ErrorNotFound show={Object.keys(activeRoutes).length === 0}/>
 }
 
-const mapStateToProps = (state) =>
+function mapStateToProps(state)
 {
     const props = state.routes;
     return {

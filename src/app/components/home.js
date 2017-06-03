@@ -110,12 +110,12 @@ class Home extends React.Component
     }
 };
 
-const mapStateToProps = (state) =>
+function mapStateToProps(state)
 {
     return {};
 }
 
-const mapDispatchToProps = (dispatch) =>
+function mapDispatchToProps(dispatch)
 {
     return {
         matchRoute: (path) => dispatch(matchRoute(path)),
