@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import BlogPostParser from '../util/blog-post-parser';
+import parseBlogPost from '../util/blog-post-parser';
 
 export const fetchPost = (id) =>
 {
@@ -10,7 +10,7 @@ export const fetchPost = (id) =>
             .then((res) => 
             {
                 res.data.date = new Date(res.data.date);
-                res.data.content = BlogPostParser(res.data.content).tree;
+                res.data.content = parseBlogPost(res.data.content);
                 
                 dispatch(receivePost(id, res.data))
             })

@@ -1,12 +1,15 @@
 import React from 'react';
 import styles from '../static/styles/components/blog-post-image.css';
 
-const ImageBlock = ({ children }) =>
+import { store } from '../app';
+import { addGalleryImage, setGalleryActiveImageIndex } from '../actions/blog-post-image-gallery-actions';
+
+const BlogPostImageBlock = ({ children }) =>
 {
     return <figure className={styles.imageBlock}>{children}</figure>;
 }
 
-const ImageGroup = ({ children, maxImagePerRow }) =>
+const BlogPostImageGroup = ({ children, maxImagePerRow }) =>
 {
     const imageMargin = 10;
     const style =
@@ -25,17 +28,37 @@ const ImageGroup = ({ children, maxImagePerRow }) =>
     return <figure className={styles.imageGroup}>{childrenWithProps}</figure>
 }
 
-const Image = ({ src, alt, title, caption, style }) =>
+class BlogPostImage extends React.Component
 {
-    return (
-        <figure tabIndex='0' className={styles.imgCell} style={style}>
-            <img className={styles.img} src={src} alt={alt} title={title}/>
-            <figcaption className={styles.imgCaptionGroup}>
-                <h3 className={styles.imgCaptionHeader}>{title}</h3>
-                <p className={styles.imgCaptionDescription}>{caption}</p>
-            </figcaption>
-        </figure>
-    );
+    constructor(props)
+    {
+        super(props);
+    }
+
+    componentWillMount()
+    {
+        store.dispatch(addGalleryImage({ 
+            src: this.props.src,
+            title: this.props.title,
+            caption: this.props.caption,
+        }));
+
+        const index = store.getState().blogPostImageGallery.images.length - 1;
+        this.onClick = () => store.dispatch(setGalleryActiveImageIndex(index));
+    }
+
+    render()
+    {
+        return (
+            <figure tabIndex='0' className={styles.imgCell} style={this.props.style} onClick={this.onClick}>
+                <img className={styles.img} src={this.props.src} alt={this.props.alt} title={this.props.title}/>
+                <figcaption className={styles.imgCaptionGroup}>
+                    <h3 className={styles.imgCaptionHeader}>{this.props.title}</h3>
+                    <p className={styles.imgCaptionDescription}>{this.props.caption}</p>
+                </figcaption>
+            </figure>
+        );
+    }
 }
 
-export { ImageBlock, ImageGroup, Image };
+export { BlogPostImageBlock, BlogPostImageGroup, BlogPostImage };

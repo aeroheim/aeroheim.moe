@@ -116,7 +116,7 @@ function mapStateToProps(state)
         posts: props.posts !== null ? props.posts : [],
         loaded: props.loaded,
         err: props.err,
-    };
+    }
 }
 
 function mapDispatchToProps(dispatch)

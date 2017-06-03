@@ -2,11 +2,13 @@ import React from 'react';
 import LinkButton from './link-button';
 import { ErrorHandler } from './error';
 import SpinnerCubeGrid from './spinner-cube-grid';
+import BlogPostImageGallery from './blog-post-image-gallery';
 import AnimatedCSSTransition from './animated-css-transition';
 import styles from '../static/styles/components/blog-post.css';
 
 import { connect } from 'react-redux';
 import { fetchPost, invalidatePost } from '../actions/blog-post-actions';
+import { setGalleryImages } from '../actions/blog-post-image-gallery-actions';
 import { matchRoute, unmatchRoute} from '../actions/routes-actions';
 import handleMatch from '../util/handle-match';
 
@@ -41,6 +43,7 @@ class BlogPost extends React.Component
     {
         const props = nextProps !== undefined ? nextProps : this.props;
         this.props.fetchPost(props.match.params.id);
+        this.props.setGalleryImages([]);
         this.props.matchRoute(props.path);
     }
 
@@ -80,6 +83,7 @@ class BlogPost extends React.Component
             <div>
                 <ErrorHandler err={this.props.err}/>
                 <SpinnerCubeGrid className={styles.postSpinner} color={styles.postSpinnerColor} show={match && !err && !this.props.loaded}/>
+                <BlogPostImageGallery/>
                 <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match && this.props.loaded}>
                     {({ transitionStyles, onTransitionEnd }) => {
                         return (
@@ -116,7 +120,7 @@ function mapStateToProps(state)
         content: props.content,
         loaded: props.loaded,
         err: props.err,
-    };
+    }
 }
 
 function mapDispatchToProps(dispatch)
@@ -124,6 +128,7 @@ function mapDispatchToProps(dispatch)
     return {
         fetchPost: (id) => dispatch(fetchPost(id)),
         invalidatePost: () => dispatch(invalidatePost()),
+        setGalleryImages: (images) => dispatch(setGalleryImages(images)),
         matchRoute: (path) => dispatch(matchRoute(path)),
         unmatchRoute: (path) => dispatch(unmatchRoute(path)),
     }

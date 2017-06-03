@@ -7,7 +7,7 @@ import { AppContainer } from 'react-hot-loader';
 import App from './components/aeroheim';
 import fonts from './static/styles/fonts/fonts.css';
 
-const store = createStore(
+export const store = createStore(
     rootReducer,
     applyMiddleware(thunkMiddleware),
 )

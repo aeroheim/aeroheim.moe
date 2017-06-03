@@ -1,14 +1,14 @@
 import React from 'react';
 import marksy from 'marksy/components';
-import { ImageBlock, ImageGroup, Image } from '../components/blog-post-image';
+import { BlogPostImageBlock, BlogPostImageGroup, BlogPostImage } from '../components/blog-post-image';
 
-const BlogPostParser = marksy({
+const parser = marksy({
     components: {
-        ImageBlock(props) { return <ImageBlock {...props}/>; },
-        ImageGroup(props) { return <ImageGroup {...props}/>; },
-        Image(props) { return <Image {...props}/>; },
+        ImageBlock(props) { return <BlogPostImageBlock {...props}/>; },
+        ImageGroup(props) { return <BlogPostImageGroup {...props}/>; },
+        Image(props) { return <BlogPostImage {...props}/>; },
     },
 });
 
-export default BlogPostParser;
+export default (markdown) => parser(markdown).tree;
 
