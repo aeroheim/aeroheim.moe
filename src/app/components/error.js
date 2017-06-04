@@ -78,4 +78,4 @@ class ErrorHandler extends React.Component
     }
 }
 
-export { ErrorNotFound, ErrorStatus, ErrorHandler };
+export { Error, ErrorNotFound, ErrorStatus, ErrorHandler };

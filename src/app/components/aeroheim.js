@@ -22,8 +22,8 @@ const Aeroheim = () =>
         <div className={styles.background}>
             <Header/>
             <Route exact path={homePath} children={(props) => <Home {...props} path={homePath}/>}/>
-            <Route exact path={moonlightPath} component={Moonlight}/>
-            <Route exact path={bumpsPath} component={Bumps}/>
+            <Route exact path={moonlightPath} children={(props) => <Moonlight {...props} path={moonlightPath}/>}/>
+            <Route exact path={bumpsPath} children={(props) => <Bumps {...props} path={bumpsPath}/>}/>
             <Route exact path={blogPath} children={(props) => <Blog {...props} path={blogPath}/>}/>
             <Route exact path={aboutPath} children={(props) => <About {...props} path={aboutPath}/>}/>
             <ErrorNotFoundRoute/>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import AnimatedCSSTransition from './animated-css-transition';
 import PageHeader from './page-header';
+import AnimatedCSSTransition from './animated-css-transition';
 import styles from '../static/styles/components/about.css';
 
 import { matchRoute, unmatchRoute} from '../actions/routes-actions';
@@ -78,8 +78,24 @@ class About extends React.Component
                                 <article className={`${styles.bio} ${transitionStyles['bio']}`} onTransitionEnd={onTransitionEnd}>
                                     <h1>Benjamin Pang (龐天擇).</h1>
                                     <p>{`I'm a ${age}-year-old Software Engineer working in Austin, Texas. I graduated from The University of Texas at Austin with a B.S. in Computer Science in 2015.`}</p>
-                                    <p>Hobbies include mechanical keyboards, coding, and gaming (especially rhythm games).</p>
-                                    <p><a href='mailto:aeroheim@gmail.com' className={styles.bioLink}>aeroheim@gmail.com</a></p>
+                                    <p>
+                                        My mechanical keyboards (~175WPM):
+                                        <ul>
+                                            <li>Whitefox ARIA w/ Gateron Blues</li>
+                                            <li>Leopold FC660C w/ Hypersphere rings ♥</li>
+                                        </ul>
+                                        Currently playing the following games:
+                                        <ul>
+                                            <li>FFXIV: Stormblood (<a href='http://na.finalfantasyxiv.com/lodestone/character/2238847/' className={styles.bioLink}>Aeroheim Lkofsnaso</a> @ Ultros)</li>
+                                            <li>Sound Voltex: grinding from SKILL LEVEL11 -> 12</li>
+                                        </ul>
+                                        Technologies I'm interested in right now:
+                                        <ul>
+                                            <li>React</li>
+                                            <li>Electron</li>
+                                        </ul>
+                                    </p>
+                                    <p>You can reach me at <a href='mailto:aeroheim@gmail.com' className={styles.bioLink}>aeroheim@gmail.com</a></p>
                                 </article>
                             </div>
                         </div>
