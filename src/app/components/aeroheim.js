@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import Header from './header';
 import Home from './home';
 import Moonlight from './moonlight';
@@ -10,25 +9,44 @@ import About from './about';
 import ErrorNotFoundRoute from './error-route';
 import styles from '../static/styles/components/aeroheim.css';
 
+import { connect, Provider } from 'react-redux';
+
+
 const homePath = '/';
 const moonlightPath ='/moonlight';
 const bumpsPath ='/bumps';
 const blogPath = '/blog';
 const aboutPath = '/about';
 
-const Aeroheim = () =>
+class Aeroheim extends React.Component
 {
-    return (
-        <div className={styles.background}>
-            <Header/>
-            <Route exact path={homePath} children={(props) => <Home {...props} path={homePath}/>}/>
-            <Route exact path={moonlightPath} children={(props) => <Moonlight {...props} path={moonlightPath}/>}/>
-            <Route exact path={bumpsPath} children={(props) => <Bumps {...props} path={bumpsPath}/>}/>
-            <Route exact path={blogPath} children={(props) => <Blog {...props} path={blogPath}/>}/>
-            <Route exact path={aboutPath} children={(props) => <About {...props} path={aboutPath}/>}/>
-            <ErrorNotFoundRoute/>
-        </div>
-    );
+    constructor(props)
+    {
+        super(props);
+    }
+
+    render()
+    {
+        return (
+            <div className={styles.background} style={{ overflowY: this.props.scrollbarVisible ? 'overlay' : 'hidden' }}>
+                <Header/>
+                <Route exact path={homePath} children={(props) => <Home {...props} path={homePath}/>}/>
+                <Route exact path={moonlightPath} children={(props) => <Moonlight {...props} path={moonlightPath}/>}/>
+                <Route exact path={bumpsPath} children={(props) => <Bumps {...props} path={bumpsPath}/>}/>
+                <Route exact path={blogPath} children={(props) => <Blog {...props} path={blogPath}/>}/>
+                <Route exact path={aboutPath} children={(props) => <About {...props} path={aboutPath}/>}/>
+                <ErrorNotFoundRoute/>
+            </div>
+        );
+    }
+}
+
+function mapStateToProps(state)
+{
+    const props = state.app;
+    return {
+        scrollbarVisible: props.scrollbarVisibility,
+    }
 }
 
 const App = ({ store }) =>
@@ -36,7 +54,7 @@ const App = ({ store }) =>
     return (
         <Provider store={store}>
             <BrowserRouter>
-                <Route path='/' component={Aeroheim}/>
+                <Route path='/' component={connect(mapStateToProps)(Aeroheim)}/>
             </BrowserRouter>
         </Provider>
     );
