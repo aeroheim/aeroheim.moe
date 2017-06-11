@@ -1,0 +1,39 @@
+@value easeOutCubic from "../global/animations.css";
+
+.buttonInTransition
+{
+    opacity: 0;
+    transition: opacity 0.35s easeOutCubic 0s;
+}
+
+.buttonIn
+{
+    opacity: 1;
+}
+
+.buttonOutTransition
+{
+    opacity: 1;
+    transition: opacity 0.35s easeOutCubic 0s;
+}
+
+.buttonOut
+{
+    opacity: 0;
+}
+
+.button
+{
+    cursor: pointer;
+    border: none;
+
+    width: 100%;
+    height: auto;
+
+    background-color: transparent;
+}
+
+.button:focus
+{
+    outline: 0;
+}
