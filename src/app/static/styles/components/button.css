@@ -3,7 +3,7 @@
 .buttonInTransition
 {
     opacity: 0;
-    transition: opacity 0.35s easeOutCubic 0s;
+    transition: opacity 0.25s easeOutCubic 0s;
 }
 
 .buttonIn
@@ -14,7 +14,7 @@
 .buttonOutTransition
 {
     opacity: 1;
-    transition: opacity 0.35s easeOutCubic 0s;
+    transition: opacity 0.25s easeOutCubic 0s;
 }
 
 .buttonOut

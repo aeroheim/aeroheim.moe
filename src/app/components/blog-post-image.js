@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../static/styles/components/blog-post-image.css';
 
 import { store } from '../app';
-import { addGalleryImage, setGalleryActiveImageIndex } from '../actions/blog-post-image-gallery-actions';
+import { addGalleryImage, setGalleryActiveImageIndex, setGalleryVisibility } from '../actions/blog-post-gallery-actions';
 
 const BlogPostImageBlock = ({ children }) =>
 {
@@ -33,6 +33,8 @@ class BlogPostImage extends React.Component
     constructor(props)
     {
         super(props);
+        this.index = -1;
+        this.showGallery = this.showGallery.bind(this);
     }
 
     componentWillMount()
@@ -43,14 +45,19 @@ class BlogPostImage extends React.Component
             caption: this.props.caption,
         }));
 
-        const index = store.getState().blogPostImageGallery.images.length - 1;
-        this.onClick = () => store.dispatch(setGalleryActiveImageIndex(index));
+        this.index = store.getState().BlogPostGallery.images.length - 1;
+    }
+
+    showGallery()
+    {
+        store.dispatch(setGalleryActiveImageIndex(this.index));
+        store.dispatch(setGalleryVisibility(true));
     }
 
     render()
     {
         return (
-            <figure tabIndex='0' className={styles.imgCell} style={this.props.style} onClick={this.onClick}>
+            <figure tabIndex='0' className={styles.imgCell} style={this.props.style} onClick={this.showGallery}>
                 <img className={styles.img} src={this.props.src} alt={this.props.alt} title={this.props.title}/>
                 <figcaption className={styles.imgCaptionGroup}>
                     <h3 className={styles.imgCaptionHeader}>{this.props.title}</h3>

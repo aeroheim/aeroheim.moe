@@ -1,0 +1,103 @@
+@value blogColor from "../global/colors.css";
+@value easeInCubic, easeOutCubic from "../global/animations.css";
+@value small, large from "../global/breakpoints.css";
+@value headerMargin from "./header.css";
+
+@value sideMargin: 15px;
+
+.page
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    z-index: 11;
+    position: fixed;
+
+    width: calc(100% - 2 * sideMargin);
+    min-height: calc(100% - headerMargin);
+    padding: headerMargin sideMargin headerMargin sideMargin;
+
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.pageInTransition
+{
+    opacity: 0;
+    transition: opacity 0.35s easeOutCubic 0s;
+}
+
+.pageIn
+{
+    opacity: 1;
+}
+
+.pageOutTransition
+{
+    opacity: 1;
+    transition: opacity 0.35s easeOutCubic 0s;
+}
+
+.pageOut
+{
+    opacity: 0;
+}
+
+.closeButtonContainer
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: calc(35px + 5%);
+    min-width: 45px;
+    max-width: 70px;
+    margin-top: 1%;
+    margin-right: 1%;
+}
+
+.closeIcon
+{
+    fill: rgba(255, 255, 255, 0.15);
+    transition: fill 0.35s easeOutCubic 0s;
+}
+
+.closeIcon:hover
+{
+    fill: rgba(255, 255, 255, 1);
+}
+
+.content
+{
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.navButtonContainer
+{
+    flex-shrink: 0;
+
+    width: calc(40px + 5%);
+    min-width: 50px;
+    max-width: 125px;
+}
+
+.navIcon
+{
+    fill: rgba(255, 255, 255, 0.15);
+    transition: fill 0.35s easeOutCubic 0s;
+}
+
+.navIcon:hover
+{
+    fill: rgba(255, 255, 255, 1);
+}
+
+.image
+{
+    max-width: 100%;
+    max-height: 85vh;
+}
