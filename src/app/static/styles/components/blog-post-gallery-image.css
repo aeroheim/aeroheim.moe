@@ -1,0 +1,78 @@
+@value blogColor from "../global/colors.css";
+@value easeInCubic, easeOutCubic from "../global/animations.css";
+@value headerMargin from "./header.css";
+
+.content
+{
+    position: absolute;
+    margin: 0;
+
+    font-family: 'M+P1-Thin';
+    color: white;
+}
+
+.contentInTransition
+{
+    opacity: 0;
+    transition: opacity 0.5s easeOutCubic 0s;
+}
+
+.contentIn
+{
+    opacity: 1;
+}
+
+.contentOutTransition
+{
+    opacity: 1;
+    transition: opacity 0.5s easeOutCubic 0s;
+}
+
+.contentOut
+{
+    opacity: 0;
+}
+
+.image
+{
+    max-width: 100%;
+    max-height: calc(85vh - 2 * headerMargin);
+
+    user-select: none;
+}
+
+.captionContainer
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    min-height: 75px;
+
+    background-color: blogColor;
+}
+
+.imageText
+{
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 1em;
+}
+
+.imageTitle
+{
+    margin: 0;
+}
+
+.imageCaption
+{
+
+}
+
+.imageIndex
+{
+    font-size: 48px;
+    margin-right: 0.5em;
+}

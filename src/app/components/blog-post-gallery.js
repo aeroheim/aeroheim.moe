@@ -1,9 +1,10 @@
 import React from 'react';
-import Button from './button';
 import SVGInline from 'react-svg-inline';
 import PrevIcon from '../static/img/icons/prev.svg';
 import NextIcon from '../static/img/icons/next.svg';
 import CloseIcon from '../static/img/icons/close.svg';
+import Button from './button';
+import BlogPostGalleryImage from './blog-post-gallery-image';
 import AnimatedCSSTransition from './animated-css-transition';
 import styles from '../static/styles/components/blog-post-gallery.css';
 
@@ -90,16 +91,8 @@ class BlogPostGallery extends React.Component
                                     <SVGInline svg={PrevIcon} className={styles.navIcon}/>
                                 </Button>
                             </div>
-                            <div className={styles.content} onTransitionEnd={onTransitionEnd}>
-                                <img className={styles.image} src={this.props.images[this.props.activeImageIndex].src}/>
-                                <div>
-                                    <div className={styles.imageColorBar}/>
-                                    <div className={styles.imageText}>
-                                        <span className={styles.imageTitle}>{this.props.title}</span>
-                                        <span className={styles.imageIndex}>{`${this.props.activeImageIndex}/${this.props.images.length}`}</span>
-                                    </div>
-                                    <p className={styles.imageCaption}>{this.props.caption}</p>
-                                </div>
+                            <div className={styles.content}>
+                                {this.props.images.map((image, index) => <BlogPostGalleryImage key={index} img={image} index={index} imageCount={this.props.images.length} show={index === this.props.activeImageIndex}/>)}
                             </div>
                             <div className={styles.navButtonContainer}>
                                 <Button animate show={this.props.activeImageIndex < this.props.images.length - 1} onClick={this.onNextImage}>
