@@ -82,12 +82,12 @@ class BlogPostGallery extends React.Component
                     return (
                         <div className={`${styles.page} ${transitionStyles['page']}`} onTransitionEnd={onTransitionEnd}>
                             <div className={styles.closeButtonContainer}>
-                                <Button onClick={this.onClose}>
+                                <Button className={styles.button} onClick={this.onClose}>
                                     <SVGInline svg={CloseIcon} className={styles.closeIcon}/>
                                 </Button>
                             </div>
                             <div className={styles.navButtonContainer}>
-                                <Button animate show={this.props.activeImageIndex > 0} onClick={this.onPrevImage}>
+                                <Button className={styles.button} animate show={this.props.activeImageIndex > 0} onClick={this.onPrevImage}>
                                     <SVGInline svg={PrevIcon} className={styles.navIcon}/>
                                 </Button>
                             </div>
@@ -95,7 +95,7 @@ class BlogPostGallery extends React.Component
                                 {this.props.images.map((image, index) => <BlogPostGalleryImage key={index} img={image} index={index} imageCount={this.props.images.length} show={index === this.props.activeImageIndex}/>)}
                             </div>
                             <div className={styles.navButtonContainer}>
-                                <Button animate show={this.props.activeImageIndex < this.props.images.length - 1} onClick={this.onNextImage}>
+                                <Button className={styles.button} animate show={this.props.activeImageIndex < this.props.images.length - 1} onClick={this.onNextImage}>
                                     <SVGInline svg={NextIcon} className={styles.navIcon}/>
                                 </Button>
                             </div>
