@@ -15,3 +15,12 @@
          url('./mplus-1p-light-sub.woff') format('woff'),
          url('./mplus-1p-light-sub.ttf') format('truetype');
 }
+
+@font-face
+{
+    font-family: 'M+P1-Regular';
+    src: url('./mplus-1p-regular-sub.eot');
+    src: url('./mplus-1p-regular-sub.eot?#iefix') format('embedded-opentype'),
+         url('./mplus-1p-regular-sub.woff') format('woff'),
+         url('./mplus-1p-regular-sub.ttf') format('truetype');
+}
