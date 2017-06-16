@@ -1,3 +1,4 @@
-[submodule "data"]
-	path = content
-	url = https://github.com/aeroheim/aeroheim.moe-db
+[submodule "content"]
+	path = aeroheim.moe-db
+	url = https://github.com/aeroheim/aeroheim.moe-db.git
+	branch = master
