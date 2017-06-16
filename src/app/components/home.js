@@ -59,13 +59,15 @@ class Home extends React.Component
             logoFrame: styles.logoFrameInTransition,
             logo: styles.logoInTransition,
             buttons: styles.buttonsInTransition,
+            footer: styles.footerInTransition,
         }
 
         const inStyles =
         {
-            logoFrame: styles.logoFrameInStyle,
-            logo: styles.logoInStyle,
-            buttons: styles.buttonsInStyle,
+            logoFrame: styles.logoFrameIn,
+            logo: styles.logoIn,
+            buttons: styles.buttonsIn,
+            footer: styles.footerIn,
         }
 
         const outTransitions =
@@ -73,13 +75,15 @@ class Home extends React.Component
             logoFrame: styles.logoFrameOutTransition,
             logo: styles.logoOutTransition,
             buttons: styles.buttonsOutTransition,
+            footer: styles.footerOutTransition,
         }
 
         const outStyles =
         {
-            logoFrame: styles.logoFrameOutStyle,
-            logo: styles.logoOutStyle,
-            buttons: styles.buttonsOutStyle,
+            logoFrame: styles.logoFrameOut,
+            logo: styles.logoOut,
+            buttons: styles.buttonsOut,
+            footer: styles.footerOut,
         }
 
         return (
@@ -102,6 +106,12 @@ class Home extends React.Component
                                     <HomeExternalButton className={styles.externalLink} link='https://www.linkedin.com/in/benjamin-pang-45621290' icon={LinkedInIcon}/>
                                 </nav>
                             </div>
+                            <span className={`${styles.footer} ${transitionStyles['footer']}`} onTransitionEnd={onTransitionEnd}>
+                                © 2017 - best viewed with Chrome/Firefox 55+ -&nbsp;
+                                <a className={styles.footerLink} href='https://www.pixiv.net/member_illust.php?mode=medium&illust_id=59460650'>image</a>
+                                &nbsp;by&nbsp;
+                                <a className={styles.footerLink} href='https://www.pixiv.net/member.php?id=211515'>防人</a>
+                            </span>
                         </div>
                     );
                 }}

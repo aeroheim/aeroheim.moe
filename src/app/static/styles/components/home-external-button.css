@@ -9,7 +9,7 @@
 .linkIcon
 {
     opacity: 0.5;
-    transition: opacity 0.75s easeOutCubic 0s;
+    transition: opacity 1.5s easeOutCubic 0s;
 }
 
 .externalLinkButton:hover > .linkIcon
