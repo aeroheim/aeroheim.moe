@@ -28,7 +28,7 @@ class Aeroheim extends React.Component
     render()
     {
         return (
-            <div className={styles.background} style={{ overflowY: this.props.scrollbarVisible ? 'overlay' : 'hidden' }}>
+            <div className={styles.background} style={!this.props.scrollbarVisible ? { overflowY: 'hidden' } : null}>
                 <Header/>
                 <Route exact path={homePath} children={(props) => <Home {...props} path={homePath}/>}/>
                 <Route exact path={moonlightPath} children={(props) => <Moonlight {...props} path={moonlightPath}/>}/>

@@ -76,8 +76,12 @@ class About extends React.Component
                             <div className={styles.content}>
                                 <PageHeader className={styles.headerStyle} color={styles.headerColor} show={this.props.match !== null}>ABOUT</PageHeader>
                                 <article className={`${styles.bio} ${transitionStyles['bio']}`} onTransitionEnd={onTransitionEnd}>
-                                    <h1>Benjamin Pang (龐天擇).</h1>
-                                    <p>{`I'm a ${age}-year-old Software Engineer working in Austin, Texas. I graduated from The University of Texas at Austin with a B.S. in Computer Science in 2015.`}</p>
+                                    <h1 style={{marginBottom: 0}}>Benjamin Pang (龐天擇).</h1>
+                                    <ul>
+                                        <li>{`${age}-year-old Software Engineer @ Austin, TX`}</li>
+                                        <li>B.S Computer Science @ The University of Texas at Austin (2015)</li>
+                                        <li>一點中文/ENG OK</li>
+                                    </ul>
                                     <p>
                                         My mechanical keyboards (~175WPM):
                                         <ul>
@@ -86,7 +90,7 @@ class About extends React.Component
                                         </ul>
                                         Currently playing the following games:
                                         <ul>
-                                            <li>FFXIV: Stormblood (<a href='http://na.finalfantasyxiv.com/lodestone/character/2238847/' className={styles.bioLink}>Aeroheim Lkofsnaso</a> @ Ultros)</li>
+                                            <li>FFXIV: Stormblood (<a href='http://na.finalfantasyxiv.com/lodestone/character/2238847/' className={styles.bioLink}>Aeroheim Lkofsnaso</a> @ Excalibur)</li>
                                             <li>Sound Voltex: grinding from SKILL LEVEL11 -> 12</li>
                                         </ul>
                                         Technologies I'm interested in right now:
@@ -95,7 +99,6 @@ class About extends React.Component
                                             <li>Electron</li>
                                         </ul>
                                     </p>
-                                    <p>You can reach me at <a href='mailto:aeroheim@gmail.com' className={styles.bioLink}>aeroheim@gmail.com</a></p>
                                 </article>
                             </div>
                         </div>
