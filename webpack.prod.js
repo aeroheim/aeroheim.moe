@@ -14,7 +14,7 @@ module.exports =
     },
 
     // generate smaller source-map for prod usage
-    devtool: 'cheap-module-source-map'
+    devtool: 'cheap-module-source-map',
 
     module:
     {
