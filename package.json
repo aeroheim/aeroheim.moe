@@ -1,7 +1,7 @@
 {
   "name": "aeroheim.moe",
   "version": "1.0.0",
-  "description": "stuff",
+  "description": "hi",
   "main": "app.js",
   "scripts": {
     "clean": "rimraf ./dist",
