@@ -38,7 +38,7 @@ module.exports = (PORT) =>
     app.use('/', express.static(path.join(__dirname, '../../dist/')));
     app.use('/', blog.router);
 
-    app.get('/favicon.ico', (req, res) => { console.log('favicon req'); res.sendFile(path.join(__dirname, '..', 'favicon.ico')) });
+    app.get('/favicon.ico', (req, res) => res.sendFile(path.join(__dirname, '..', 'favicon.ico')));
     app.get('/index.css', (req, res) => res.sendFile(path.join(__dirname, '..', 'index.css')));
     app.get('*', (req, res) => res.sendFile(path.join(__dirname, '..', 'index.html')));
 
