@@ -7,6 +7,7 @@ import { AppContainer } from 'react-hot-loader';
 import App from './components/aeroheim';
 import fonts from './static/styles/fonts/fonts.css';
 
+document.getElementById('root-spinner').remove();
 export const store = createStore(
     rootReducer,
     applyMiddleware(thunkMiddleware),
