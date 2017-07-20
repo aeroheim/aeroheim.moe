@@ -44,5 +44,6 @@ const morgan = require('morgan')('short', { stream: winston.stream });
 
 module.exports =
 {
-    morgan: morgan,
+    logExpress: morgan,
+    log: (level, msg) => winston.log(level, msg), 
 }
