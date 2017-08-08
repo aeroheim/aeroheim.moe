@@ -105,10 +105,10 @@
     flex: 1;
     padding: 15px calc(10px + 5%) 35px calc(10px + 5%);
 
-    font-family: 'M+P1-Light';
+    font-family: 'M+P1-Thin';
     color: white;
 
     overflow-x: hidden;
 
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.5);
 }
