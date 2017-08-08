@@ -1,4 +1,5 @@
 const CompressionPlugin = require('compression-webpack-plugin');
+const webpack = require('webpack');
 const path = require('path');
 
 module.exports = 
@@ -71,6 +72,7 @@ module.exports =
 
     plugins:
     [
+        new webpack.optimize.ModuleConcatenationPlugin(),
         // gzip bundled output 
         new CompressionPlugin({
             asset: '[path].gz[query]',
