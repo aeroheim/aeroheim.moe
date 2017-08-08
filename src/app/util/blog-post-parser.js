@@ -1,15 +1,19 @@
 import React, { createElement } from 'react';
 import marksy from 'marksy/components';
-import highlight from 'highlight.js/lib/highlight';
-import hljs from 'highlight.js/lib/languages/javascript';
+import prism from 'prismjs';
+import prismjsx from 'prismjs/components/prism-jsx'
+import prismLanguages from 'prism-languages';
 import { BlogPostImageBlock, BlogPostImageGroup, BlogPostImage } from '../components/blog-post-image';
-
-highlight.registerLanguage('javascript', hljs);
 
 const parser = marksy({
     createElement,
-    highlight,
-    components: {
+    highlight(language, code)
+    {
+        language = Object.assign({}, prismLanguages[language]);
+        return prism.highlight(code, language);
+    },
+    components: 
+    {
         ImageBlock(props) { return <BlogPostImageBlock {...props}/>; },
         ImageGroup(props) { return <BlogPostImageGroup {...props}/>; },
         Image(props) { return <BlogPostImage {...props}/>; },

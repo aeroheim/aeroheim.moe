@@ -162,99 +162,143 @@ body
 }
 
 
-/*
-  Monokai Sublime styles for syntax highlighting.
-  Derived from Monokai by noformnocontent http://nn.mit-license.org/. 
-  Modified for aeroheim.moe.
-*/
+/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ * Modified for aeroheim.moe
+ */
 
-.hljs 
-{
+code[class*="language-"],
+pre[class*="language-"] {
     display: block;
-    overflow-x: auto;
-    padding: 0.5em;
-    background: rgba(0, 0, 0, 0.35);
-    font-family: 'M+P1-Regular';
-}
-
-.hljs,
-.hljs-tag,
-.hljs-subst 
-{
     color: #f8f8f2;
+
+    padding-top: 0.5em;
+    padding-right: 1.5em;
+    padding-bottom: 1em;
+    padding-left: 1.5em;
+
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+    hyphens: none;
+
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.3);
 }
 
-.hljs-strong,
-.hljs-emphasis 
-{
-    color: #a8a8a2;
+code[class*="language-"]::-webkit-scrollbar {
+    height: 6px;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
-.hljs-bullet,
-.hljs-quote,
-.hljs-number,
-.hljs-regexp,
-.hljs-literal,
-.hljs-link 
-{
-    color: #ae81ff;
+code[class*="language-"]::-webkit-scrollbar-thumb {
+    background-color: #ff1985;
 }
 
-.hljs-code,
-.hljs-title,
-.hljs-section,
-.hljs-selector-class 
-{
-    color: #a6e22e;
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+	border-radius: 0.3em;
 }
 
-.hljs-strong 
-{
-    font-weight: bold;
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #272822;
 }
 
-.hljs-emphasis 
-{
-    font-style: italic;
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
 }
 
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-name,
-.hljs-attr 
-{
-    color: #f92672;
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
 }
 
-.hljs-symbol,
-.hljs-attribute 
-{
-    color: #66d9ef;
+.token.punctuation {
+	color: #f8f8f2;
 }
 
-.hljs-params,
-.hljs-class .hljs-title 
-{
-    color: #f8f8f2;
+.namespace {
+	opacity: .7;
 }
 
-.hljs-string,
-.hljs-type,
-.hljs-built_in,
-.hljs-builtin-name,
-.hljs-selector-id,
-.hljs-selector-attr,
-.hljs-selector-pseudo,
-.hljs-addition,
-.hljs-variable,
-.hljs-template-variable 
-{
-    color: #e6db74;
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #f92672;
 }
 
-.hljs-comment,
-.hljs-deletion,
-.hljs-meta 
-{
-    color: #75715e;
+.token.boolean,
+.token.number {
+	color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #a6e22e;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function {
+	color: #e6db74;
+}
+
+.token.keyword {
+	color: #66d9ef;
+}
+
+.token.regex,
+.token.important {
+	color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
 }
