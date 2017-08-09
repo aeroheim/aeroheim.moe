@@ -25,6 +25,7 @@ const blogPostReducer = (state = initialState, action) =>
                     title: action.post.title,
                     description: action.post.description,
                     date: action.post.date,
+                    tags: action.post.tags,
                     content: action.post.content,
                     loaded: true,
                     err: null,

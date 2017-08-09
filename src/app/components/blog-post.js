@@ -98,6 +98,9 @@ class BlogPost extends React.Component
                                             <span className={styles.postDate}>{monthFormatter.format(this.props.date).toUpperCase()} {this.props.date.getDate()}<br/>{this.props.date.getFullYear()}</span>
                                         </div>
                                         <p className={styles.postDescription}>{this.props.description}</p>
+                                        <ul className={styles.tagList}>
+                                            {this.props.tags.map((tag) => <span key={tag} className={styles.tag}>{tag}</span>)}
+                                        </ul>
                                     </LinkButton>
                                     <article className={styles.post}>
                                         {this.props.content}
@@ -119,6 +122,7 @@ function mapStateToProps(state)
         title: props.title,
         description: props.description,
         date: props.date,
+        tags: props.tags,
         content: props.content,
         loaded: props.loaded,
         err: props.err,

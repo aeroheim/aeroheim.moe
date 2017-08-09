@@ -6,30 +6,6 @@
     margin-top: 1px;
 }
 
-.postInTransition
-{
-    width: 75%;
-    opacity: 0;
-    transition: width 1s easeOutCubic 0s, opacity 1s easeOutCubic 0s;
-}
-
-.postIn
-{
-    width: 100%;
-    opacity: 1;
-}
-
-.postOutTransition
-{
-    width: 100%;
-    transition: width 0.65s easeOutCubic 0s;
-}
-
-.postOut
-{
-    width: 75%;
-}
-
 .linkButton
 {
     /* relative allows for colorBar to size itself relative to linkButton */
@@ -104,6 +80,7 @@
 .postDescription
 {
     margin-top: 0;
+    margin-bottom: 0;
 
     font-size: responsive 12px 20px;
     font-range: 420px 2560px;
@@ -112,4 +89,30 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.tagList
+{
+    padding: 0;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.tag
+{
+    display: inline-block;
+    margin-right: 1em;
+    border-radius: 8px;
+    min-width: 65px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    font-size: responsive 8px 16px;
+    font-range: 420px 2560px;
+    font-family: 'M+P1-Light';
+
+    text-align: center;
+    vertical-align: center;
+
+    background: blogColor;
 }

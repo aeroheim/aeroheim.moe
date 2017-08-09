@@ -100,6 +100,17 @@
     composes: postDescription from './blog-list-item.css';
 }
 
+.tagList
+{
+    composes: tagList from './blog-list-item.css';
+    margin-bottom: 20px;
+}
+
+.tag
+{
+    composes: tag from './blog-list-item.css';
+}
+
 .post
 {
     flex: 1;
