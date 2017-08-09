@@ -33,10 +33,12 @@ const PageHeader = ({ children, className, color, show }) =>
             {({ transitionStyles, onTransitionEnd }) => {
                 return (
                     <header className={`${styles.header} ${className} ${transitionStyles['header']}`} onTransitionEnd={onTransitionEnd}>
-                        <h1 className={`${styles.headerText} ${transitionStyles['headerText']}`} onTransitionEnd={onTransitionEnd}>
-                            {children}
+                        <div className={styles.headerTextContainer}>
+                            <h1 className={`${styles.headerText} ${transitionStyles['headerText']}`} onTransitionEnd={onTransitionEnd}>
+                                {children}
+                            </h1>
                             <div className={`${styles.headerTextDecoration} ${color}`}/>
-                        </h1>
+                        </div>
                         <div className={styles.headerBar}/>
                     </header>
                 );

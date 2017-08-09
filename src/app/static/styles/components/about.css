@@ -61,7 +61,7 @@
 {
     opacity: 0;
     clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
-    transition: opacity 0.65s easeOutCubic 0.35s, clip-path 0.65s easeOutCubic 0.35s;
+    transition: opacity 1s easeOutCubic, clip-path 1s easeOutCubic;
 }
 
 .bioIn
@@ -72,13 +72,13 @@
 
 .bioOutTransition
 {
-    opacity: 1;
-    transition: opacity 0.65s easeOutCubic 0s;
+    transition: opacity 0.65s easeOutCubic 0s, clip-path 1s easeOutCubic;
 }
 
 .bioOut
 {
     opacity: 0;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
 }
 
 .bioLink
