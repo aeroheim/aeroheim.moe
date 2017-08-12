@@ -1,5 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory'
+import withAnalytics from '../util/analytics';
 import Header from './header';
 import Home from './home';
 import Moonlight from './moonlight';
@@ -53,9 +55,9 @@ const App = ({ store }) =>
 {
     return (
         <Provider store={store}>
-            <BrowserRouter>
+            <Router history={process.env.NODE_ENV === 'production' ? withAnalytics(createHistory()) : createHistory()}>
                 <Route path='/' component={connect(mapStateToProps)(Aeroheim)}/>
-            </BrowserRouter>
+            </Router>
         </Provider>
     );
 }
