@@ -1,12 +1,12 @@
 import React from 'react';
-import AnimatedCSSTransition from './animated-css-transition';
+import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/error-not-found.css';
 
 const Error = ({ title, text, show }) =>
 {
     const inTransitions =
     {
-        content: styles.contentInTransition,
+        content: new Transition(styles.contentInTransition, 'opacity', 'clip-path'),
     }
 
     const inStyles =
@@ -16,7 +16,7 @@ const Error = ({ title, text, show }) =>
 
     const outTransitions =
     {
-        content: styles.contentOutTransition,
+        content: new Transition(styles.contentOutTransition, 'opacity'),
     }
 
     const outStyles =
@@ -25,10 +25,10 @@ const Error = ({ title, text, show }) =>
     }
 
     return (
-        <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={show}>
-            {({ transitionStyles, onTransitionEnd }) => {
+        <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={show} test='error'>
+            {({ transitionStyles }) => {
                 return (
-                    <div className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
+                    <div className={`${styles.content} ${transitionStyles['content']}`}>
                         <div className={styles.container}>
                             <h1 className={styles.header}>{title}</h1>
                             <p className={styles.subtext}>{text}</p>

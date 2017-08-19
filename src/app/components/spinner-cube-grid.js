@@ -1,5 +1,5 @@
 import React from 'react';
-import AnimatedCSSTransition from './animated-css-transition';
+import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/spinner-cube-grid.css';
 
 // Based off of the cube-grid spinner from https://github.com/tobiasahlin/SpinKit
@@ -7,7 +7,7 @@ const SpinnerCubeGrid = ({ className, color, show }) =>
 {
     const inTransitions =
     {
-        cubeGrid: styles.cubeGridInTransition,
+        cubeGrid: new Transition(styles.cubeGridInTransition, 'opacity'),
     }
 
     const inStyles =
@@ -17,7 +17,7 @@ const SpinnerCubeGrid = ({ className, color, show }) =>
 
     const outTransitions =
     {
-        cubeGrid: styles.cubeGridOutTransition,
+        cubeGrid: new Transition(styles.cubeGridOutTransition, 'opacity'),
     }
 
     const outStyles =
@@ -27,9 +27,9 @@ const SpinnerCubeGrid = ({ className, color, show }) =>
 
     return (
         <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={show}>
-            {({ transitionStyles, onTransitionEnd }) => {
+            {({ transitionStyles }) => {
                 return (
-                    <div className={`${styles.cubeGrid} ${transitionStyles['cubeGrid']} ${className}`} onTransitionEnd={onTransitionEnd}>
+                    <div className={`${styles.cubeGrid} ${transitionStyles['cubeGrid']} ${className}`}>
                         <div className={styles.content}>
                             <div className={`${styles.cubeOne} ${color}`}></div>
                             <div className={`${styles.cubeTwo} ${color}`}></div>

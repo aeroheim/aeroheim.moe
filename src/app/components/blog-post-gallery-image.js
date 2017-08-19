@@ -1,12 +1,12 @@
 import React from 'react';
-import AnimatedCSSTransition from './animated-css-transition';
+import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/blog-post-gallery-image.css';
 
 const BlogPostGalleryImage = ({ show, img, index, imageCount }) =>
 {
     const inTransitions =
     {
-        content: styles.contentInTransition,
+        content: new Transition(styles.contentInTransition, 'opacity'),
     }
 
     const inStyles =
@@ -16,7 +16,7 @@ const BlogPostGalleryImage = ({ show, img, index, imageCount }) =>
 
     const outTransitions =
     {
-        content: styles.contentOutTransition,
+        content: new Transition(styles.contentOutTransition, 'opacity'),
     }
 
     const outStyles =
@@ -26,9 +26,9 @@ const BlogPostGalleryImage = ({ show, img, index, imageCount }) =>
 
     return (
         <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={show}>
-            {({ transitionStyles, onTransitionEnd }) => {
+            {({ transitionStyles }) => {
                 return (
-                    <figure className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
+                    <figure className={`${styles.content} ${transitionStyles['content']}`}>
                         <img className={styles.image} src={img.src}/>
                         <figcaption className={styles.captionContainer}>
                             <div className={styles.imageText}>

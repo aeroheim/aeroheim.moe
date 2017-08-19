@@ -5,7 +5,7 @@ import BlogListItem from './blog-list-item';
 import BlogPost from './blog-post';
 import { ErrorHandler } from './error';
 import SpinnerCubeGrid from './spinner-cube-grid';
-import AnimatedCSSTransition from './animated-css-transition';
+import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/blog.css';
 
 import { connect } from 'react-redux';
@@ -58,8 +58,8 @@ class Blog extends React.Component
     {
         const inTransitions =
         {
-            content: styles.contentInTransition,
-            posts: styles.postsInTransition,
+            content: new Transition(styles.contentInTransition, 'left'),
+            posts: new Transition(styles.postsInTransition, 'opacity', 'clip-path'),
         }
 
         const inStyles =
@@ -70,8 +70,8 @@ class Blog extends React.Component
 
         const outTransitions =
         {
-            content: styles.contentOutTransition,
-            posts: styles.postsOutTransition,
+            content: new Transition(styles.contentOutTransition, 'opacity'),
+            posts: new Transition(styles.postsOutTransition, 'opacity'),
         }
 
         const outStyles =
@@ -89,13 +89,13 @@ class Blog extends React.Component
                 <ErrorHandler err={this.props.err}/>
                 <SpinnerCubeGrid className={styles.postsSpinner} color={styles.postsSpinnerColor} show={match && !err && !this.props.loaded}/>
                 <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match && this.props.loaded}>
-                    {({ transitionStyles, onTransitionEnd }) => {
+                    {({ transitionStyles }) => {
                         return (
                             <div className={styles.page}>
-                                <div className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
+                                <div className={`${styles.content} ${transitionStyles['content']}`}>
                                     <PageHeader className={styles.headerStyle} color={styles.headerColor} show={match}>BLOG</PageHeader>
                                     <div className={styles.postsContent}>
-                                        <ul className={`${styles.posts} ${transitionStyles['posts']}`} onTransitionEnd={onTransitionEnd}>
+                                        <ul className={`${styles.posts} ${transitionStyles['posts']}`}>
                                             {this.props.posts.map((post) => <BlogListItem key={post._id} post={post} show={match}/>)}
                                         </ul>
                                     </div>

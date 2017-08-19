@@ -3,7 +3,7 @@ import LinkButton from './link-button';
 import { ErrorHandler } from './error';
 import SpinnerCubeGrid from './spinner-cube-grid';
 import BlogPostGallery from './blog-post-gallery';
-import AnimatedCSSTransition from './animated-css-transition';
+import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/blog-post.css';
 
 import { connect } from 'react-redux';
@@ -59,7 +59,7 @@ class BlogPost extends React.Component
     {
         const inTransitions =
         {
-            content: styles.contentInTransition,
+            content: new Transition(styles.contentInTransition, 'opacity'),
         }
 
         const inStyles =
@@ -69,7 +69,7 @@ class BlogPost extends React.Component
 
         const outTransitions =
         {
-            content: styles.contentOutTransition,
+            content: new Transition(styles.contentOutTransition, 'opacity'),
         }
 
         const outStyles =
@@ -87,10 +87,10 @@ class BlogPost extends React.Component
                 <SpinnerCubeGrid className={styles.postSpinner} color={styles.postSpinnerColor} show={match && !err && !this.props.loaded}/>
                 <BlogPostGallery show={match && this.props.loaded && this.props.showImageGallery}/>
                 <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match && this.props.loaded}>
-                    {({ transitionStyles, onTransitionEnd }) => {
+                    {({ transitionStyles }) => {
                         return (
                             <div className={styles.page}>
-                                <div className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
+                                <div className={`${styles.content} ${transitionStyles['content']}`}>
                                     <LinkButton link='/blog' className={styles.linkButton}>
                                         <div className={styles.postColorBar}/>
                                         <div className={styles.postText}>

@@ -5,7 +5,7 @@ import NextIcon from '../static/img/icons/next.svg';
 import CloseIcon from '../static/img/icons/close.svg';
 import Button from './button';
 import BlogPostGalleryImage from './blog-post-gallery-image';
-import AnimatedCSSTransition from './animated-css-transition';
+import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/blog-post-gallery.css';
 
 import { connect } from 'react-redux';
@@ -58,7 +58,7 @@ class BlogPostGallery extends React.Component
     {
         const inTransitions =
         {
-            page: styles.pageInTransition,
+            page: new Transition(styles.pageInTransition, 'opacity'),
         }
 
         const inStyles =
@@ -68,7 +68,7 @@ class BlogPostGallery extends React.Component
 
         const outTransitions =
         {
-            page: styles.pageOutTransition,
+            page: new Transition(styles.pageOutTransition, 'opacity'),
         }
 
         const outStyles =
@@ -78,9 +78,9 @@ class BlogPostGallery extends React.Component
 
         return (
             <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.show}>
-                {({ transitionStyles, onTransitionEnd }) => {
+                {({ transitionStyles }) => {
                     return (
-                        <div className={`${styles.page} ${transitionStyles['page']}`} onTransitionEnd={onTransitionEnd}>
+                        <div className={`${styles.page} ${transitionStyles['page']}`}>
                             <div className={styles.closeButtonContainer}>
                                 <Button className={styles.button} onClick={this.onClose}>
                                     <SVGInline svg={CloseIcon} className={styles.closeIcon}/>

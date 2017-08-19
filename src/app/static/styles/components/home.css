@@ -145,12 +145,12 @@
 .buttonsOutTransition
 {
     opacity: 1;
+    transition: opacity 0.65s easeInCubic 0s;
 }
 
 .buttonsOut
 {
     opacity: 0;
-    transition: opacity 0.65s easeInCubic 0s;
 }
 
 .moonlightColor
@@ -201,12 +201,12 @@
 .footerOutTransition
 {
     opacity: 0.5;
+    transition: opacity 0.65s easeInCubic 0s;
 }
 
 .footerOut
 {
     opacity: 0;
-    transition: opacity 0.65s easeInCubic 0s;
 }
 
 .footerLink

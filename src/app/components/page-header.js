@@ -1,13 +1,13 @@
 import React from 'react';
-import AnimatedCSSTransition from './animated-css-transition';
+import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/page-header.css';
 
 const PageHeader = ({ children, className, color, show }) =>
 {
     const inTransitions =
     {
-        header: styles.headerInTransition,
-        headerText: styles.headerTextInTransition,
+        header: new Transition(styles.headerInTransition, 'width', 'opacity'),
+        headerText: new Transition(styles.headerTextInTransition, 'clip-path'),
     }
 
     const inStyles =
@@ -18,8 +18,8 @@ const PageHeader = ({ children, className, color, show }) =>
 
     const outTransitions =
     {
-        header: styles.headerOutTransition,
-        headerText: styles.headerTextOutTransition,
+        header: new Transition(styles.headerOutTransition, 'opacity'),
+        headerText: new Transition(styles.headerTextOutTransition, 'opacity'),
     }
 
     const outStyles =
@@ -30,11 +30,11 @@ const PageHeader = ({ children, className, color, show }) =>
 
     return (
         <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={show}>
-            {({ transitionStyles, onTransitionEnd }) => {
+            {({ transitionStyles }) => {
                 return (
-                    <header className={`${styles.header} ${className} ${transitionStyles['header']}`} onTransitionEnd={onTransitionEnd}>
+                    <header className={`${styles.header} ${className} ${transitionStyles['header']}`}>
                         <div className={styles.headerTextContainer}>
-                            <h1 className={`${styles.headerText} ${transitionStyles['headerText']}`} onTransitionEnd={onTransitionEnd}>
+                            <h1 className={`${styles.headerText} ${transitionStyles['headerText']}`}>
                                 {children}
                             </h1>
                             <div className={`${styles.headerTextDecoration} ${color}`}/>

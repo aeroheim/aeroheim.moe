@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PageHeader from './page-header';
-import AnimatedCSSTransition from './animated-css-transition';
+import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/about.css';
 
 import { matchRoute, unmatchRoute} from '../actions/routes-actions';
@@ -48,7 +48,7 @@ class About extends React.Component
     {
         const inTransitions =
         {
-            bio: styles.bioInTransition,
+            bio: new Transition(styles.bioInTransition, 'opacity', 'clip-path'),
         }
 
         const inStyles =
@@ -58,7 +58,7 @@ class About extends React.Component
 
         const outTransitions =
         {
-            bio: styles.bioOutTransition,
+            bio: new Transition(styles.bioOutTransition, 'opacity', 'clip-path'),
         }
 
         const outStyles =
@@ -70,12 +70,12 @@ class About extends React.Component
         
         return (
             <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null}>
-                {({ transitionStyles, onTransitionEnd }) => {
+                {({ transitionStyles }) => {
                     return (
                         <div className={styles.page}>
                             <div className={styles.content}>
                                 <PageHeader className={styles.headerStyle} color={styles.headerColor} show={this.props.match !== null}>ABOUT</PageHeader>
-                                <article className={`${styles.bio} ${transitionStyles['bio']}`} onTransitionEnd={onTransitionEnd}>
+                                <article className={`${styles.bio} ${transitionStyles['bio']}`}>
                                     <h1 style={{marginBottom: 0}}>Benjamin Pang (龐天擇).</h1>
                                     <ul>
                                         <li>{`${age}-year-old Software Engineer @ Austin, TX`}</li>

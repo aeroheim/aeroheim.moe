@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import AnimatedCSSTransition from './animated-css-transition';
+import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import LinkButton from './link-button';
 import HomeMainButton from './home-main-button';
 import HomeExternalButton from './home-external-button';
@@ -56,10 +56,10 @@ class Home extends React.Component
     {
         const inTransitions =
         {
-            logoFrame: styles.logoFrameInTransition,
-            logo: styles.logoInTransition,
-            buttons: styles.buttonsInTransition,
-            footer: styles.footerInTransition,
+            logoFrame: new Transition(styles.logoFrameInTransition, 'opacity', 'clip-path'),
+            logo: new Transition(styles.logoInTransition, 'stroke-dashoffset'),
+            buttons: new Transition(styles.buttonsInTransition, 'opacity'),
+            footer: new Transition(styles.footerInTransition, 'opacity', 'transform'),
         }
 
         const inStyles =
@@ -72,10 +72,10 @@ class Home extends React.Component
 
         const outTransitions =
         {
-            logoFrame: styles.logoFrameOutTransition,
-            logo: styles.logoOutTransition,
-            buttons: styles.buttonsOutTransition,
-            footer: styles.footerOutTransition,
+            logoFrame: new Transition(styles.logoFrameOutTransition, 'opacity', 'clip-path'),
+            logo: new Transition(styles.logoOutTransition, 'stroke-dashoffset'),
+            buttons: new Transition(styles.buttonsOutTransition, 'opacity'),
+            footer: new Transition(styles.footerOutTransition, 'opacity'),
         }
 
         const outStyles =
@@ -88,25 +88,25 @@ class Home extends React.Component
 
         return (
             <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null}>
-                {({ transitionStyles, onTransitionEnd }) => {
+                {({ transitionStyles }) => {
                     return (
                         <div className={styles.page}>
                             <div className={styles.content}>
-                                <div className={`${styles.logoFrame} ${transitionStyles['logoFrame']}`} onTransitionEnd={onTransitionEnd}>
-                                    <SVGInline svg={Logo} className={`${styles.logo} ${transitionStyles['logo']}`} onTransitionEnd={onTransitionEnd}/>
+                                <div className={`${styles.logoFrame} ${transitionStyles['logoFrame']}`}>
+                                    <SVGInline svg={Logo} className={`${styles.logo} ${transitionStyles['logo']}`}/>
                                 </div>
-                                <nav className={`${styles.mainLinks} ${transitionStyles['buttons']}`} onTransitionEnd={onTransitionEnd}>
+                                <nav className={`${styles.mainLinks} ${transitionStyles['buttons']}`}>
                                     <HomeMainButton className={styles.link} link='/moonlight' header='moonlight' subtext='aesthetic music player' color={styles.moonlightColor}/>
                                     <HomeMainButton className={styles.link} link='/bumps' header='bumps' subtext='favorite beats with art' color={styles.bumpsColor}/>
                                     <HomeMainButton className={styles.link} link='/blog' header='blog' subtext='thoughts and reflections' color={styles.blogColor}/>
                                 </nav>
-                                <nav className={`${styles.externalLinks} ${transitionStyles['buttons']}`} onTransitionEnd={onTransitionEnd}>
+                                <nav className={`${styles.externalLinks} ${transitionStyles['buttons']}`}>
                                     <HomeExternalButton className={styles.externalLink} link='https://github.com/aeroheim' icon={GithubIcon}/>
                                     <HomeExternalButton className={styles.externalLink} link='https://twitter.com/aeroheim' icon={TwitterIcon}/>
                                     <HomeExternalButton className={styles.externalLink} link='https://www.linkedin.com/in/benjamin-pang-45621290' icon={LinkedInIcon}/>
                                 </nav>
                             </div>
-                            <span className={`${styles.footer} ${transitionStyles['footer']}`} onTransitionEnd={onTransitionEnd}>
+                            <span className={`${styles.footer} ${transitionStyles['footer']}`}>
                                 © 2017 - best viewed with Chrome/Firefox 55+ -&nbsp;
                                 <a className={styles.footerLink} href='https://www.pixiv.net/member_illust.php?mode=medium&illust_id=59460650'>image</a>
                                 &nbsp;by&nbsp;

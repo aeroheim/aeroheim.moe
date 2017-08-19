@@ -1,5 +1,59 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+
+class Transition
+{
+    constructor(style, ...transitionProperties)
+    {
+        this.style = style;
+        this.finished = {};
+
+        for (let i = 0; i < transitionProperties.length; ++i)
+        {
+            this.finished[transitionProperties[i]] = false;
+        }
+
+        this.reset.bind(this);
+        this.finishTransition.bind(this);
+        this.setDone.bind(this);
+        this.isDone.bind(this);
+    }
+
+    reset()
+    {
+        for (const key in this.finished)
+        {
+            this.finished[key] = false;
+        }
+    }
+
+    finishTransition(transitionProperty)
+    {
+        this.finished[transitionProperty] = true;
+    }
+
+    setDone(done)
+    {
+        for (const key in this.finished)
+        {
+            this.finished[key] = done;
+        }
+    }
+
+    isDone()
+    {
+        for (const key in this.finished)
+        {
+            if (!this.finished[key])
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
 
 class AnimatedCSSTransition extends React.Component
 {
@@ -12,13 +66,16 @@ class AnimatedCSSTransition extends React.Component
         this.outTransitions = props.outTransitions;
         this.outStyles = props.outStyles;
 
+        // transitions - the current set of transition objects, either inTransitions or outTransitions
         this.transitions = props.inTransitions;
-        this.finished = {};
+
+        // styles - the complete set of styles to apply to elements, including both the base in/out styles as well as the transition styles
         this.styles = {};
+
         for (const key in this.transitions)
         {
-            this.finished[key] = !this.props.show;
-            this.styles[key] = this.transitions[key];
+            this.transitions[key].setDone(!this.props.show);
+            this.styles[key] = this.transitions[key].style;
         }
         
         this.state = 
@@ -32,10 +89,17 @@ class AnimatedCSSTransition extends React.Component
         this.transition = this.transition.bind(this);
         this.transitionInternal = this.transitionInternal.bind(this);
         this.onTransitionEnd = this.onTransitionEnd.bind(this);
+
     }
 
     componentDidMount()
     {
+        const element = ReactDOM.findDOMNode(this);
+        if (element)
+        {
+            element.addEventListener('transitionend', this.onTransitionEnd);
+        }
+
         this.mounted = true;
         if (this.props.show)
         {
@@ -45,6 +109,12 @@ class AnimatedCSSTransition extends React.Component
 
     componentWillUnmount()
     {
+        const element = ReactDOM.findDOMNode(this);
+        if (element)
+        {
+            element.removeEventListener('transitionend', this.onTransitionEnd);
+        }
+
         this.mounted = false;
     }
 
@@ -62,17 +132,15 @@ class AnimatedCSSTransition extends React.Component
 
     isDone()
     {
-        let isDone = true;
-        for (const key in this.finished)
+        for (const key in this.transitions)
         {
-            if (!this.finished[key])
+            if (!this.transitions[key].isDone())
             {
-                isDone = false;
-                break;
+                return false;
             }
         }
 
-        return isDone;
+        return true;
     }
 
     transition()
@@ -89,9 +157,16 @@ class AnimatedCSSTransition extends React.Component
         // again since they may have changed between the time transition() was called and now.
         if (this.isDone() && this.props.show !== this.state.active)
         {
-            for (const key in this.finished)
+            // Any child component that remounts will stop bubbling events up. The event listener must be re-applied to enabling bubbling again.
+            ReactDOM.findDOMNode(this).removeEventListener('transitionend', this.onTransitionEnd);
+            ReactDOM.findDOMNode(this).addEventListener('transitionend', this.onTransitionEnd);
+
+            this.transitions = this.props.show ? this.inTransitions : this.outTransitions;
+
+            for (const key in this.transitions)
             {
-                this.finished[key] = false;
+                this.inTransitions[key].reset();
+                this.outTransitions[key].reset();
             }
         }
 
@@ -101,11 +176,11 @@ class AnimatedCSSTransition extends React.Component
             {
                 if (this.transitions === this.inTransitions)
                 {
-                    this.styles[key] = `${this.inTransitions[key]} ${this.props.show ? this.inStyles[key] : ''}`;
+                    this.styles[key] = `${this.inTransitions[key].style} ${this.props.show ? this.inStyles[key] : ''}`;
                 }
                 else
                 {
-                    this.styles[key] = `${this.inTransitions[key]} ${this.inStyles[key]} ${this.outTransitions[key]} ${!this.props.show ? this.outStyles[key] : ''}`;
+                    this.styles[key] = `${this.inTransitions[key].style} ${this.inStyles[key]} ${this.outTransitions[key].style} ${!this.props.show ? this.outStyles[key] : ''}`;
                 }
             }
 
@@ -121,26 +196,24 @@ class AnimatedCSSTransition extends React.Component
 
     onTransitionEnd(e)
     {
-        // onTransitionEnd events can bubble from children of elements with transition styles.
-        // Therefore events from those child elements must be filtered out.
-        let isTransitionElement = false;
         for (const key in this.transitions)
         {
-            if (e.target.className.includes(this.transitions[key]))
+            // filter out elements that aren't using any of the transition styles
+            if (e.target.className.includes(this.transitions[key].style))
             {
-                isTransitionElement = true;
-                this.finished[key] = true;
+                if (this.transitions[key].finished[e.propertyName] !== undefined)
+                {
+                    this.transitions[key].finishTransition(e.propertyName);
+                }
             }
         }
 
-        if(isTransitionElement && this.isDone())
+        if(this.isDone())
         {
-            this.transitions = this.props.show ? this.outTransitions : this.inTransitions;
-
-            // reset styles
+            // set to final style for in/out state
             for (const key in this.transitions)
             {
-                this.styles[key] = this.props.show ? `${this.inTransitions[key]} ${this.inStyles[key]} ${this.outTransitions[key]}`: this.inTransitions[key];
+                this.styles[key] = this.props.show ? `${this.inTransitions[key].style} ${this.inStyles[key]} ${this.outTransitions[key].style}`: this.inTransitions[key].style;
             }
 
             if (this.mounted)
@@ -156,7 +229,7 @@ class AnimatedCSSTransition extends React.Component
     render()
     {
         return (this.props.show || this.state.active || !this.isDone())
-            ? this.props.children(Object.assign({}, { onTransitionEnd: this.onTransitionEnd }, this.state )) 
+            ? this.props.children(this.state) 
             : null;
     }
 }
@@ -169,4 +242,4 @@ AnimatedCSSTransition.propTypes =
     outTransitions: PropTypes.object.isRequired,
 }
 
-export default AnimatedCSSTransition;
+export { AnimatedCSSTransition, Transition };
