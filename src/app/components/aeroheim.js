@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
+import { connect, Provider } from 'react-redux';
 import Header from './header';
 import Home from './home';
 import Moonlight from './moonlight';
@@ -8,9 +9,6 @@ import Blog from './blog';
 import About from './about';
 import ErrorNotFoundRoute from './error-route';
 import styles from '../static/styles/components/aeroheim.css';
-
-import { connect, Provider } from 'react-redux';
-
 
 const homePath = '/';
 const moonlightPath ='/moonlight';

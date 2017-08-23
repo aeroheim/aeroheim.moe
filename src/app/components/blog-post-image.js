@@ -1,8 +1,7 @@
 import React from 'react';
-import styles from '../static/styles/components/blog-post-image.css';
-
-import { store } from '../app';
+import store from '../app';
 import { addGalleryImage, setGalleryActiveImageIndex, setGalleryVisibility } from '../actions/blog-post-gallery-actions';
+import styles from '../static/styles/components/blog-post-image.css';
 
 const BlogPostImageBlock = ({ children }) =>
 {

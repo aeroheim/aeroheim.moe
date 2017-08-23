@@ -1,12 +1,12 @@
 import React from 'react';
-import AnimatedCSSTransition from './animated-css-transition';
+import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/button.css';
 
 const Button = ({ className, children, onClick, animate, show }) =>
 {
     const inTransitions =
     {
-        button: styles.buttonInTransition,
+        button: new Transition(styles.buttonInTransition, 'opacity'),
     }
 
     const inStyles =
@@ -16,7 +16,7 @@ const Button = ({ className, children, onClick, animate, show }) =>
 
     const outTransitions =
     {
-        button: styles.buttonOutTransition,
+        button: new Transition(styles.buttonOutTransition, 'opacity'),
     }
 
     const outStyles =
@@ -28,9 +28,9 @@ const Button = ({ className, children, onClick, animate, show }) =>
     {
         return (
             <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={show}>
-                {({ transitionStyles, onTransitionEnd }) => {
+                {({ transitionStyles }) => {
                     return (
-                        <button className={`${styles.button} ${className} ${transitionStyles['button']}`} onTransitionEnd={onTransitionEnd} onClick={onClick}>
+                        <button className={`${styles.button} ${className} ${transitionStyles['button']}`} onClick={onClick}>
                             {children}
                         </button>
                     );

@@ -40,3 +40,5 @@ function render(Component)
 }
 
 render(Aeroheim);
+
+export default store;
