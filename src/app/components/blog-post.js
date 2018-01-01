@@ -95,7 +95,7 @@ class BlogPost extends React.Component
                                         <div className={styles.postColorBar}/>
                                         <div className={styles.postText}>
                                             <span className={styles.postTitle}>{this.props.title}</span>
-                                            <span className={styles.postDate}>{monthFormatter.format(this.props.date).toUpperCase()} {this.props.date.getDate()}<br/>{this.props.date.getFullYear()}</span>
+                                            <span className={styles.postDate}>{monthFormatter.format(this.props.date).toUpperCase()} {this.props.date.getUTCDate()}<br/>{this.props.date.getUTCFullYear()}</span>
                                         </div>
                                         <p className={styles.postDescription}>{this.props.description}</p>
                                         <ul className={styles.tagList}>
