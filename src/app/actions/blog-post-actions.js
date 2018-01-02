@@ -9,7 +9,8 @@ export const fetchPost = (id) =>
         return Axios.get(`/api/blog/${id}`)
             .then((res) => 
             {
-                res.data.date = new Date(res.data.date);
+                var date = new Date(res.data.date);
+                res.data.date = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
                 res.data.content = parseBlogPost(res.data.content);
                 
                 dispatch(receivePost(id, res.data))

@@ -5,7 +5,8 @@ import styles from '../static/styles/components/blog-list-item.css';
 
 const BlogListItem = ({ post, show, url }) =>
 {
-    post.date = new Date(post.date);
+    var date = new Date(post.date);
+    post.date = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
     const monthFormatter = new Intl.DateTimeFormat('en-us', { month: 'short' });
 
     return (
@@ -14,7 +15,7 @@ const BlogListItem = ({ post, show, url }) =>
                 <div className={styles.postColorBar}/>
                 <div className={styles.postText}>
                     <h2 className={styles.postTitle}>{post.title}</h2>
-                    <span className={styles.postDate}>{monthFormatter.format(post.date).toUpperCase()} {post.date.getDate()}<br/>{post.date.getFullYear()}</span>
+                    <span className={styles.postDate}>{monthFormatter.format(post.date).toUpperCase()} {post.date.getUTCDate()}<br/>{post.date.getUTCFullYear()}</span>
                 </div>
                 <p className={styles.postDescription}>{post.description}</p>
                 <ul className={styles.tagList}>
