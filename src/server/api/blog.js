@@ -21,7 +21,7 @@ router.use('/blog/*', filterStaticFiles);
 router.use('/blog', express.static(contentPath));
 router.get('/api/blog', (req, res) =>
 {
-    req.app.locals.db.blog.find({}, (err, posts) =>
+    req.app.locals.db.blog.find({}).sort({ date: -1 }).exec((err, posts) =>
     {
         if (err)
         {
