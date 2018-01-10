@@ -90,7 +90,7 @@ class About extends React.Component
                                         </ul>
                                         Currently playing the following games:
                                         <ul>
-                                            <li>FFXIV: Stormblood (<a href='http://na.finalfantasyxiv.com/lodestone/character/2238847/' className={styles.bioLink}>Aeroheim Lkofsnaso</a> @ Excalibur)</li>
+                                            <li>Black Desert Online: Aeroheim family @ NA</li>
                                             <li>Sound Voltex: grinding from SKILL LEVEL11 -> 12</li>
                                         </ul>
                                         Technologies I'm interested in right now:
