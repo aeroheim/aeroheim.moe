@@ -14,8 +14,8 @@ module.exports =
         publicPath: '/',
     },
 
-    // generate smaller source-map for prod usage
-    devtool: 'cheap-module-source-map',
+    // see https://webpack.js.org/configuration/devtool/
+    devtool: 'source-map',
 
     module:
     {

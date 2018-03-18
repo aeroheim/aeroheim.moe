@@ -27,7 +27,8 @@ module.exports =
     },
 
     // more accurate source map for debugging
-    devtool: 'cheap-module-eval-source-map',
+    // see https://webpack.js.org/configuration/devtool/
+    devtool: 'eval-source-map',
 
     module:
     {
