@@ -6,8 +6,8 @@
   "scripts": {
     "clean": "rimraf ./dist",
     "prebuild": "npm run clean",
-    "build-dev": "webpack --mode development --env=dev --progress --profile --colors",
-    "build-prod": "webpack --mode production --env=prod --progress --profile --colors",
+    "build-dev": "webpack --env=dev --progress --profile --colors",
+    "build-prod": "webpack --env=prod --progress --profile --colors",
     "start-dev": "node ./src/server/server.js",
     "start-prod": "cross-env NODE_ENV=production node ./src/server/server.js"
   },

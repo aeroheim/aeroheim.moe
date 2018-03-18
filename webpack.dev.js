@@ -26,6 +26,8 @@ module.exports =
         publicPath: '/',
     },
 
+    mode: "development",
+
     // more accurate source map for debugging
     // see https://webpack.js.org/configuration/devtool/
     devtool: 'eval-source-map',

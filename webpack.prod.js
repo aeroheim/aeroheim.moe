@@ -14,6 +14,8 @@ module.exports =
         publicPath: '/',
     },
 
+    mode: "production",
+
     // see https://webpack.js.org/configuration/devtool/
     devtool: 'source-map',
 
