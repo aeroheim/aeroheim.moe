@@ -16,11 +16,15 @@
          url('./mplus-1p-light-sub.ttf') format('truetype');
 }
 
-@font-face
+@font-face 
 {
-    font-family: 'M+P1-Regular';
-    src: url('./mplus-1p-regular-sub.eot');
-    src: url('./mplus-1p-regular-sub.eot?#iefix') format('embedded-opentype'),
-         url('./mplus-1p-regular-sub.woff') format('woff'),
-         url('./mplus-1p-regular-sub.ttf') format('truetype');
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 200;
+    src: url('./nunito-v9-latin-200.eot'); /* IE9 Compat Modes */
+    src: local('Nunito ExtraLight'), local('Nunito-ExtraLight'),
+         url('./nunito-v9-latin-200.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('./nunito-v9-latin-200.woff2') format('woff2'), /* Super Modern Browsers */
+         url('./nunito-v9-latin-200.woff') format('woff'), /* Modern Browsers */
+         url('./nunito-v9-latin-200.ttf') format('truetype'); /* Safari, Android, iOS */
 }
