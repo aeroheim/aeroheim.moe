@@ -116,7 +116,8 @@
     flex: 1;
     padding: 15px calc(10px + 5%) 35px calc(10px + 5%);
 
-    font-family: 'M+P1-Thin';
+    font-family: 'Nunito';
+    font-weight: 200;
     color: white;
 
     overflow-x: hidden;
