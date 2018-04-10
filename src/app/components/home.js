@@ -56,7 +56,7 @@ class Home extends React.Component
     {
         const inTransitions =
         {
-            logoFrame: new Transition(styles.logoFrameInTransition, 'opacity', 'clip-path'),
+            logoBox: new Transition(styles.logoBoxInTransition, 'opacity', 'clip-path'),
             logo: new Transition(styles.logoInTransition, 'stroke-dashoffset'),
             buttons: new Transition(styles.buttonsInTransition, 'opacity'),
             footer: new Transition(styles.footerInTransition, 'opacity', 'transform'),
@@ -64,7 +64,7 @@ class Home extends React.Component
 
         const inStyles =
         {
-            logoFrame: styles.logoFrameIn,
+            logoBox: styles.logoBoxIn,
             logo: styles.logoIn,
             buttons: styles.buttonsIn,
             footer: styles.footerIn,
@@ -72,7 +72,7 @@ class Home extends React.Component
 
         const outTransitions =
         {
-            logoFrame: new Transition(styles.logoFrameOutTransition, 'opacity', 'clip-path'),
+            logoBox: new Transition(styles.logoBoxOutTransition, 'opacity', 'clip-path'),
             logo: new Transition(styles.logoOutTransition, 'stroke-dashoffset'),
             buttons: new Transition(styles.buttonsOutTransition, 'opacity'),
             footer: new Transition(styles.footerOutTransition, 'opacity'),
@@ -80,7 +80,7 @@ class Home extends React.Component
 
         const outStyles =
         {
-            logoFrame: styles.logoFrameOut,
+            logoBox: styles.logoBoxOut,
             logo: styles.logoOut,
             buttons: styles.buttonsOut,
             footer: styles.footerOut,
@@ -91,23 +91,25 @@ class Home extends React.Component
                 {({ transitionStyles }) => {
                     return (
                         <div className={styles.page}>
-                            <div className={styles.content}>
-                                <div className={`${styles.logoFrame} ${transitionStyles['logoFrame']}`}>
-                                    <SVGInline svg={Logo} className={`${styles.logo} ${transitionStyles['logo']}`}/>
+                            <div className={styles.contentGrid}>
+                                <div className={styles.mainContentFlex}>
+                                    <div className={`${styles.logoBox} ${transitionStyles['logoBox']}`}>
+                                        <SVGInline svg={Logo} className={`${styles.logo} ${transitionStyles['logo']}`}/>
+                                    </div>
+                                    <nav className={`${styles.mainLinksGrid} ${transitionStyles['buttons']}`}>
+                                        <HomeMainButton className={`${styles.mainLink}`} link='/moonlight' header='blog' subtext='aesthetic music player' color={styles.moonlightColor}/>
+                                        <HomeMainButton className={`${styles.mainLink}`} link='/bumps' header='projects' subtext='favorite beats with art' color={styles.bumpsColor}/>
+                                        <HomeMainButton className={`${styles.mainLink}`} link='/blog' header='about' subtext='thoughts and reflections' color={styles.blogColor}/>
+                                    </nav>
                                 </div>
-                                <nav className={`${styles.mainLinks} ${transitionStyles['buttons']}`}>
-                                    <HomeMainButton className={styles.link} link='/moonlight' header='moonlight' subtext='aesthetic music player' color={styles.moonlightColor}/>
-                                    <HomeMainButton className={styles.link} link='/bumps' header='bumps' subtext='favorite beats with art' color={styles.bumpsColor}/>
-                                    <HomeMainButton className={styles.link} link='/blog' header='blog' subtext='thoughts and reflections' color={styles.blogColor}/>
-                                </nav>
-                                <nav className={`${styles.externalLinks} ${transitionStyles['buttons']}`}>
+                                <nav className={`${styles.externalLinksFlex} ${transitionStyles['buttons']}`}>
                                     <HomeExternalButton className={styles.externalLink} link='https://github.com/aeroheim' icon={GithubIcon}/>
                                     <HomeExternalButton className={styles.externalLink} link='https://twitter.com/aeroheim' icon={TwitterIcon}/>
                                     <HomeExternalButton className={styles.externalLink} link='https://www.linkedin.com/in/benjamin-pang-45621290' icon={LinkedInIcon}/>
                                 </nav>
                             </div>
                             <span className={`${styles.footer} ${transitionStyles['footer']}`}>
-                                © 2017 - best viewed with Chrome/Firefox 55+ -&nbsp;
+                                {`© ${new Date().getUTCFullYear()} - best viewed with Chrome/Firefox 55+ -&nbsp;`}
                                 <a className={styles.footerLink} href='https://www.pixiv.net/member_illust.php?mode=medium&illust_id=59460650'>image</a>
                                 &nbsp;by&nbsp;
                                 <a className={styles.footerLink} href='https://www.pixiv.net/member.php?id=211515'>防人</a>

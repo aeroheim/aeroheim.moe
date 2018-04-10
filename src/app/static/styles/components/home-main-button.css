@@ -1,17 +1,16 @@
 @value small, large from "../global/breakpoints.css";
 @value easeOutCubic from "../global/animations.css";
 
+@value buttonTextIndent: 2vh;
 .linkButton
 {
     /* relative allows for colorBar to size itself relative to linkButton */
     position: relative;
     overflow: hidden;
 
-    padding-left: calc(10px + 5%);
-    padding-right: calc(10px + 5%);
+    text-indent: buttonTextIndent;
 
     color: white;
-
     background: rgba(0, 0, 0, 0.5);
 }
 
@@ -44,39 +43,57 @@
 {
     clip-path: polygon(0% 0%, calc(100% + 60px) 0%, 100% 100%, calc(0% - 60px) 100%);
 }
-
+@value headerFontSize: 4vh;
 .header
 {
     /* relative enforces correct z-index against colorBar */
     position: relative;
     overflow: hidden;
+    margin: 0;
 
-    margin-top: 1%;
-    margin-bottom: 0;
-
-    font-size: responsive 20px 44px;
-    font-range: 640px 2560px;
+    font-size: headerFontSize;
     font-family: 'M+P1-Thin';
     font-weight: 400;
-
     text-shadow: 0px 0px 10px black;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
+@value subtextFontSize: calc(headerFontSize / 2.5);
 .subtext
 {
     /* relative enforces correct z-index against colorBar */
     position: relative;
     overflow: hidden;
 
-    margin-top: -2%;
+    margin-top: -0.3em;
 
-    font-size: responsive 12px 20px;
-    font-range: 640px 2560px;
-    font-family: 'M+P1-Thin';
-
-    text-shadow: 0px 0px 5px black;
+    font-size: subtextFontSize;
+    font-family: 'Nunito';
+    text-shadow: 0px 0px 10px black;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+
+ @value logoMinViewportHeightBreakpoint from "./home.css";
+@media (max-height: logoMinViewportHeightBreakpoint)
+{
+    .linkButton
+    {
+        /* logoMinViewportHeightBreakpoint(px) / buttonTextIndent(vh%) */
+        text-indent: 13px;
+    }
+
+    .header
+    {
+        /* logoMinViewportHeightBreakpoint(px) / headerFontSize(vh%) */
+        font-size: 27px;
+    }
+
+    .subtext
+    {
+        /* logoMinViewportHeightBreakpoint(px) / subtextFontSize(vh%) */
+        font-size: 11px;
+    }
 }

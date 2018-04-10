@@ -1,62 +1,86 @@
 @value homeColor, moonlightColor, bumpsColor, blogColor from '../global/colors.css';
 @value easeInCubic, easeOutCubic, easeInSine, easeOutSine from '../global/animations.css';
-@value small, large from '../global/breakpoints.css';
 @value headerMargin from './header.css';
 
 .page
 {
     display: flex;
     flex-direction: column;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    align-content: center;
 
     min-height: calc(100% - 4 * headerMargin);
     padding-top: calc(2 * headerMargin);
     padding-bottom: calc(2 * headerMargin);
 }
 
-.content
+@value contentGridHorizontalPadding: 6vw;
+.contentGrid
 {
-    width: 80%;
-    min-width: small;
-    max-width: large;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    grid-template-columns: 1fr auto 1fr;
+    
+    width: 100%;
     margin: auto;
 }
 
-.logoFrame
+.mainContentFlex
 {
-    width: 17%;
-    min-width: 175px;
-    margin-left: auto;
-    margin-right: auto;
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    padding-left: contentGridHorizontalPadding;
+    padding-right: contentGridHorizontalPadding;
+}
+
+/* 
+ * breakpoint is the viewport height at which its size is clamped and no longer responsive
+ * logoMinEdgeLength(px) / logoEdgeLength(vh) = logoMinViewportHeightBreakpoint(px)
+ */
+@value logoMinViewportHeightBreakpoint: 667px;
+@value logoMinEdgeLength: 180px;
+@value logoEdgeLength: 27vh;
+@value logoGap: 0.5vh;
+.logoBox
+{
+    width: logoEdgeLength;
+    height: logoEdgeLength;
+
+    min-width: logoMinEdgeLength;
+    min-height: logoMinEdgeLength;
+
+    /* this padding enforces a gap between flex items - namely the links grid and this logo */
+    padding: logoGap;
+    
+    background-clip: content-box;
     background-color: homeColor;
 }
 
-.logoFrameInTransition
+.logoBoxInTransition
 {
     opacity: 0;
     clip-path: polygon(-100% 0%, 0% 0%, -100% 100%, -200% 100%);
     transition: opacity 0.65s easeOutCubic 0s, clip-path 0.65s easeOutCubic 0s;
 }
 
-.logoFrameIn
+.logoBoxIn
 {
     opacity: 1;
     clip-path: polygon(-100% 0%, 200% 0%, 100% 100%, -200% 100%);
 }
 
-.logoFrameOutTransition
+.logoBoxOutTransition
 {
     opacity: 1;
     clip-path: polygon(-100% 0%, 200% 0%, 100% 100%, -200% 100%);
     transition: opacity 0.65s easeInCubic 0s, clip-path 0.65s easeInCubic 0s;
 }
 
-.logoFrameOut
+.logoBoxOut
 {
     opacity: 0;
     clip-path: polygon(-100% 0%, 0% 0%, -100% 100%, -200% 100%);
@@ -91,44 +115,45 @@
     stroke-dashoffset: 866px;
 }
 
-.mainLinks
+@value mainLinksRowGap: 1px;
+@value mainLinksMinRowHeight: calc(logoMinEdgeLength / 3 - mainLinksRowGap);
+@value mainLinksRowHeight: calc(logoEdgeLength / 3 - mainLinksRowGap);
+.mainLinksGrid
 {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-auto-rows: minmax(mainLinksMinRowHeight, mainLinksRowHeight);
+    grid-template-columns: minmax(logoMinEdgeLength, logoEdgeLength);
+    grid-row-gap: mainLinksRowGap;
 
-    width: 100%;
-    margin-top: calc(10px + 3%);
-    margin-left: auto;
-    margin-right: auto;
+    /* this padding enforces a gap between flex items - namely the logo and this grid */
+    padding: logoGap;
 }
 
-.link
+.mainLink
 {
-    width: 22.5%;
-    min-width: 185px;
-    margin-bottom: calc(5px + 0.5%);
-    margin-left: 2%;
-    margin-right: 2%;
+    width: 100%;
+    height: 100%;
 }
 
-.externalLinks
+.externalLinksFlex
 {
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+
     display: flex;
     justify-content: center;
 
-    width: 100%;
-    margin-top: calc(30px + 1%);
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: 5%;
+    margin-left: contentGridHorizontalPadding;
+    margin-right: contentGridHorizontalPadding;
 }
 
 .externalLink
 {
-    width: 5%;
+    width: 7vh;
     min-width: 45px;
-    margin-left: calc(5px + 3.5%);
-    margin-right: calc(5px + 3.5%);
+    margin-left: 6%;
+    margin-right: 6%;
 }
 
 .buttonsInTransition
@@ -170,6 +195,8 @@
 
 .footer
 {
+    grid-area: footer;
+
     align-self: center;
     justify-content: flex-end;
     text-align: center;
@@ -178,7 +205,7 @@
     margin: 2em 2em 0em 2em;
 
 
-    font-family: 'M+P1-Light';
+    font-family: 'M+P1-Thin';
     font-size: responsive 10px 14px;
     font-range: 215px 1280px;
     color: white;
@@ -212,4 +239,19 @@
 .footerLink
 {
     color: white;
+}
+
+@media (max-height: logoMinViewportHeightBreakpoint)
+{
+    .logoBox
+    {
+        /* logoMinViewportHeightBreakpoint(px) / logoGap(vh%) */
+        padding: 3px;
+    }
+
+    .mainLinksGrid
+    {
+        /* logoMinViewportHeightBreakpoint(px) / logoGap(vh%) */
+        padding: 3px;
+    }
 }
