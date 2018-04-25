@@ -88,9 +88,13 @@
 
 .logo
 {
+    display: block;
+
     stroke: white;
-    stroke-width: 5%;
-    stroke-dasharray: 866px;
+    stroke-width: 15px;
+    filter: drop-shadow(5px 5px 1px rgba(0, 0, 0, 0.35));
+
+    transform: rotate(-2.5deg); 
 }
 
 .logoInTransition
@@ -141,7 +145,7 @@
     grid-column: 2 / 3;
 
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
 
     margin-top: 5%;
     margin-left: contentGridHorizontalPadding;
@@ -151,9 +155,7 @@
 .externalLink
 {
     width: 7vh;
-    min-width: 45px;
-    margin-left: 6%;
-    margin-right: 6%;
+    min-width: 40px;
 }
 
 .buttonsInTransition

@@ -57,7 +57,6 @@ class Home extends React.Component
         const inTransitions =
         {
             logoBox: new Transition(styles.logoBoxInTransition, 'opacity', 'clip-path'),
-            logo: new Transition(styles.logoInTransition, 'stroke-dashoffset'),
             buttons: new Transition(styles.buttonsInTransition, 'opacity'),
             footer: new Transition(styles.footerInTransition, 'opacity', 'transform'),
         }
@@ -65,7 +64,6 @@ class Home extends React.Component
         const inStyles =
         {
             logoBox: styles.logoBoxIn,
-            logo: styles.logoIn,
             buttons: styles.buttonsIn,
             footer: styles.footerIn,
         }
@@ -73,7 +71,6 @@ class Home extends React.Component
         const outTransitions =
         {
             logoBox: new Transition(styles.logoBoxOutTransition, 'opacity', 'clip-path'),
-            logo: new Transition(styles.logoOutTransition, 'stroke-dashoffset'),
             buttons: new Transition(styles.buttonsOutTransition, 'opacity'),
             footer: new Transition(styles.footerOutTransition, 'opacity'),
         }
@@ -81,7 +78,6 @@ class Home extends React.Component
         const outStyles =
         {
             logoBox: styles.logoBoxOut,
-            logo: styles.logoOut,
             buttons: styles.buttonsOut,
             footer: styles.footerOut,
         }
@@ -94,7 +90,7 @@ class Home extends React.Component
                             <div className={styles.contentGrid}>
                                 <div className={styles.mainContentFlex}>
                                     <div className={`${styles.logoBox} ${transitionStyles['logoBox']}`}>
-                                        <SVGInline svg={Logo} className={`${styles.logo} ${transitionStyles['logo']}`}/>
+                                        <SVGInline svg={Logo} className={`${styles.logo}`}/>
                                     </div>
                                     <nav className={`${styles.mainLinksGrid} ${transitionStyles['buttons']}`}>
                                         <HomeMainButton className={`${styles.mainLink}`} link='/moonlight' header='blog' subtext='aesthetic music player' color={styles.moonlightColor}/>
@@ -109,9 +105,7 @@ class Home extends React.Component
                                 </nav>
                             </div>
                             <span className={`${styles.footer} ${transitionStyles['footer']}`}>
-                                {`© ${new Date().getUTCFullYear()} - best viewed with Chrome/Firefox 55+ -&nbsp;`}
-                                <a className={styles.footerLink} href='https://www.pixiv.net/member_illust.php?mode=medium&illust_id=59460650'>image</a>
-                                &nbsp;by&nbsp;
+                                {`© ${new Date().getUTCFullYear()} - image by `}
                                 <a className={styles.footerLink} href='https://www.pixiv.net/member.php?id=211515'>防人</a>
                             </span>
                         </div>
