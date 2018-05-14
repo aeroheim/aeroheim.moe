@@ -1,18 +1,41 @@
 import React from 'react';
-import HeaderButton from './header-button';
+import { withRouter } from 'react-router';
+import LinkButton from './link-button';
+import SVGInline from 'react-svg-inline';
+import Logo from '../static/img/icons/logo-path.svg';
 import styles from '../static/styles/components/header.css';
+
+function isRouteActive(path, exact)
+{
+    return exact ? location.pathname === path : location.pathname.startsWith(path);
+}
 
 const Header = () =>
 {
+    const isHomeActive = isRouteActive('/', true);
+    const isBlogActive = isRouteActive('/blog', false);
+    const isProjectsActive = isRouteActive('/projects', true);
+    const isAboutActive = isRouteActive('/about', true);
+
     return (
-        <nav className={styles.navBar}>
-            <HeaderButton text='home' exact path='/' className={styles.headerButton} color={styles.homeColor}/>
-            <HeaderButton text='moonlight' exact path='/moonlight' className={styles.headerButton} color={styles.moonlightColor}/>
-            <HeaderButton text='bumps' path='/bumps' className={styles.headerButton} color={styles.bumpsColor}/>
-            <HeaderButton text='blog' path='/blog' className={styles.headerButton} color={styles.blogColor}/>
-            <HeaderButton text='about' exact path='/about' className={styles.headerButton} color={styles.aboutColor}/>
+        <nav className={styles.headerFlex}>
+            <LinkButton link='/' className={`${styles.item} ${isHomeActive ? styles.activeItem : ''}`}>
+                <SVGInline svg={Logo} className={styles.logo}/>
+            </LinkButton>
+            <LinkButton link='/blog' className={`${styles.textItem} ${styles.item} ${isBlogActive ? styles.activeItem : ''}`}>
+                blog
+                <div className={`${styles.textItemUnderline} ${styles.blogColor} ${isBlogActive ? styles.activeTextItemUnderline : ''}`}/>
+            </LinkButton>
+            <LinkButton link='/projects' className={`${styles.textItem} ${styles.item} ${isProjectsActive ? styles.activeItem : ''}`}>
+                projects
+                <div className={`${styles.textItemUnderline} ${styles.projectsColor} ${isProjectsActive ? styles.activeTextItemUnderline : ''}`}/>
+            </LinkButton>
+            <LinkButton link='/about' className={`${styles.textItem} ${styles.item} ${isAboutActive ? styles.activeItem : ''}`}>
+                about
+                <div className={`${styles.textItemUnderline} ${styles.aboutColor} ${isAboutActive ? styles.activeTextItemUnderline : ''}`}/>
+            </LinkButton>
         </nav>
     );
 }
 
-export default Header;
+export default withRouter(Header);
