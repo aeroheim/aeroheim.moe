@@ -1,7 +1,10 @@
 @value homeColor from '../global/colors.css';
 
-.background
+.page
 {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+
     position: fixed;
     background-image: url(../../img/bg.jpg);
     background-color: rgba(0, 0, 0, 0.2);
@@ -19,13 +22,13 @@
     overflow-y: overlay;
 }
 
-.background::-webkit-scrollbar
+.page::-webkit-scrollbar
 {
     width: 6px;
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.background::-webkit-scrollbar-thumb
+.page::-webkit-scrollbar-thumb
 {
     background-color: homeColor;
 }

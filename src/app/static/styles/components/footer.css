@@ -1,0 +1,109 @@
+@value smheight from '../global/breakpoints.css';
+@value easeOutCubic from '../global/animations.css';
+
+@value footerHeight: 14vh;
+@value footerMinHeight: 93.38px; /* smheight(px) * footerHeight(vh) */
+@value footerTopMargin: 5vh;
+@value footerFlexHorizontalPadding: 5%;
+.footerFlex
+{
+    /* border-box prevents padding from expanding width  */
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    height: footerHeight;
+
+    min-height: footerMinHeight;
+
+    margin-top: footerTopMargin;
+    padding-left: footerFlexHorizontalPadding;
+    padding-right: footerFlexHorizontalPadding;
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.linksFlex
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+}
+
+@value linkEdgeLength: 3vh;
+@value linkHorizontalMargin: calc(0.5vh + 0.75%);
+.link
+{
+    width: linkEdgeLength;
+    margin-left: linkHorizontalMargin;
+    margin-right: linkHorizontalMargin;
+}
+
+.link:hover > .linkIcon
+{
+    opacity: 0.9;
+}
+
+.linkIcon
+{
+    fill: white;
+    opacity: 0.35;
+    transition: opacity 1s easeOutCubic 0s;
+}
+
+@value textTopMargin: -2.5vh;
+@value textFontSize: 1.5vh;
+.text
+{
+    align-self: center;
+    text-align: center;
+
+    margin-top: textTopMargin;
+
+    font-family: 'Nunito';
+    font-size: textFontSize;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 10px black;
+
+    opacity: 0.35;
+}
+
+.textLink
+{
+    color: inherit;
+}
+
+@media (max-height: smheight)
+{
+    .footerFlex
+    {
+        /* smheight(px) * footerTopMargin(vh%) */
+        margin-top: 33.35px;
+    }
+
+    .link
+    {
+        /* smheight(px) * linkEdgeLength(vh%) */
+        width: 20px;
+
+        /* smheight(px) * linkHorizontalMargin(vh%) */
+        margin-left: calc(3.335px + 0.75%);
+        margin-right: calc(3.335px + 0.75%);
+    }
+
+    .text
+    {
+        /* smheight(px) * textTopMargin(vh%) */
+        margin-top: -16.675px;
+
+        /* smheight(px) * textFontSize(vh%) */
+        font-size: 10px;
+    }
+}

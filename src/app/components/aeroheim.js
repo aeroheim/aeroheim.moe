@@ -2,6 +2,7 @@ import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import { connect, Provider } from 'react-redux';
 import Header from './header';
+import Footer from './footer';
 import Home from './home';
 import Moonlight from './moonlight';
 import Bumps from './bumps';
@@ -26,7 +27,7 @@ class Aeroheim extends React.Component
     render()
     {
         return (
-            <div className={styles.background} style={!this.props.scrollbarVisible ? { overflowY: 'hidden' } : null}>
+            <div className={styles.page} style={!this.props.scrollbarVisible ? { overflowY: 'hidden' } : null}>
                 <Header/>
                 <Route exact path={homePath} children={(props) => <Home {...props} path={homePath}/>}/>
                 <Route exact path={moonlightPath} children={(props) => <Moonlight {...props} path={moonlightPath}/>}/>
@@ -34,6 +35,7 @@ class Aeroheim extends React.Component
                 <Route exact path={blogPath} children={(props) => <Blog {...props} path={blogPath}/>}/>
                 <Route exact path={aboutPath} children={(props) => <About {...props} path={aboutPath}/>}/>
                 <ErrorNotFoundRoute/>
+                <Footer/>
             </div>
         );
     }

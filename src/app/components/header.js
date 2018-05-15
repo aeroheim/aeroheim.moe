@@ -18,7 +18,7 @@ const Header = () =>
     const isAboutActive = isRouteActive('/about', true);
 
     return (
-        <nav className={styles.headerFlex}>
+        <header className={styles.headerFlex}>
             <LinkButton link='/' className={`${styles.item} ${isHomeActive ? styles.activeItem : ''}`}>
                 <SVGInline svg={Logo} className={styles.logo}/>
             </LinkButton>
@@ -34,7 +34,7 @@ const Header = () =>
                 about
                 <div className={`${styles.textItemUnderline} ${styles.aboutColor} ${isAboutActive ? styles.activeTextItemUnderline : ''}`}/>
             </LinkButton>
-        </nav>
+        </header>
     );
 }
 

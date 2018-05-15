@@ -1,21 +1,18 @@
 @value blogColor, projectsColor, aboutColor from '../global/colors.css';
-@value easeOutCubic from "../global/animations.css";
+@value easeOutCubic from '../global/animations.css';
 @value smheight from '../global/breakpoints.css';
 
 @value headerHeight: 10vh;
 @value headerMinHeight: 66.7px; /* smheight(px) * headerHeight(vh) */
-@value headerMargin: calc(headerHeight * 1.5); /* TODO: remove this once Page component is implemented */
+@value headerBottomMargin: 5vh;
 @value headerFlexHorizontalPadding: 5%;
 .headerFlex
 {
-    /* header should always be on top - absolute to avoid affecting flow & positioning */
-    z-index: 999;
-    position: absolute;
-
-    /* border-box prevents padding from expanding width of header */
+    /* border-box prevents padding from expanding width  */
     box-sizing: border-box;
 
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: left;
 
@@ -24,6 +21,7 @@
 
     min-height: headerMinHeight;
 
+    margin-bottom: headerBottomMargin;
     padding-left: headerFlexHorizontalPadding;
     padding-right: headerFlexHorizontalPadding;
 
@@ -35,7 +33,7 @@
 }
 
 @value logoEdgeLength: 5vh;
-@value logoShadowDist: 0.5vh;
+@value logoShadowDist: 0.4vh;
 .logo
 {
     display: block;
@@ -48,7 +46,7 @@
     transform: rotate(-2.5deg); 
 }
 
-@value itemHorizontalMargin: calc(5px + 1.25%);
+@value itemHorizontalMargin: calc(0.5vh + 1.25%);
 .item
 {
     margin-left: itemHorizontalMargin;
@@ -115,6 +113,12 @@
 
 @media (max-height: smheight)
 {
+    .headerFlex
+    {
+        /* smheight(px) * headerBottomMargin(vh%) */
+        margin-bottom: 33.35px;
+    }
+
     .logo
     {
         /* smheight(px) * logoEdgeLength(vh%) */
@@ -124,6 +128,13 @@
         filter: drop-shadow(3.335px 3.335px 0px rgba(0, 0, 0, 0.35));
     }
 
+    .item
+    {
+        /* smheight(px) * itemHorizontalMargin(vh%) */
+        margin-left: calc(3.335px + 1.25%);
+        margin-right: calc(3.335px + 1.25%);
+    }
+    
     .textItem
     {
         /* smheight(px) * textItemFontSize(vh%) */
