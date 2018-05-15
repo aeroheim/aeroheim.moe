@@ -1,4 +1,4 @@
-@value small, large from "../global/breakpoints.css";
+@value smheight from "../global/breakpoints.css";
 @value easeOutCubic from "../global/animations.css";
 
 @value buttonTextIndent: 2vh;
@@ -43,6 +43,7 @@
 {
     clip-path: polygon(0% 0%, calc(100% + 60px) 0%, 100% 100%, calc(0% - 60px) 100%);
 }
+
 @value headerFontSize: 4vh;
 .header
 {
@@ -75,25 +76,23 @@
     white-space: nowrap;
 }
 
-
- @value logoMinViewportHeightBreakpoint from "./home.css";
-@media (max-height: logoMinViewportHeightBreakpoint)
+@media (max-height: smheight)
 {
     .linkButton
     {
-        /* logoMinViewportHeightBreakpoint(px) / buttonTextIndent(vh%) */
+        /* smheight(px) * buttonTextIndent(vh%) */
         text-indent: 13px;
     }
 
     .header
     {
-        /* logoMinViewportHeightBreakpoint(px) / headerFontSize(vh%) */
+        /* smheight(px) * headerFontSize(vh%) */
         font-size: 27px;
     }
 
     .subtext
     {
-        /* logoMinViewportHeightBreakpoint(px) / subtextFontSize(vh%) */
+        /* smheight(px) * subtextFontSize(vh%) */
         font-size: 11px;
     }
 }
