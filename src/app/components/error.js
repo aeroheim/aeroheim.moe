@@ -2,7 +2,7 @@ import React from 'react';
 import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/error-not-found.css';
 
-const Error = ({ title, text, show }) =>
+const Error = ({ className, title, text, show }) =>
 {
     const inTransitions =
     {
@@ -28,11 +28,9 @@ const Error = ({ title, text, show }) =>
         <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={show} test='error'>
             {({ transitionStyles }) => {
                 return (
-                    <div className={`${styles.content} ${transitionStyles['content']}`}>
-                        <div className={styles.container}>
-                            <h1 className={styles.header}>{title}</h1>
-                            <p className={styles.subtext}>{text}</p>
-                        </div>
+                    <div className={`${className} ${styles.content} ${transitionStyles['content']}`}>
+                        <h1 className={styles.header}>{title}</h1>
+                        <p className={styles.text}>{text}</p>
                     </div>
                 );
             }}
@@ -40,14 +38,14 @@ const Error = ({ title, text, show }) =>
     );
 }
 
-const ErrorNotFound = ({ show }) =>
+const ErrorNotFound = ({ className, show }) =>
 {
-    return <Error title='404' text="there's nothing here" show={show}/>;
+    return <Error className={className} title='404' text="there's nothing here" show={show}/>;
 }
 
-const ErrorStatus = ({ status, show }) =>
+const ErrorStatus = ({ className, status, show }) =>
 {
-    return <Error title={status} text="something went wrong. try again later" show={show}/>;
+    return <Error className={className} title={status} text="something went wrong. try again later" show={show}/>;
 }
 
 class ErrorHandler extends React.Component
@@ -74,7 +72,7 @@ class ErrorHandler extends React.Component
             }
         }
 
-        return <Error title={this.title} text={this.text} show={this.props.err !== null}/>;
+        return <Error className={this.props.className} title={this.title} text={this.text} show={this.props.err !== null}/>;
     }
 }
 

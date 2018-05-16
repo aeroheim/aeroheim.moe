@@ -1,15 +1,15 @@
-@value easeOutCubic from "../global/animations.css";
+@value easeOutCubic from '../global/animations.css';
+@value smheight from '../global/breakpoints.css';
 
 .content
 {
-    display: flex;
-    justify-content: center;
+    margin: auto;
 
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
+    font-family: 'M+P1-Thin';
+    text-align: center;
+
+    color: white;
+    background-color: rgba(0, 0, 0, 0.65);
 }
 
 .contentInTransition
@@ -36,29 +36,50 @@
     opacity: 0;
 }
 
-.container
-{
-    display: inline-block;
-
-    font-family: 'M+P1-Thin';
-    color: white;
-
-    text-align: center;
-
-    background-color: rgba(0, 0, 0, 0.65);
-}
-
+@value headerFontSize: 20vh;
+@value headerHorizontalMargin: 10vh;
 .header
 {
-    margin: 0 0.5em 0 0.5em;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: headerHorizontalMargin;
+    margin-right: headerHorizontalMargin;
 
-    font-size: responsive 64px 192px;
-    font-range: 215px 1280px;
+    font-size: headerFontSize;
 }
 
-.subtext
+@value textFontSize: 2.5vh;
+@value textTopMargin: -2vh;
+@value textBottomMargin: 2vh;
+.text
 {
-    margin-top: -1em;
-    font-size: responsive 16px 24px;
-    font-range: 215px 1280px;
+    margin-top: textTopMargin;
+    margin-bottom: textBottomMargin;
+
+    font-size: textFontSize;
+}
+
+@media (max-height: smheight)
+{
+    .header
+    {
+        /* smheight(px) * headerHorizontalMargin(vh%) */
+        margin-left: 66.7px;
+        margin-right: 66.7px;
+
+        /* smheight(px) * headerFontSize(vh%) */
+        font-size: 133.4px;
+    }
+
+    .text
+    {
+        /* smheight(px) * textTopMargin(vh%) */
+        margin-top: -33.35px;
+
+        /* smheight(px) * textBottomMargin(vh%) */
+        margin-bottom: 33.35px;
+
+        /* smheight(px) * textFontSize(vh%) */
+        font-size: 16.675px;
+    }
 }

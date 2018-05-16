@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { ErrorNotFound } from './error';
 
-const ErrorNotFoundRoute = ({ activeRoutes }) =>
+const ErrorNotFoundRoute = ({ className, activeRoutes }) =>
 {
-    return <ErrorNotFound show={Object.keys(activeRoutes).length === 0}/>
+    return <ErrorNotFound className={className} show={Object.keys(activeRoutes).length === 0}/>
 }
 
 function mapStateToProps(state)

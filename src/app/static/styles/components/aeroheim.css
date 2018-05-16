@@ -3,9 +3,13 @@
 .page
 {
     display: grid;
-    grid-template-rows: auto 1fr auto;
-
     position: fixed;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: auto;
+    grid-template-areas: "header"
+                         "content"
+                         "footer";
+
     background-image: url(../../img/bg.jpg);
     background-color: rgba(0, 0, 0, 0.2);
     background-blend-mode: multiply;
@@ -31,4 +35,19 @@
 .page::-webkit-scrollbar-thumb
 {
     background-color: homeColor;
+}
+
+.header
+{
+    grid-area: header;
+}
+
+.content
+{
+    grid-area: content;
+}
+
+.footer
+{
+    grid-area: footer;
 }

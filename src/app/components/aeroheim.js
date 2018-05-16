@@ -4,17 +4,15 @@ import { connect, Provider } from 'react-redux';
 import Header from './header';
 import Footer from './footer';
 import Home from './home';
-import Moonlight from './moonlight';
-import Bumps from './bumps';
+import Projects from './projects';
 import Blog from './blog';
 import About from './about';
 import ErrorNotFoundRoute from './error-route';
 import styles from '../static/styles/components/aeroheim.css';
 
 const homePath = '/';
-const moonlightPath ='/moonlight';
-const bumpsPath ='/bumps';
 const blogPath = '/blog';
+const projectsPath ='/projects';
 const aboutPath = '/about';
 
 class Aeroheim extends React.Component
@@ -28,14 +26,13 @@ class Aeroheim extends React.Component
     {
         return (
             <div className={styles.page} style={!this.props.scrollbarVisible ? { overflowY: 'hidden' } : null}>
-                <Header/>
-                <Route exact path={homePath} children={(props) => <Home {...props} path={homePath}/>}/>
-                <Route exact path={moonlightPath} children={(props) => <Moonlight {...props} path={moonlightPath}/>}/>
-                <Route exact path={bumpsPath} children={(props) => <Bumps {...props} path={bumpsPath}/>}/>
-                <Route exact path={blogPath} children={(props) => <Blog {...props} path={blogPath}/>}/>
-                <Route exact path={aboutPath} children={(props) => <About {...props} path={aboutPath}/>}/>
-                <ErrorNotFoundRoute/>
-                <Footer/>
+                <Header className={styles.header}/>
+                <Route exact path={homePath} children={(props) => <Home className={styles.content} path={homePath} {...props}/>}/>
+                <Route exact path={projectsPath} children={(props) => <Projects className={styles.content} path={projectsPath} {...props}/>}/>
+                <Route exact path={blogPath} children={(props) => <Blog className={styles.content} path={blogPath} {...props}/>}/>
+                <Route exact path={aboutPath} children={(props) => <About className={styles.content} path={aboutPath} {...props}/>}/>
+                <ErrorNotFoundRoute className={styles.content}/>
+                <Footer className={styles.footer}/>
             </div>
         );
     }
