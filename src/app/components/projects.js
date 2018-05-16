@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { matchRoute, unmatchRoute} from '../actions/routes-actions';
 import handleMatch from '../util/handle-match';
 
-class Moonlight extends Component
+class Projects extends Component
 {
     constructor(props)
     {
@@ -44,7 +44,7 @@ class Moonlight extends Component
 
     render()
     {
-        return <Error title='WIP' text='coming soon. check again later' show={this.props.match !== null}/>;
+        return <Error className={this.props.className} title='WIP' text='coming soon. check again later' show={this.props.match !== null}/>;
     }
 }
 
@@ -61,4 +61,4 @@ function mapDispatchToProps(dispatch)
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Moonlight);
+export default connect(mapStateToProps, mapDispatchToProps)(Projects);
