@@ -10,7 +10,7 @@ function isRouteActive(path, exact)
     return exact ? location.pathname === path : location.pathname.startsWith(path);
 }
 
-const Header = () =>
+const Header = ({ className }) =>
 {
     const isHomeActive = isRouteActive('/', true);
     const isBlogActive = isRouteActive('/blog', false);
@@ -18,7 +18,7 @@ const Header = () =>
     const isAboutActive = isRouteActive('/about', true);
 
     return (
-        <header className={styles.headerFlex}>
+        <header className={`${className} ${styles.headerFlex}`}>
             <LinkButton link='/' className={`${styles.item} ${isHomeActive ? styles.activeItem : ''}`}>
                 <SVGInline svg={Logo} className={styles.logo}/>
             </LinkButton>

@@ -1,13 +1,13 @@
 @value smheight from '../global/breakpoints.css';
 @value easeOutCubic from '../global/animations.css';
 
-@value footerHeight: 14vh;
-@value footerMinHeight: 93.38px; /* smheight(px) * footerHeight(vh) */
+@value footerHeight: 15vh;
+@value footerMinHeight: 100.05px; /* smheight(px) * footerHeight(vh) */
 @value footerTopMargin: 5vh;
 @value footerFlexHorizontalPadding: 5%;
 .footerFlex
 {
-    /* border-box prevents padding from expanding width  */
+    /* border-box prevents padding from expanding width */
     box-sizing: border-box;
 
     display: flex;
@@ -57,7 +57,7 @@
     transition: opacity 1s easeOutCubic 0s;
 }
 
-@value textTopMargin: -2.5vh;
+@value textTopMargin: -2vh;
 @value textFontSize: 1.5vh;
 .text
 {
@@ -101,7 +101,7 @@
     .text
     {
         /* smheight(px) * textTopMargin(vh%) */
-        margin-top: -16.675px;
+        margin-top: -13.34px;
 
         /* smheight(px) * textFontSize(vh%) */
         font-size: 10px;

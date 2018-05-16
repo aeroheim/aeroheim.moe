@@ -8,7 +8,7 @@
 @value headerFlexHorizontalPadding: 5%;
 .headerFlex
 {
-    /* border-box prevents padding from expanding width  */
+    /* border-box prevents padding from expanding width */
     box-sizing: border-box;
 
     display: flex;
