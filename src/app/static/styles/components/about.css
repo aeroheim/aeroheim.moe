@@ -1,60 +1,53 @@
-@value aboutColor from "../global/colors.css";
+@value homeColor, aboutColor from "../global/colors.css";
 @value easeOutCubic from "../global/animations.css";
-@value small, large from '../global/breakpoints.css';
-@value headerMargin from "./header.css";
+@value smheight large from '../global/breakpoints.css';
 
-@value sideMargin: 15px;
-
-.page
-{
-    display: flex;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-
-    min-height: calc(100% - 2 * headerMargin);
-    padding: headerMargin sideMargin headerMargin sideMargin;
-}
-
+@value contentHorizontalPadding: 10%;
 .content
 {
-    width: calc(small + 25%);
-    min-width: calc(small - 2 * sideMargin);
-    max-width: large;
-    min-height: 150px;
+    width: auto;
+    
     margin: auto;
+    padding-left: contentHorizontalPadding;
+    padding-right: contentHorizontalPadding;
 }
 
-.headerStyle
+@value headerFontSize: 9vh;
+.header
 {
-    font-size: responsive 48px 96px;
-    font-range: 860px 2560px;
+    font-size: headerFontSize;
 }
 
-.headerColor
+.aboutColor
 {
     background-color: aboutColor;
 }
 
+@value bioTopMargin: 1.5vh;
+@value bioBottomMargin: 7.5vh;
+@value bioFontSize: 1.9vh;
 .bio
 {
     display: flex;
     flex-direction: column;
 
-    margin-top: 15px;
-    margin-bottom: 30px;
+    margin-top: bioTopMargin;
+    margin-bottom: bioBottomMargin;
     padding: 1em 2em 1em 2em;
 
-    font-size: responsive 12px 20px;
-    font-range: 250px 2560px;
-    font-family: 'M+P1-Light';
+    font-size: bioFontSize;
+    font-family: 'Nunito';
     color: white;
+    
     overflow-y: auto;
     overflow-x: hidden;
 
     background-color: rgba(0, 0, 0, 0.4);
+}
+
+.list
+{
+    padding-left: 2em;
 }
 
 .bioInTransition
@@ -81,7 +74,28 @@
     clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
 }
 
-.bioLink
+.link
 {
     color: white;
+}
+
+@media (max-height: smheight)
+{
+    .header
+    {
+        /* smheight(px) * headerFontSize(vh%) */
+        font-size: 60.03px;
+    }
+
+    .bio
+    {
+        /* smheight(px) * bioTopMargin(vh%) */
+        margin-top: 10.005px;
+
+        /* smheight(px) * bioBottomMargin(vh%) */
+        margin-bottom: 50.025px;
+
+        /* smheight(px) * bioFontSize(vh%) */
+        font-size: 12.673px;
+    }
 }
