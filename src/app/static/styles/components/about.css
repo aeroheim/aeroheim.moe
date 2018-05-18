@@ -1,5 +1,5 @@
-@value homeColor, aboutColor from "../global/colors.css";
-@value easeOutCubic from "../global/animations.css";
+@value homeColor, aboutColor from '../global/colors.css';
+@value easeOutCubic from '../global/animations.css';
 @value smheight large from '../global/breakpoints.css';
 
 @value contentHorizontalPadding: 10%;
