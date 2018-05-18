@@ -58,44 +58,40 @@ class Home extends React.Component
         {
             logoBox: new Transition(styles.logoBoxInTransition, 'opacity', 'clip-path'),
             buttons: new Transition(styles.buttonsInTransition, 'opacity'),
-            footer: new Transition(styles.footerInTransition, 'opacity', 'transform'),
         }
 
         const inStyles =
         {
             logoBox: styles.logoBoxIn,
             buttons: styles.buttonsIn,
-            footer: styles.footerIn,
         }
 
         const outTransitions =
         {
             logoBox: new Transition(styles.logoBoxOutTransition, 'opacity', 'clip-path'),
             buttons: new Transition(styles.buttonsOutTransition, 'opacity'),
-            footer: new Transition(styles.footerOutTransition, 'opacity'),
         }
 
         const outStyles =
         {
             logoBox: styles.logoBoxOut,
             buttons: styles.buttonsOut,
-            footer: styles.footerOut,
         }
 
         return (
             <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null}>
                 {({ transitionStyles }) => {
                     return (
-                        <div className={styles.page}>
+                        <div className={`${this.props.className} ${styles.content}`}>
                             <div className={styles.contentGrid}>
                                 <div className={styles.mainContentFlex}>
                                     <div className={`${styles.logoBox} ${transitionStyles['logoBox']}`}>
                                         <SVGInline svg={Logo} className={`${styles.logo}`}/>
                                     </div>
                                     <nav className={`${styles.mainLinksGrid} ${transitionStyles['buttons']}`}>
-                                        <HomeMainButton className={`${styles.mainLink}`} link='/moonlight' header='blog' subtext='aesthetic music player' color={styles.moonlightColor}/>
-                                        <HomeMainButton className={`${styles.mainLink}`} link='/bumps' header='projects' subtext='favorite beats with art' color={styles.bumpsColor}/>
-                                        <HomeMainButton className={`${styles.mainLink}`} link='/blog' header='about' subtext='thoughts and reflections' color={styles.blogColor}/>
+                                        <HomeMainButton className={`${styles.mainLink}`} link='/blog' header='blog' subtext='thoughts and reflections' color={styles.blogColor}/>
+                                        <HomeMainButton className={`${styles.mainLink}`} link='/projects' header='projects' subtext='coding works / projects' color={styles.projectsColor}/>
+                                        <HomeMainButton className={`${styles.mainLink}`} link='/about' header='about' subtext='introduction & bio' color={styles.aboutColor}/>
                                     </nav>
                                 </div>
                                 <nav className={`${styles.externalLinksFlex} ${transitionStyles['buttons']}`}>
@@ -104,10 +100,6 @@ class Home extends React.Component
                                     <HomeExternalButton className={styles.externalLink} link='https://www.linkedin.com/in/benjamin-pang-45621290' icon={LinkedInIcon}/>
                                 </nav>
                             </div>
-                            <span className={`${styles.footer} ${transitionStyles['footer']}`}>
-                                {`© ${new Date().getUTCFullYear()} - image by `}
-                                <a className={styles.footerLink} href='https://www.pixiv.net/member.php?id=211515'>防人</a>
-                            </span>
                         </div>
                     );
                 }}

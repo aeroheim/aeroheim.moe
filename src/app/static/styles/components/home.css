@@ -1,47 +1,40 @@
-@value homeColor, moonlightColor, bumpsColor, blogColor from '../global/colors.css';
+@value homeColor, blogColor, projectsColor, aboutColor from '../global/colors.css';
 @value easeInCubic, easeOutCubic, easeInSine, easeOutSine from '../global/animations.css';
-@value headerMargin from './header.css';
+@value smheight from '../global/breakpoints.css';
 
-.page
+@value contentHorizontalPadding: 6%;
+.content
 {
+    margin: auto;
+
     display: flex;
     flex-direction: column;
     align-content: center;
 
-    min-height: calc(100% - 4 * headerMargin);
-    padding-top: calc(2 * headerMargin);
-    padding-bottom: calc(2 * headerMargin);
+    padding-left: contentHorizontalPadding;
+    padding-right: contentHorizontalPadding;
 }
 
-@value contentGridHorizontalPadding: 6vw;
 .contentGrid
 {
     display: grid;
     grid-template-rows: auto auto 1fr;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: auto;
     
-    width: 100%;
     margin: auto;
+    padding-top: externalLinksFlexTopMargin;
 }
 
 .mainContentFlex
 {
     grid-row: 1 / 2;
-    grid-column: 2 / 3;
+    grid-column: 1 / 2;
 
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-
-    padding-left: contentGridHorizontalPadding;
-    padding-right: contentGridHorizontalPadding;
 }
 
-/* 
- * breakpoint is the viewport height at which its size is clamped and no longer responsive
- * logoMinEdgeLength(px) / logoEdgeLength(vh) = logoMinViewportHeightBreakpoint(px)
- */
-@value logoMinViewportHeightBreakpoint: 667px;
 @value logoMinEdgeLength: 180px;
 @value logoEdgeLength: 27vh;
 @value logoGap: 0.5vh;
@@ -86,13 +79,14 @@
     clip-path: polygon(-100% 0%, 0% 0%, -100% 100%, -200% 100%);
 }
 
+@value logoShadowDist: 0.6vh;
 .logo
 {
     display: block;
 
     stroke: white;
     stroke-width: 15px;
-    filter: drop-shadow(5px 5px 1px rgba(0, 0, 0, 0.35));
+    filter: drop-shadow(logoShadowDist logoShadowDist 0px rgba(0, 0, 0, 0.35));
 
     transform: rotate(-2.5deg); 
 }
@@ -139,23 +133,25 @@
     height: 100%;
 }
 
+@value externalLinksFlexTopMargin: 5vh;
 .externalLinksFlex
 {
     grid-row: 2 / 3;
-    grid-column: 2 / 3;
+    grid-column: 1 / 2;
 
     display: flex;
     justify-content: space-evenly;
 
-    margin-top: 5%;
-    margin-left: contentGridHorizontalPadding;
-    margin-right: contentGridHorizontalPadding;
+    margin-top: externalLinksFlexTopMargin;
+    margin-bottom: 20px;
 }
 
+@value externalLinkWidth: 6vh;
+@value externalLinkMinWidth: 40px; /* smheight(px) * externalLinkMinWidth(vh%) */
 .externalLink
 {
-    width: 7vh;
-    min-width: 40px;
+    width: externalLinkWidth;
+    min-width: externalLinkMinWidth;
 }
 
 .buttonsInTransition
@@ -180,80 +176,50 @@
     opacity: 0;
 }
 
-.moonlightColor
-{
-    background-color: moonlightColor;
-}
-
-.bumpsColor
-{
-    background-color: bumpsColor;
-}
-
 .blogColor
 {
     background-color: blogColor;
 }
 
-.footer
+.projectsColor
 {
-    grid-area: footer;
-
-    align-self: center;
-    justify-content: flex-end;
-    text-align: center;
-
-    width: auto;
-    margin: 2em 2em 0em 2em;
-
-
-    font-family: 'M+P1-Thin';
-    font-size: responsive 10px 14px;
-    font-range: 215px 1280px;
-    color: white;
-    text-shadow: 0 0 10px black;
+    background-color: projectsColor;
 }
 
-.footerInTransition
+.aboutColor
 {
-    opacity: 0;
-    transform: translateY(3em);
-    transition: opacity 0.65s easeOutCubic 0.35s, transform 0.65s easeOutCubic 0s;
+    background-color: aboutColor;
 }
 
-.footerIn
+@media (max-height: smheight)
 {
-    opacity: 0.5;
-    transform: translateY(0);
-}
+    .contentGrid
+    {
+        /* smheight(px) * externalLinksFlexTopMargin(vh%) */
+        padding-top: 33.33px;
+    }
 
-.footerOutTransition
-{
-    opacity: 0.5;
-    transition: opacity 0.65s easeInCubic 0s;
-}
+    .logo
+    {
+        /* smheight(px) * logoShadowDist(vh%) */
+        filter: drop-shadow(4.3px 4.3px 0px rgba(0, 0, 0, 0.35));
+    }
 
-.footerOut
-{
-    opacity: 0;
-}
-
-.footerLink
-{
-    color: white;
-}
-
-@media (max-height: logoMinViewportHeightBreakpoint)
-{
     .logoBox
     {
-        /* logoMinViewportHeightBreakpoint(px) / logoGap(vh%) */
+        /* smheight(px) * logoGap(vh%) */
         padding: 3px;
     }
 
     .mainLinksGrid
     {
-        /* logoMinViewportHeightBreakpoint(px) / logoGap(vh%) */
+        /* smheight(px) * logoGap(vh%) */
         padding: 3px;
+    }
+
+    .externalLinksFlex
+    {
+        /* smheight(px) * externalLinksFlexTopMargin(vh%) */
+        margin-top: 33.33px;
     }
 }
