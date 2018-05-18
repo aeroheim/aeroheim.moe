@@ -23,8 +23,9 @@ const Footer = ({ className }) =>
             </nav>
             <span className={styles.text}>
                 © aeroheim - &nbsp;
+                <a className={styles.textLink} href='https://github.com/aeroheim/aeroheim.moe'>source</a>
+                &nbsp; - &nbsp;
                 <a className={styles.textLink} href='https://www.pixiv.net/member.php?id=211515'>image</a>
-                &nbsp;by 防人
             </span>
         </footer>
     )
