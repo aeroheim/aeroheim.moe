@@ -2,7 +2,7 @@
 @value easeInCubic, easeOutCubic, easeInSine, easeOutSine from '../global/animations.css';
 @value smheight from '../global/breakpoints.css';
 
-@value contentHorizontalPadding: 6%;
+@value contentHorizontalPadding: 6vw;
 .content
 {
     margin: auto;
@@ -35,19 +35,19 @@
     justify-content: center;
 }
 
-@value logoMinEdgeLength: 180px;
-@value logoEdgeLength: 27vh;
-@value logoGap: 0.5vh;
+@value logoBoxMinEdgeLength: 180px;
+@value logoBoxEdgeLength: 27vh;
+@value logoBoxGap: 0.5vh;
 .logoBox
 {
-    width: logoEdgeLength;
-    height: logoEdgeLength;
+    width: logoBoxEdgeLength;
+    height: logoBoxEdgeLength;
 
-    min-width: logoMinEdgeLength;
-    min-height: logoMinEdgeLength;
+    min-width: logoBoxMinEdgeLength;
+    min-height: logoBoxMinEdgeLength;
 
     /* this padding enforces a gap between flex items - namely the links grid and this logo */
-    padding: logoGap;
+    padding: logoBoxGap;
     
     background-clip: content-box;
     background-color: homeColor;
@@ -79,16 +79,10 @@
     clip-path: polygon(-100% 0%, 0% 0%, -100% 100%, -200% 100%);
 }
 
-@value logoShadowDist: 0.6vh;
 .logo
 {
     display: block;
-
-    stroke: white;
-    stroke-width: 15px;
-    filter: drop-shadow(logoShadowDist logoShadowDist 0px rgba(0, 0, 0, 0.35));
-
-    transform: rotate(-2.5deg); 
+    shape-rendering: geometricPrecision;
 }
 
 .logoInTransition
@@ -114,17 +108,17 @@
 }
 
 @value mainLinksRowGap: 1px;
-@value mainLinksMinRowHeight: calc(logoMinEdgeLength / 3 - mainLinksRowGap);
-@value mainLinksRowHeight: calc(logoEdgeLength / 3 - mainLinksRowGap);
+@value mainLinksMinRowHeight: calc(logoBoxMinEdgeLength / 3 - mainLinksRowGap);
+@value mainLinksRowHeight: calc(logoBoxEdgeLength / 3 - mainLinksRowGap);
 .mainLinksGrid
 {
     display: grid;
     grid-auto-rows: minmax(mainLinksMinRowHeight, mainLinksRowHeight);
-    grid-template-columns: minmax(logoMinEdgeLength, logoEdgeLength);
+    grid-template-columns: minmax(logoBoxMinEdgeLength, logoBoxEdgeLength);
     grid-row-gap: mainLinksRowGap;
 
     /* this padding enforces a gap between flex items - namely the logo and this grid */
-    padding: logoGap;
+    padding: logoBoxGap;
 }
 
 .mainLink
@@ -199,21 +193,15 @@
         padding-top: 33.33px;
     }
 
-    .logo
-    {
-        /* smheight(px) * logoShadowDist(vh%) */
-        filter: drop-shadow(4.3px 4.3px 0px rgba(0, 0, 0, 0.35));
-    }
-
     .logoBox
     {
-        /* smheight(px) * logoGap(vh%) */
+        /* smheight(px) * logoBoxGap(vh%) */
         padding: 3px;
     }
 
     .mainLinksGrid
     {
-        /* smheight(px) * logoGap(vh%) */
+        /* smheight(px) * logoBoxGap(vh%) */
         padding: 3px;
     }
 

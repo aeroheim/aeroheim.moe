@@ -6,7 +6,7 @@ import LinkButton from './link-button';
 import HomeMainButton from './home-main-button';
 import HomeExternalButton from './home-external-button';
 import SVGInline from 'react-svg-inline';
-import Logo from '../static/img/icons/logo-path.svg';
+import Logo from '../static/img/icons/aeroheim-logo_monotone.svg';
 import GithubIcon from '../static/img/icons/github.svg';
 import TwitterIcon from '../static/img/icons/twitter.svg';
 import LinkedInIcon from '../static/img/icons/linkedin.svg';

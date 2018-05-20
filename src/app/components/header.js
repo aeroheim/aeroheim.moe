@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import LinkButton from './link-button';
 import SVGInline from 'react-svg-inline';
-import Logo from '../static/img/icons/logo-path.svg';
+import Logo from '../static/img/icons/aeroheim-logo_colorized.svg';
 import styles from '../static/styles/components/header.css';
 
 function isRouteActive(path, exact)

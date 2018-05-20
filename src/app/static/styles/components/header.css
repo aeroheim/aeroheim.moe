@@ -5,7 +5,7 @@
 @value headerHeight: 10vh;
 @value headerMinHeight: 66.7px; /* smheight(px) * headerHeight(vh) */
 @value headerBottomMargin: 5vh;
-@value headerFlexHorizontalPadding: 5%;
+@value headerFlexHorizontalPadding: 5vw;
 .headerFlex
 {
     /* border-box prevents padding from expanding width */
@@ -39,11 +39,7 @@
     display: block;
     width: logoEdgeLength;
 
-    stroke: white;
-    stroke-width: 15px;
-    filter: drop-shadow(logoShadowDist logoShadowDist 0px rgba(0, 0, 0, 0.35));
-
-    transform: rotate(-2.5deg); 
+    shape-rendering: geometricPrecision;
 }
 
 @value itemHorizontalMargin: calc(0.5vh + 1.25%);
