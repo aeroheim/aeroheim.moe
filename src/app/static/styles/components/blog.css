@@ -2,13 +2,13 @@
 @value easeOutCubic from '../global/animations.css';
 @value smheight from '../global/breakpoints.css';
 
-@value sideMargin: 15px;
+@value contentWidth: 115vh;
 .content
 {
     display: flex;
     flex-direction: column;
 
-    width: auto;
+    width: contentWidth;
     max-width: 80vw;
 
     margin: auto;
@@ -107,6 +107,12 @@
 
 @media (max-height: smheight)
 {
+    .content
+    {
+        /* smheight(px) * contentWidth(vh%) */
+        width: 767.05px;
+    }
+
     .header
     {
         /* smheight(px) * headerFontSize(vh%) */
