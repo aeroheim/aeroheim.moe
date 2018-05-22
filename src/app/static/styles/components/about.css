@@ -1,15 +1,13 @@
 @value homeColor, aboutColor from '../global/colors.css';
 @value easeOutCubic from '../global/animations.css';
-@value smheight large from '../global/breakpoints.css';
+@value smheight from '../global/breakpoints.css';
 
-@value contentHorizontalPadding: 10%;
 .content
 {
     width: auto;
-    
+    max-width: 80vw;
+
     margin: auto;
-    padding-left: contentHorizontalPadding;
-    padding-right: contentHorizontalPadding;
 }
 
 @value headerFontSize: 9vh;

@@ -1,35 +1,17 @@
-@value blogColor from "../global/colors.css";
-@value easeOutCubic from "../global/animations.css";
-@value small, large from '../global/breakpoints.css';
-@value headerMargin from "./header.css";
+@value blogColor from '../global/colors.css';
+@value easeOutCubic from '../global/animations.css';
+@value smheight from '../global/breakpoints.css';
 
 @value sideMargin: 15px;
-
-.page
-{
-    display: flex;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-
-    min-height: calc(100% - 2 * headerMargin);
-    padding: headerMargin sideMargin headerMargin sideMargin;
-}
-
 .content
 {
     display: flex;
     flex-direction: column;
 
-    position: relative;
+    width: auto;
+    max-width: 80vw;
 
-    width: calc(small + 45%);
-    min-width: calc(small - 2 * sideMargin);
-    max-width: large;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
 }
 
 .contentInTransition
@@ -54,13 +36,13 @@
     opacity: 0;
 }
 
-.headerStyle
+@value headerFontSize: 9vh;
+.header
 {
-    font-size: responsive 48px 96px;
-    font-range: 860px 2560px;
+    font-size: headerFontSize;
 }
 
-.headerColor
+.blogColor
 {
     background-color: blogColor;
 }
@@ -80,7 +62,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
 
-    width: 6%;
+    width: 6vw;
 }
 
 .postsSpinnerColor
@@ -88,14 +70,16 @@
     background-color: blogColor;
 }
 
+@value postsTopMargin: 3vh;
+@value postsBottomMargin: 7.5vh;
 .posts
 {
+    margin-top: postsTopMargin;
+    margin-bottom: postsBottomMargin;
+    padding: 0;
+
     list-style: none;
     overflow-y: overlay;
-
-    width: 92%;
-    margin: 0 auto 0 auto;
-    padding: 0;
 }
 
 .postsInTransition
@@ -119,4 +103,22 @@
 .postsOut
 {
     opacity: 0;
+}
+
+@media (max-height: smheight)
+{
+    .header
+    {
+        /* smheight(px) * headerFontSize(vh%) */
+        font-size: 60.03px;
+    }
+
+    .posts
+    {
+        /* smheight(px) * postsTopMargin(vh%) */
+        margin-top: 20.01px;
+
+        /* smheight(px) * postsBottomMargin(vh%) */
+        margin-bottom: 50.025px;
+    }
 }

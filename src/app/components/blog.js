@@ -84,22 +84,18 @@ class Blog extends React.Component
         const err = this.props.err !== null;
 
         return (
-            <div>
-                <Route exact path={this.blogPostPath} children={(props) => <BlogPost { ...props } path={this.blogPostPath}/>}/>
+            <div className={this.props.className}>
+                <Route exact path={this.blogPostPath} children={(props) => <BlogPost path={this.blogPostPath} { ...props } />}/>
                 <ErrorHandler err={this.props.err}/>
                 <SpinnerCubeGrid className={styles.postsSpinner} color={styles.postsSpinnerColor} show={match && !err && !this.props.loaded}/>
                 <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match && this.props.loaded}>
                     {({ transitionStyles }) => {
                         return (
-                            <div className={styles.page}>
-                                <div className={`${styles.content} ${transitionStyles['content']}`}>
-                                    <PageHeader className={styles.headerStyle} color={styles.headerColor} show={match}>BLOG</PageHeader>
-                                    <div className={styles.postsContent}>
-                                        <ul className={`${styles.posts} ${transitionStyles['posts']}`}>
-                                            {this.props.posts.map((post) => <BlogListItem key={post._id} post={post} show={match}/>)}
-                                        </ul>
-                                    </div>
-                                </div>
+                            <div className={`${styles.content} ${transitionStyles['content']}`}>
+                                <PageHeader className={styles.header} color={styles.blogColor} show={match}>BLOG</PageHeader>
+                                <ul className={`${styles.posts} ${transitionStyles['posts']}`}>
+                                    {this.props.posts.map((post) => <BlogListItem key={post._id} post={post} show={match}/>)}
+                                </ul>
                             </div>
                         );
                     }}

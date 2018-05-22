@@ -4,17 +4,13 @@
 {
     display: grid;
     position: fixed;
+
     grid-template-rows: auto 1fr auto;
     grid-template-columns: auto;
     grid-template-areas: "header"
                          "content"
                          "footer";
 
-    background-image: url(../../img/bg.jpg);
-    background-color: rgba(0, 0, 0, 0.2);
-    background-blend-mode: multiply;
-    background-size: cover;
-    background-position: center bottom;
     width: 100%;
     height: 100%;
 
@@ -24,10 +20,17 @@
     overflow-x: hidden;
     overflow-y: auto;
     overflow-y: overlay;
+
+    background-image: url(../../img/bg.jpg);
+    background-color: rgba(0, 0, 0, 0.2);
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-position: center bottom;
 }
 
 .page::-webkit-scrollbar
 {
+    /* TODO: make width responsive */
     width: 6px;
     background-color: rgba(0, 0, 0, 0.4);
 }
