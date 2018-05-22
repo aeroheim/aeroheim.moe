@@ -1,118 +1,125 @@
 @value blogColor from "../global/colors.css";
 @value easeOutCubic from "../global/animations.css";
+@value smheight from '../global/breakpoints.css';
 
-.post
+.content
 {
     margin-top: 1px;
 }
 
-.linkButton
+@value linkFontSize: 1.8vh;
+@value linkVerticalPadding: 1em;
+@value linkHorizontalPadding: 2em;
+.link
 {
-    /* relative allows for colorBar to size itself relative to linkButton */
-    position: relative;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 
-    padding-left: calc(5px + 2.5%);
-    padding-right: calc(5px + 2.5%);
+    padding-top: linkVerticalPadding;
+    padding-bottom: linkVerticalPadding;
+    padding-left: linkHorizontalPadding;
+    padding-right: linkHorizontalPadding;
 
-    text-align: left;
+    font-size: linkFontSize;
     color: white;
+
+    overflow: hidden;
 
     background-color: rgba(0, 0, 0, 0.4);
     transition: background-color 0.65s easeOutCubic 0s;
 }
 
-.linkButton:hover
+.link:hover
 {
     background-color: rgba(0, 0, 0, 0.6);
 }
 
-.postColorBar
-{
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 3px;
-    height: 100%;
-
-    background-color: blogColor;
-}
-
-.postText
-{
-    display: flex;
-    justify-content: space-between;
-
-    width: calc(100% - 3px);
-}
-
-.postTitle
-{
-    flex: 1 1;
-    margin-top: 0.35em;
-    margin-bottom: 0;
-    margin-right: 10px;
-
-    font-size: responsive 20px 44px;
-    font-range: 420px 2560px;
-    font-family: 'M+P1-Thin';
-    font-weight: 400;
-
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.postDate
-{
-    flex: 0 0 content;
-    align-self: flex-end;
-
-    font-size: responsive 12px 20px;
-    font-range: 420px 2560px;
-    font-family: 'M+P1-Thin';
-
-    line-height: 1.2em;
-    text-align: right;
-}
-
-.postDescription
+@value titleFontSize: 3.7vh;
+.title
 {
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: 0.2em;
 
-    font-size: responsive 12px 20px;
-    font-range: 420px 2560px;
+    font-size: titleFontSize;
     font-family: 'M+P1-Thin';
+    font-weight: normal;
+    line-height: 1.25;
 
     overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-.tagList
+.date
 {
-    padding: 0;
-    margin-top: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 0.2em;
+
+    font-family: 'Nunito';
+    font-weight: bold;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
+.description
+{
+    margin-bottom: 0.65em;
+
+    font-family: 'Nunito';
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tags
+{
+    padding: 0;
+}
+
+@value tagFontSize: 1.5vh;
+@value tagVerticalPadding: 0.1em;
+@value tagHorizontalPadding: 1em;
 .tag
 {
     display: inline-block;
-    margin-right: 1em;
-    border-radius: 8px;
-    min-width: 65px;
-    padding-left: 15px;
-    padding-right: 15px;
 
-    font-size: responsive 8px 16px;
-    font-range: 420px 2560px;
-    font-family: 'M+P1-Light';
+    /* margin to enforce spacing against other tags */
+    margin-bottom: 0.3em;
+    margin-right: 1em;
+
+    padding-top: tagVerticalPadding;
+    padding-bottom: tagVerticalPadding;
+    padding-left: tagHorizontalPadding;
+    padding-right: tagHorizontalPadding;
+
+    border-radius: 1em;
+    min-width: 4em;
+    
+    font-size: tagFontSize;
+    font-family: 'Nunito';
 
     text-align: center;
     vertical-align: center;
 
     background: blogColor;
+}
+
+@media (max-height: smheight)
+{
+    .link
+    {
+        /* smheight(px) * linkFontSize(vh%) */
+        font-size: 12.006px;
+    }
+
+    .title
+    {
+        /* smheight(px) * titleFontSize(vh%) */
+        font-size: 24.679px;
+    }
+
+    .tag
+    {
+        /* smheight(px) * tagFontSize(vh%) */
+        font-size: 10.005px;
+    }
 }
