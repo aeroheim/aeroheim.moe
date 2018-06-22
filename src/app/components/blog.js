@@ -58,25 +58,25 @@ class Blog extends React.Component
     {
         const inTransitions =
         {
-            content: new Transition(styles.contentInTransition, 'left'),
+            mainContent: new Transition(styles.mainContentInTransition, 'left'),
             posts: new Transition(styles.postsInTransition, 'opacity', 'clip-path'),
         }
 
         const inStyles =
         {
-            content: styles.contentIn,
+            mainContent: styles.mainContentIn,
             posts: styles.postsIn,
         }
 
         const outTransitions =
         {
-            content: new Transition(styles.contentOutTransition, 'opacity'),
+            mainContent: new Transition(styles.mainContentOutTransition, 'opacity'),
             posts: new Transition(styles.postsOutTransition, 'opacity'),
         }
 
         const outStyles =
         {
-            content: styles.contentOut,
+            mainContent: styles.mainContentOut,
             posts: styles.postsOut,
         }
 
@@ -84,14 +84,14 @@ class Blog extends React.Component
         const err = this.props.err !== null;
 
         return (
-            <div className={this.props.className}>
-                <Route exact path={this.blogPostPath} children={(props) => <BlogPost path={this.blogPostPath} { ...props } />}/>
-                <ErrorHandler err={this.props.err}/>
-                <SpinnerCubeGrid className={styles.postsSpinner} color={styles.postsSpinnerColor} show={match && !err && !this.props.loaded}/>
+            <div className={`${this.props.className} ${styles.page}`}>
+                <Route exact path={this.blogPostPath} children={(props) => <BlogPost className={styles.content} path={this.blogPostPath} {...props} />}/>
+                <ErrorHandler className={styles.content} err={this.props.err} />
+                <SpinnerCubeGrid className={`${styles.content} ${styles.postsSpinner}`} color={styles.postsSpinnerColor} show={match && !err && !this.props.loaded}/>
                 <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match && this.props.loaded}>
                     {({ transitionStyles }) => {
                         return (
-                            <div className={`${styles.content} ${transitionStyles['content']}`}>
+                            <div className={`${styles.content} ${styles.mainContent} ${transitionStyles['mainContent']}`}>
                                 <PageHeader className={styles.header} color={styles.blogColor} show={match}>BLOG</PageHeader>
                                 <ul className={`${styles.posts} ${transitionStyles['posts']}`}>
                                     {this.props.posts.map((post) => <BlogListItem key={post._id} post={post} show={match}/>)}

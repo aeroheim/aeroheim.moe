@@ -2,36 +2,49 @@
 @value easeOutCubic from '../global/animations.css';
 @value smheight from '../global/breakpoints.css';
 
-@value contentWidth: 115vh;
+.page
+{
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto;
+    grid-template-areas: "content";
+}
+
 .content
+{
+    grid-area: content;
+}
+
+@value mainContentWidth: 115vh;
+.mainContent
 {
     display: flex;
     flex-direction: column;
 
-    width: contentWidth;
+    width: mainContentWidth;
     max-width: 80vw;
 
     margin: auto;
 }
 
-.contentInTransition
+.mainContentInTransition
 {
     left: -25%;
     transition: left 0.65s easeOutCubic 0s;
 }
 
-.contentIn
+.mainContentIn
 {
     left: 0%;
 }
 
-.contentOutTransition
+.mainContentOutTransition
 {
     opacity: 1;
     transition: opacity 0.65s easeOutCubic 0s;
 }
 
-.contentOut
+.mainContentOut
 {
     opacity: 0;
 }
@@ -45,14 +58,6 @@
 .blogColor
 {
     background-color: blogColor;
-}
-
-.postsContent
-{
-    position: relative;
-    flex: 1;
-
-    margin-top: calc(10px + 2%);
 }
 
 .postsSpinner
@@ -107,9 +112,9 @@
 
 @media (max-height: smheight)
 {
-    .content
+    .mainContent
     {
-        /* smheight(px) * contentWidth(vh%) */
+        /* smheight(px) * mainContentWidth(vh%) */
         width: 767.05px;
     }
 
