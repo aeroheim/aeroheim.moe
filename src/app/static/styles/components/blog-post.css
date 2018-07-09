@@ -1,25 +1,21 @@
 @value blogColor from "../global/colors.css";
 @value easeInCubic, easeOutCubic from "../global/animations.css";
-@value small, large from "../global/breakpoints.css";
-@value headerMargin from "./header.css";
+@value smheight from "../global/breakpoints.css";
 
 @value sideMargin: 15px;
 
 .page
 {
-    display: flex;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-
-    min-height: calc(100% - 2.5 * headerMargin);
-    padding: calc(1.5 * headerMargin) sideMargin headerMargin sideMargin;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto;
+    grid-template-areas: "content";
 }
 
+@value contentWidth: 115vh;
 .content
 {
+    /*
     display: flex;
     flex-direction: column;
 
@@ -30,6 +26,14 @@
     max-width: large;
     margin-left: auto;
     margin-right: auto;
+    */
+    display: flex;
+    flex-direction: column;
+
+    width: contentWidth;
+    max-width: 80vw;
+
+    margin: auto;
 }
 
 .contentInTransition

@@ -1,4 +1,5 @@
 @value easeInExp, easeOutCubic from "../global/animations.css";
+@value blogColor from "../global/colors.css";
 
 /*
 * Spinner positions
@@ -58,7 +59,7 @@
     width: 33.33%;
     height: 33.33%;
 
-    background-color: #333;
+    background-color: blogColor;
 
     animation: cubeGridScaleDelay 1.3s infinite ease-in-out; 
 }

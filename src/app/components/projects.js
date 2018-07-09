@@ -1,64 +1,41 @@
-import React, { Component } from 'react';
-import { Error } from './error';
-
+import React from 'react';
 import { connect } from 'react-redux';
-import { matchRoute, unmatchRoute} from '../actions/routes-actions';
-import handleMatch from '../util/handle-match';
+import { setAppError, NotImplementedError } from '../actions/app-actions';
 
-class Projects extends Component
+class Projects extends React.Component
 {
     constructor(props)
     {
         super(props);
-        this.onMatch.bind(this);
-        this.onUnmatch.bind(this);
     }
 
     componentDidMount()
     {
         if (this.props.match !== null)
         {
-            this.onMatch();
+            this.props.setAppError(NotImplementedError);
         }
     }
 
-    componentWillReceiveProps(nextProps)
+    componentDidUpdate(prevProps)
     {
-        if (this.props !== nextProps)
+        if (this.props.match !== null)
         {
-            handleMatch(this.props, nextProps, 
-                () => this.onMatch(), 
-                () => this.onUnmatch());
+            this.props.setAppError(NotImplementedError);
         }
-    }
-
-    onMatch()
-    {
-        this.props.matchRoute(this.props.path);
-    }
-
-    onUnmatch()
-    {
-        this.props.unmatchRoute(this.props.path);
     }
 
     render()
     {
-        return <Error className={this.props.className} title='WIP' text='coming soon. check again later' show={this.props.match !== null}/>;
+        return null;
     }
-}
-
-function mapStateToProps(state)
-{
-    return {};
 }
 
 function mapDispatchToProps(dispatch)
 {
     return {
-        matchRoute: (path) => dispatch(matchRoute(path)),
-        unmatchRoute: (path) => dispatch(unmatchRoute(path)),
+        setAppError: (error) => dispatch(setAppError(error)),
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Projects);
+export default connect(null, mapDispatchToProps)(Projects);

@@ -3,7 +3,7 @@ import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/spinner-cube-grid.css';
 
 // Based off of the cube-grid spinner from https://github.com/tobiasahlin/SpinKit
-const SpinnerCubeGrid = ({ className, color, show }) =>
+const SpinnerCubeGrid = ({ className, show }) =>
 {
     const inTransitions =
     {
@@ -31,15 +31,15 @@ const SpinnerCubeGrid = ({ className, color, show }) =>
                 return (
                     <div className={`${styles.cubeGrid} ${transitionStyles['cubeGrid']} ${className}`}>
                         <div className={styles.content}>
-                            <div className={`${styles.cubeOne} ${color}`}></div>
-                            <div className={`${styles.cubeTwo} ${color}`}></div>
-                            <div className={`${styles.cubeThree} ${color}`}></div>
-                            <div className={`${styles.cubeFour} ${color}`}></div>
-                            <div className={`${styles.cubeFive} ${color}`}></div>
-                            <div className={`${styles.cubeSix} ${color}`}></div>
-                            <div className={`${styles.cubeSeven} ${color}`}></div>
-                            <div className={`${styles.cubeEight} ${color}`}></div>
-                            <div className={`${styles.cubeNine} ${color}`}></div>
+                            <div className={styles.cubeOne}></div>
+                            <div className={styles.cubeTwo}></div>
+                            <div className={styles.cubeThree}></div>
+                            <div className={styles.cubeFour}></div>
+                            <div className={styles.cubeFive}></div>
+                            <div className={styles.cubeSix}></div>
+                            <div className={styles.cubeSeven}></div>
+                            <div className={styles.cubeEight}></div>
+                            <div className={styles.cubeNine}></div>
                         </div>
                     </div>
                 );

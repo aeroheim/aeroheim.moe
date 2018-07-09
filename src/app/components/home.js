@@ -1,8 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Transition, AnimatedCSSTransition } from './animated-css-transition';
-import LinkButton from './link-button';
 import HomeMainButton from './home-main-button';
 import HomeExternalButton from './home-external-button';
 import SVGInline from 'react-svg-inline';
@@ -12,44 +9,11 @@ import TwitterIcon from '../static/img/icons/twitter.svg';
 import LinkedInIcon from '../static/img/icons/linkedin.svg';
 import styles from '../static/styles/components/home.css';
 
-import { matchRoute, unmatchRoute} from '../actions/routes-actions';
-import handleMatch from '../util/handle-match';
-
-class Home extends React.Component
+class Home extends React.PureComponent
 {
     constructor(props)
     {
         super(props);
-        this.onMatch.bind(this);
-        this.onUnmatch.bind(this);
-    }
-
-    componentDidMount()
-    {
-        if (this.props.match !== null)
-        {
-            this.onMatch();
-        }
-    }
-
-    componentWillReceiveProps(nextProps)
-    {
-        if (this.props !== nextProps)
-        {
-            handleMatch(this.props, nextProps, 
-                () => this.onMatch(), 
-                () => this.onUnmatch());
-        }
-    }
-
-    onMatch()
-    {
-        this.props.matchRoute(this.props.path);
-    }
-
-    onUnmatch()
-    {
-        this.props.unmatchRoute(this.props.path);
     }
 
     render()
@@ -108,17 +72,4 @@ class Home extends React.Component
     }
 };
 
-function mapStateToProps(state)
-{
-    return {};
-}
-
-function mapDispatchToProps(dispatch)
-{
-    return {
-        matchRoute: (path) => dispatch(matchRoute(path)),
-        unmatchRoute: (path) => dispatch(unmatchRoute(path)),
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;

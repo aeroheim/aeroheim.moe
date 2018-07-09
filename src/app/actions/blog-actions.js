@@ -1,13 +1,16 @@
 import Axios from 'axios';
+import { setAppError, setAppLoading } from './app-actions';
 
 export const fetchPosts = (id) =>
 {
     return (dispatch) => 
     {
+        dispatch(setAppLoading(true));
         dispatch(requestPosts(id));
         return Axios.get('/api/blog')
             .then((res) => dispatch(receivePosts(id, res.data)))
-            .catch((err) => dispatch(errorPosts(err)));
+            .catch((err) => dispatch(setAppError(err.response.status)))
+            .finally(() => dispatch(setAppLoading(false)));
     };
 }
 
@@ -28,15 +31,6 @@ const receivePosts = (id, posts) =>
         id: id,
         posts: posts,
     };
-}
-
-export const ERROR_POSTS = 'ERROR_POSTS';
-const errorPosts = (err) =>
-{
-    return {
-        type: ERROR_POSTS,
-        err: err,
-    }
 }
 
 export const INVALIDATE_POSTS = 'INVALIDATE_POSTS';

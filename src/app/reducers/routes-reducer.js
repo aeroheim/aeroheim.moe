@@ -2,7 +2,7 @@ import { MATCH_ROUTE, UNMATCH_ROUTE } from '../actions/routes-actions';
 
 const initialState =
 {
-    activeRoutes: {},
+    activeRoutes: new Set(),
 }
 
 const routesReducer = (state = initialState, action) =>
@@ -11,12 +11,12 @@ const routesReducer = (state = initialState, action) =>
     switch(action.type)
     {
         case MATCH_ROUTE:
-            activeRoutes = Object.assign({}, state.activeRoutes);
-            activeRoutes[action.path] = true;
+            activeRoutes = new Set(state.activeRoutes);
+            activeRoutes.add(action.path);
             return { ...state, activeRoutes: activeRoutes };
         case UNMATCH_ROUTE:
-            activeRoutes = Object.assign({}, state.activeRoutes);
-            delete activeRoutes[action.path];
+            activeRoutes = new Set(state.activeRoutes);
+            activeRoutes.delete(action.path);
             return { ...state, activeRoutes: activeRoutes };
         default:
             return state;

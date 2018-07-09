@@ -2,11 +2,6 @@
 @value easeOutCubic from "../global/animations.css";
 @value smheight from '../global/breakpoints.css';
 
-.content
-{
-    margin-top: 1px;
-}
-
 @value linkFontSize: 1.8vh;
 @value linkVerticalPadding: 1em;
 @value linkHorizontalPadding: 2em;
@@ -54,7 +49,6 @@
     margin-bottom: 0.2em;
 
     font-family: 'Nunito';
-    font-weight: bold;
 
     overflow: hidden;
     text-overflow: ellipsis;

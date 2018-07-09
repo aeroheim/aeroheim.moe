@@ -9,7 +9,7 @@ import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/blog-post-gallery.css';
 
 import { connect } from 'react-redux';
-import { setScrollbarVisibility } from '../actions/app-actions';
+import { setScrollbarEnabled } from '../actions/app-actions';
 import { setGalleryActiveImageIndex, setGalleryVisibility } from '../actions/blog-post-gallery-actions';
 
 class BlogPostGallery extends React.Component
@@ -28,7 +28,7 @@ class BlogPostGallery extends React.Component
         {
             if (this.props.show !== nextProps.show)
             {
-                this.props.setScrollbarVisibility(!this.props.show && nextProps.show ? false : true);
+                this.props.setScrollbarEnabled(!this.props.show && nextProps.show ? false : true);
             }
         }
     }
@@ -119,9 +119,9 @@ function mapStateToProps(state)
 function mapDispatchToProps(dispatch)
 {
     return {
-        setScrollbarVisibility: (visible) => dispatch(setScrollbarVisibility(visible)),
+        setScrollbarEnabled: (enabled) => dispatch(setScrollbarEnabled(enabled)),
         setGalleryActiveImageIndex: (index) => dispatch(setGalleryActiveImageIndex(index)),
-        setGalleryVisibility: (visible) => dispatch(setGalleryVisibility(visible)),
+        setGalleryVisibility: (enabled) => dispatch(setGalleryVisibility(enabled)),
     }
 }
 

@@ -4,44 +4,11 @@ import PageHeader from './page-header';
 import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/about.css';
 
-import { matchRoute, unmatchRoute} from '../actions/routes-actions';
-import handleMatch from '../util/handle-match';
-
-class About extends React.Component
+class About extends React.PureComponent
 {
     constructor(props)
     {
         super(props);
-        this.onMatch.bind(this);
-        this.onUnmatch.bind(this);
-    }
-
-    componentDidMount()
-    {
-        if (this.props.match !== null)
-        {
-            this.onMatch();
-        }
-    }
-
-    componentWillReceiveProps(nextProps)
-    {
-        if (this.props !== nextProps)
-        {
-            handleMatch(this.props, nextProps, 
-                () => this.onMatch(), 
-                () => this.onUnmatch());
-        }
-    }
-
-    onMatch()
-    {
-        this.props.matchRoute(this.props.path);
-    }
-
-    onUnmatch()
-    {
-        this.props.unmatchRoute(this.props.path);
     }
 
     render()
@@ -110,17 +77,4 @@ class About extends React.Component
     }
 }
 
-function mapStateToProps(state)
-{
-    return {};
-}
-
-function mapDispatchToProps(dispatch)
-{
-    return {
-        matchRoute: (path) => dispatch(matchRoute(path)),
-        unmatchRoute: (path) => dispatch(unmatchRoute(path)),
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(About);
+export default About;

@@ -10,7 +10,7 @@ const BlogListItem = ({ className, post, show, url }) =>
     const monthFormatter = new Intl.DateTimeFormat('en-us', { month: 'short' });
 
     return (
-        <li className={`${className} ${styles.content}`}>
+        <li className={className}>
             <LinkButton link={url ? url : `/blog/${post._id}`} className={styles.link}>
                 <h2 className={styles.title}>{post.title}</h2>
                 <span className={styles.date}>{monthFormatter.format(post.date).toUpperCase()} {post.date.getUTCDate()}, {post.date.getUTCFullYear()}</span>

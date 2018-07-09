@@ -1,4 +1,4 @@
-import { FETCH_POSTS, REQUEST_POSTS, RECEIVE_POSTS, ERROR_POSTS, INVALIDATE_POSTS } from '../actions/blog-actions';
+import { REQUEST_POSTS, RECEIVE_POSTS, ERROR_POSTS, INVALIDATE_POSTS } from '../actions/blog-actions';
 
 const initialState =
 {

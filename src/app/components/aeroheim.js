@@ -1,13 +1,15 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import { connect, Provider } from 'react-redux';
+import RouteContent from './route-content';
 import Header from './header';
 import Footer from './footer';
 import Home from './home';
 import Projects from './projects';
 import Blog from './blog';
 import About from './about';
-import ErrorNotFoundRoute from './error-route';
+import ErrorHandler from './error-handler';
+import SpinnerCubeGrid from './spinner-cube-grid';
 import styles from '../static/styles/components/aeroheim.css';
 
 const homePath = '/';
@@ -25,14 +27,31 @@ class Aeroheim extends React.Component
     render()
     {
         return (
-            <div className={styles.page} style={!this.props.scrollbarVisible ? { overflowY: 'hidden' } : null}>
+            <div className={styles.page} style={!this.props.scrollbarEnabled ? { overflowY: 'hidden' } : null}>
                 <Header className={styles.header}/>
-                <Route exact path={homePath} children={(props) => <Home className={styles.content} path={homePath} {...props}/>}/>
-                <Route exact path={projectsPath} children={(props) => <Projects className={styles.content} path={projectsPath} {...props}/>}/>
-                <Route exact path={blogPath} children={(props) => <Blog className={styles.content} path={blogPath} {...props}/>}/>
-                <Route exact path={aboutPath} children={(props) => <About className={styles.content} path={aboutPath} {...props}/>}/>
-                <ErrorNotFoundRoute className={styles.content}/>
+                <Route exact path={homePath} children={(props) =>
+                    <RouteContent path={homePath} {...props}>
+                        <Home className={styles.content}/>
+                    </RouteContent>}
+                />
+                <Route exact path={projectsPath} children={(props) =>
+                    <RouteContent path={projectsPath} {...props}>
+                        <Projects className={styles.content}/>
+                    </RouteContent>}
+                />
+                <Route path={blogPath} children={(props) =>
+                    <RouteContent path={blogPath} {...props}>
+                        <Blog className={styles.content}/>
+                    </RouteContent>}
+                />
+                <Route exact path={aboutPath} children={(props) =>
+                    <RouteContent path={aboutPath} {...props}>
+                        <About className={styles.content}/>
+                    </RouteContent>}
+                />
                 <Footer className={styles.footer}/>
+                <SpinnerCubeGrid className={styles.spinner} show={this.props.loading}/>
+                <ErrorHandler className={styles.content} />
             </div>
         );
     }
@@ -40,9 +59,9 @@ class Aeroheim extends React.Component
 
 function mapStateToProps(state)
 {
-    const props = state.app;
     return {
-        scrollbarVisible: props.scrollbarVisibility,
+        scrollbarEnabled: state.app.scrollbarEnabled,
+        loading: state.app.loading,
     }
 }
 
