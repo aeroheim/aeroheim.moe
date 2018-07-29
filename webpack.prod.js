@@ -58,7 +58,32 @@ module.exports =
             {
                 test: /\.svg$/,
                 include: path.resolve(__dirname, './src/app/static/img/icons'),
-                use: [ 'raw-loader' ]
+                use: 
+                [
+                    { 
+                        loader: 'babel-loader',
+                        options:
+                        {
+                            presets:
+                            [
+                                'env',
+                                'react',
+                                'stage-2',
+                            ]
+                        }
+                    },
+                    {
+                        loader: 'react-svg-loader',
+                        options:
+                        {
+                            svgo:
+                            {
+                                plugins: [ { removeTitle: false }],
+                                floatPrecision: 2
+                            }
+                        }
+                    }
+                ]
             },
             {
                 test: /\.(jpg|png|woff|woff2|eot|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
