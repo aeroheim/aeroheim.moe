@@ -13,10 +13,15 @@ class RouteContent extends React.Component
 
     componentDidMount()
     {
-        if (this.props.match !== null)
+        if (this.props.match)
         {
             this.props.matchRoute(this.props.path);
         }
+    }
+
+    componentWillUnmount()
+    {
+        this.props.unmatchRoute(this.props.path);
     }
 
     componentDidUpdate(prevProps)
@@ -36,9 +41,13 @@ class RouteContent extends React.Component
 
     render()
     {
+        // remove children from props, it shouldn't be passed down.
+        const props = Object.assign({ key: 'test' }, this.props);
+        delete props.children;
+
         return (
             <React.Fragment>
-                {React.Children.map(this.props.children, x => React.cloneElement(x, { ...this.props }))}
+                {React.Children.map(this.props.children, x => React.cloneElement(x, props))}
             </React.Fragment>
         );
     }
