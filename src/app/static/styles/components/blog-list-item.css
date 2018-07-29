@@ -67,6 +67,7 @@
 .tags
 {
     padding: 0;
+    margin: 0;
 }
 
 @value tagFontSize: 1.5vh;
@@ -92,7 +93,7 @@
     font-family: 'Nunito';
 
     text-align: center;
-    vertical-align: center;
+    vertical-align: middle;
 
     background: blogColor;
 }

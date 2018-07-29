@@ -6,12 +6,17 @@
 {
     /* relative allows for colorBar to size itself relative to linkButton */
     position: relative;
-    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     text-indent: buttonTextIndent;
 
     color: white;
     background: rgba(0, 0, 0, 0.5);
+
+    overflow: hidden;
 }
 
 .colorBar
@@ -49,13 +54,15 @@
 {
     /* relative enforces correct z-index against colorBar */
     position: relative;
-    overflow: hidden;
-    margin: 0;
+
+    margin-top: -0.1em;
 
     font-size: headerFontSize;
     font-family: 'M+P1-Thin';
     font-weight: 400;
     text-shadow: 0px 0px 10px black;
+
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -65,13 +72,14 @@
 {
     /* relative enforces correct z-index against colorBar */
     position: relative;
-    overflow: hidden;
 
-    margin-top: -0.3em;
+    margin: 0;
 
     font-size: subtextFontSize;
     font-family: 'Nunito';
     text-shadow: 0px 0px 10px black;
+
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
