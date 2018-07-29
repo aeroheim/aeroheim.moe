@@ -2,7 +2,6 @@ import React from 'react';
 import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import HomeMainButton from './home-main-button';
 import HomeExternalButton from './home-external-button';
-import SVGInline from 'react-svg-inline';
 import Logo from '../static/img/icons/aeroheim-logo_monotone.svg';
 import GithubIcon from '../static/img/icons/github.svg';
 import TwitterIcon from '../static/img/icons/twitter.svg';
@@ -50,18 +49,18 @@ class Home extends React.PureComponent
                             <div className={styles.contentGrid}>
                                 <div className={styles.mainContentFlex}>
                                     <div className={`${styles.logoBox} ${transitionStyles['logoBox']}`}>
-                                        <SVGInline svg={Logo} className={`${styles.logo}`}/>
+                                        <Logo className={styles.logo}/>
                                     </div>
                                     <nav className={`${styles.mainLinksGrid} ${transitionStyles['buttons']}`}>
-                                        <HomeMainButton className={`${styles.mainLink}`} link='/blog' header='blog' subtext='thoughts and reflections' color={styles.blogColor}/>
-                                        <HomeMainButton className={`${styles.mainLink}`} link='/projects' header='projects' subtext='coding works / projects' color={styles.projectsColor}/>
-                                        <HomeMainButton className={`${styles.mainLink}`} link='/about' header='about' subtext='introduction & bio' color={styles.aboutColor}/>
+                                        <HomeMainButton className={styles.mainLink} link='/blog' header='blog' subtext='thoughts and reflections' color={styles.blogColor}/>
+                                        <HomeMainButton className={styles.mainLink} link='/projects' header='projects' subtext='coding works / projects' color={styles.projectsColor}/>
+                                        <HomeMainButton className={styles.mainLink} link='/about' header='about' subtext='introduction & bio' color={styles.aboutColor}/>
                                     </nav>
                                 </div>
                                 <nav className={`${styles.externalLinksFlex} ${transitionStyles['buttons']}`}>
-                                    <HomeExternalButton className={styles.externalLink} link='https://github.com/aeroheim' icon={GithubIcon}/>
-                                    <HomeExternalButton className={styles.externalLink} link='https://twitter.com/aeroheim' icon={TwitterIcon}/>
-                                    <HomeExternalButton className={styles.externalLink} link='https://www.linkedin.com/in/benjamin-pang-45621290' icon={LinkedInIcon}/>
+                                    <HomeExternalButton className={styles.externalLink} link='https://github.com/aeroheim' Icon={GithubIcon}/>
+                                    <HomeExternalButton className={styles.externalLink} link='https://twitter.com/aeroheim' Icon={TwitterIcon}/>
+                                    <HomeExternalButton className={styles.externalLink} link='https://www.linkedin.com/in/benjamin-pang-45621290' Icon={LinkedInIcon}/>
                                 </nav>
                             </div>
                         </div>

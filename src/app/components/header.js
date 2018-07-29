@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import LinkButton from './link-button';
-import SVGInline from 'react-svg-inline';
 import Logo from '../static/img/icons/aeroheim-logo_colorized.svg';
 import styles from '../static/styles/components/header.css';
 
@@ -20,7 +19,7 @@ const Header = ({ className }) =>
     return (
         <header className={`${className} ${styles.headerFlex}`}>
             <LinkButton link='/' className={`${styles.item} ${isHomeActive ? styles.activeItem : ''}`}>
-                <SVGInline svg={Logo} className={styles.logo}/>
+                <Logo className={styles.logo}/>
             </LinkButton>
             <LinkButton link='/blog' className={`${styles.textItem} ${styles.item} ${isBlogActive ? styles.activeItem : ''}`}>
                 blog

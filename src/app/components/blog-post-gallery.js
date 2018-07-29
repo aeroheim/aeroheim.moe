@@ -1,5 +1,4 @@
 import React from 'react';
-import SVGInline from 'react-svg-inline';
 import PrevIcon from '../static/img/icons/prev.svg';
 import NextIcon from '../static/img/icons/next.svg';
 import CloseIcon from '../static/img/icons/close.svg';
@@ -83,12 +82,12 @@ class BlogPostGallery extends React.Component
                         <div className={`${styles.page} ${transitionStyles['page']}`}>
                             <div className={styles.closeButtonContainer}>
                                 <Button className={styles.button} onClick={this.onClose}>
-                                    <SVGInline svg={CloseIcon} className={styles.closeIcon}/>
+                                    <CloseIcon className={styles.closeIcon}/>
                                 </Button>
                             </div>
                             <div className={styles.navButtonContainer}>
                                 <Button className={styles.button} animate show={this.props.activeImageIndex > 0} onClick={this.onPrevImage}>
-                                    <SVGInline svg={PrevIcon} className={styles.navIcon}/>
+                                    <PrevIcon className={styles.navIcon}/>
                                 </Button>
                             </div>
                             <div className={styles.content}>
@@ -96,7 +95,7 @@ class BlogPostGallery extends React.Component
                             </div>
                             <div className={styles.navButtonContainer}>
                                 <Button className={styles.button} animate show={this.props.activeImageIndex < this.props.images.length - 1} onClick={this.onNextImage}>
-                                    <SVGInline svg={NextIcon} className={styles.navIcon}/>
+                                    <NextIcon className={styles.navIcon}/>
                                 </Button>
                             </div>
                         </div>
