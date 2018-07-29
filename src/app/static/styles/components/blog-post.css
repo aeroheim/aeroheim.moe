@@ -58,61 +58,105 @@
     opacity: 0;
 }
 
-.postSpinner
+@value backButtonFontSize: 5vh;
+.backButton
 {
-    composes: postsSpinner from './blog.css';
+    /* absolute to avoid affecting the rest of the flow */
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+
+    height: 100%;
+    max-width: 100%;
+
+    margin: auto;
+    padding: 0.25em;
+
+    font-size: backButtonFontSize;
+    font-family: 'M+P1-Thin';
+    font-weight: normal;
+    line-height: 1em;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    opacity: 0;
+    clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+    transition: opacity 0.5s easeOutCubic 0s, clip-path 0.5s easeOutCubic 0s;
 }
 
-.postSpinnerColor
+.backButtonIcon
 {
-    composes: postsSpinnerColor from './blog.css';
+    height: 100%;
+    fill: white;
 }
 
-.linkButton
+.header
 {
-    composes: linkButton from './blog-list-item.css';
+    composes: link from './blog-list-item.css';
+    position: relative;
     background-color: rgba(0, 0, 0, 0.65);
 }
 
-.linkButton:hover
+.header:hover
 {
     background-color: rgba(0, 0, 0, 0.85);
 }
 
-.postColorBar
+.header:hover > .backButton
 {
-    composes: postColorBar from './blog-list-item.css';
+    opacity: 1;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
-.postText
+.header:hover > .title,
+.header:hover > .date,
+.header:hover > .description,
+.header:hover > .tags,
+.header:hover > .tag
 {
-    composes: postText from './blog-list-item.css';
+    opacity: 0;
 }
 
-.postTitle
+.backButtonToggle
 {
-    composes: postTitle from './blog-list-item.css';
+    transition: opacity 0.25s easeOutCubic 0s;
 }
 
-.postDate
+.title
 {
-    composes: postDate from './blog-list-item.css';
+    composes: title from './blog-list-item.css';
+    composes: backButtonToggle;
 }
 
-.postDescription
+.date
 {
-    composes: postDescription from './blog-list-item.css';
+    composes: date from './blog-list-item.css';
+    composes: backButtonToggle;
 }
 
-.tagList
+.description
 {
-    composes: tagList from './blog-list-item.css';
-    margin-bottom: 20px;
+    composes: description from './blog-list-item.css';
+    composes: backButtonToggle;
+}
+
+.tags
+{
+    composes: tags from './blog-list-item.css';
+    composes: backButtonToggle;
 }
 
 .tag
 {
     composes: tag from './blog-list-item.css';
+    composes: backButtonToggle;
 }
 
 .post
@@ -127,4 +171,119 @@
     overflow-x: hidden;
 
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+.footer
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@value footerButtonFontSize: 1.75vh;
+.footerButton
+{
+    flex: 1;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    min-width: 0;
+
+    font-size: footerButtonFontSize;
+
+    background-color: rgba(0, 0, 0, 0.65);
+    transition: background-color 0.65s easeOutCubic 0s;
+}
+
+.footerButton:hover
+{
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.prevButton
+{
+    composes: footerButton;
+    justify-content: flex-start;
+}
+
+.nextButton
+{
+    composes: footerButton;
+    justify-content: flex-end;
+    text-align: end;
+}
+
+@value footerButtonTextVerticalMargin: 3em;
+.footerButtonText
+{
+    flex: 1;
+
+    margin-top: footerButtonTextVerticalMargin;
+    margin-bottom: footerButtonTextVerticalMargin;
+
+    color: white;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.footerButtonText > span
+{
+    font-family: 'Nunito';
+    font-weight: 100;
+}
+
+@value footerButtonHeaderFontSize: 2.5vh;
+.footerButtonText > h1, h2
+{
+    margin: 0;
+
+    font-family: 'M+P1-Thin';
+    font-size: footerButtonHeaderFontSize;
+    font-weight: 100;
+    line-height: 1.25em;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@value footerButtonTextHorizontalMargin: 1em;
+.prevButtonText
+{
+    composes: footerButtonText;
+    margin-right: footerButtonTextHorizontalMargin;
+}
+
+.nextButtonText
+{
+    composes: footerButtonText;
+    margin-left: footerButtonTextHorizontalMargin;
+}
+
+.footerButtonIcon
+{
+    height: 5em;
+    fill: white;
+}
+
+@media (max-height: smheight)
+{
+    .backButton
+    {
+        /* smheight(px) * linkFontSize(vh%) */
+        font-size: 43.355px;
+    }
+
+    .footerButton
+    {
+        /* smheight(px) * footerButtonFontSize(vh%) */
+        font-size: 11.6725px;
+    }
+
+    .footerButtonText > h2
+    {
+        /* smheight(px) * footerButtonHeaderFontSize(vh%) */
+        font-size: 16.675px;
+    }
 }
