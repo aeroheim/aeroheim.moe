@@ -37,24 +37,23 @@
 }
 
 @value headerFontSize: 20vh;
-@value headerHorizontalMargin: 10vh;
 .header
 {
     margin-top: 0;
     margin-bottom: 0;
-    margin-left: headerHorizontalMargin;
-    margin-right: headerHorizontalMargin;
+    margin-left: 0.25em;
+    margin-right: 0.25em;
 
     font-size: headerFontSize;
 }
 
 @value textFontSize: 2.5vh;
-@value textTopMargin: -2vh;
-@value textBottomMargin: 2vh;
 .text
 {
-    margin-top: textTopMargin;
-    margin-bottom: textBottomMargin;
+    margin-top: -1.5em;
+    margin-bottom: 1em;
+
+    word-wrap: break-word;
 
     font-size: textFontSize;
 }
@@ -63,22 +62,12 @@
 {
     .header
     {
-        /* smheight(px) * headerHorizontalMargin(vh%) */
-        margin-left: 66.7px;
-        margin-right: 66.7px;
-
         /* smheight(px) * headerFontSize(vh%) */
         font-size: 133.4px;
     }
 
     .text
     {
-        /* smheight(px) * textTopMargin(vh%) */
-        margin-top: -33.35px;
-
-        /* smheight(px) * textBottomMargin(vh%) */
-        margin-bottom: 33.35px;
-
         /* smheight(px) * textFontSize(vh%) */
         font-size: 16.675px;
     }

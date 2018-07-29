@@ -11,7 +11,7 @@ class Projects extends React.Component
 
     componentDidMount()
     {
-        if (this.props.match !== null)
+        if (this.props.match)
         {
             this.props.setAppError(NotImplementedError);
         }
@@ -19,7 +19,7 @@ class Projects extends React.Component
 
     componentDidUpdate(prevProps)
     {
-        if (this.props.match !== null)
+        if (this.props.match)
         {
             this.props.setAppError(NotImplementedError);
         }

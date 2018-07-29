@@ -28,6 +28,8 @@ class Aeroheim extends React.Component
     {
         return (
             <div className={styles.page} style={!this.props.scrollbarEnabled ? { overflowY: 'hidden' } : null}>
+                <ErrorHandler className={styles.content} />
+                <SpinnerCubeGrid className={styles.spinner} show={this.props.loading}/>
                 <Header className={styles.header}/>
                 <Route exact path={homePath} children={(props) =>
                     <RouteContent path={homePath} {...props}>
@@ -50,8 +52,6 @@ class Aeroheim extends React.Component
                     </RouteContent>}
                 />
                 <Footer className={styles.footer}/>
-                <SpinnerCubeGrid className={styles.spinner} show={this.props.loading}/>
-                <ErrorHandler className={styles.content} />
             </div>
         );
     }

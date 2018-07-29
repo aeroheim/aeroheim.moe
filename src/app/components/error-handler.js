@@ -3,18 +3,30 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import { setAppError, clearAppError, NotFoundError, NotImplementedError } from '../actions/app-actions';
-import styles from '../static/styles/components/error-not-found.css';
+import styles from '../static/styles/components/error-handler.css';
+
+const defaultErrorTitle = 'error';
+const defaultErrorText = 'something went wrong. try again later'
 
 class ErrorHandler extends React.PureComponent
 {
     constructor(props)
     {
         super(props);
+
+        // cache props received from redux in state. this allows the component to display
+        // cached values when the redux store is cleared while the component is transitioning
+        // to a new set of props or unmounting.
+        this.state = 
+        {
+            title: null,
+            text: null,
+        };
     }
 
     componentDidMount()
     {
-        // Check for initial 404.
+        // check for initial 404.
         if (this.props.error === null)
         {
             this.initializeError();
@@ -23,23 +35,46 @@ class ErrorHandler extends React.PureComponent
 
     componentDidUpdate(prevProps)
     {
-        // Error should only be re-initialized if a route transition occurred without the error changing,
+        // error should only be re-initialized if a route transition occurred without the error changing,
         // or if the route changed while the current error is a 404.
         if ((this.props.error === 404 || this.props.error === prevProps.error) && this.props.activeRoutes !== prevProps.activeRoutes)
         {
             this.initializeError();
         }
+        // new error received.
+        else if (this.props.error && this.props.error !== prevProps.error)
+        {
+            let title = defaultErrorTitle;
+            let text = defaultErrorText;
+
+            switch(this.props.error)
+            {
+                case NotImplementedError:
+                    title = 'WIP';
+                    text = 'coming soon. check again later';
+                    break;
+                case NotFoundError:
+                    title = this.props.error;
+                    text = "there's nothing here";
+                    break;
+            }
+
+            this.setState({
+                title: title,
+                text: text,
+            });
+        }
     }
 
     initializeError()
     {
-        // No route matched - 404 error.
+        // no route matched - 404 error.
         if (this.props.activeRoutes.size === 0)
         {
             this.props.setAppError(404);
         }
-        // Route changed - clear error.
-        else if (this.props.error !== null)
+        // route changed - clear error.
+        else if (this.props.error)
         {
             this.props.clearAppError();
         }
@@ -66,31 +101,14 @@ class ErrorHandler extends React.PureComponent
         {
             content: styles.contentOut,
         }
-    
-        let title = 'error';
-        let text = 'something went wrong. try again later';
-        if (this.props.error !== null)
-        {
-            switch(this.props.error)
-            {
-                case NotImplementedError:
-                    title = 'WIP';
-                    text = 'coming soon. check again later';
-                    break;
-                case NotFoundError:
-                    title = this.props.error;
-                    text = "there's nothing here";
-                    break;
-            }
-        }
 
         return (
-            <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.error !== null}>
+            <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.error}>
                 {({ transitionStyles }) => {
                     return (
                         <div className={`${this.props.className} ${styles.content} ${transitionStyles['content']}`}>
-                            <h1 className={styles.header}>{title}</h1>
-                            <p className={styles.text}>{text}</p>
+                            <h1 className={styles.header}>{this.state.title}</h1>
+                            <p className={styles.text}>{this.state.text}</p>
                         </div>
                     );
                 }}
