@@ -50,24 +50,23 @@ class About extends React.PureComponent
                                     <br/>
                                     The University of Texas at Austin with a B.S Computer Science in 2015.
                                 </p>
-                                <p>
-                                    I <i>dig</i> mechanical keyboards (average ~150WPM):
-                                    <ul className={styles.list}>
-                                        <li>Winkeyless 22mini-B w/ Hako Clears + EnjoyPBT Hiragana</li>
-                                        <li>Leopold FC660C w/ Hypersphere rings ♥</li>
-                                    </ul>
-                                    I'm also a long-time MMO junkie, avid gamer, and otoge fan:
-                                    <ul className={styles.list}>
-                                        <li>Past: <i>Ragnarok Online, Granado Espada, Aion, FFXIV, Tree of Savior</i></li>
-                                        <li>Current: <i>Black Desert Online (NA) - Aeroheim family</i></li>
-                                        <li>Sound Voltex: sitting at ~9150 VOLFORCE 😭</li>
-                                    </ul>
-                                    You can hit me up at the following links:
-                                    <ul className={styles.list}>
-                                        <li><a className={styles.link} href='https://twitter.com/aeroheim'>twitter</a></li>
-                                        <li><a className={styles.link} href='mailto:aeroheim@gmail.com'>mail</a></li>
-                                    </ul>
-                                </p>
+                                <span>I <i>adore</i> mechanical keyboards (average ~150WPM):</span>
+                                <ul className={styles.list}>
+                                    <li>Winkeyless 22mini-B w/ Hako Clears + EnjoyPBT Hiragana</li>
+                                    <li>Leopold FC660C w/ Hypersphere rings ♥</li>
+                                </ul>
+                                <span>I'm also a long-time MMO junkie, avid gamer, and otoge fan:</span>
+                                <ul className={styles.list}>
+                                    <li>Past: <i>Ragnarok Online, Granado Espada, Aion, FFXIV, Tree of Savior</i></li>
+                                    <li>Current: <i>Black Desert Online (NA) - Aeroheim family</i></li>
+                                    <li>Sound Voltex: sitting at ~9150 VOLFORCE 😭</li>
+                                    <li>Girls Frontline: aeroheim - UID 227756, add me!</li>
+                                </ul>
+                                <span>You can hit me up at the following links:</span>
+                                <ul className={styles.list}>
+                                    <li><a className={styles.link} href='https://twitter.com/aeroheim'>twitter</a></li>
+                                    <li><a className={styles.link} href='mailto:aeroheim@gmail.com'>mail</a></li>
+                                </ul>
                             </article>
                         </div>
                     );
