@@ -27,7 +27,7 @@ class Aeroheim extends React.Component
     render()
     {
         return (
-            <div className={styles.page} style={!this.props.scrollbarEnabled ? { overflowY: 'hidden' } : null}>
+            <div id='app' className={styles.page} style={!this.props.scrollbarEnabled ? { overflowY: 'hidden' } : null}>
                 <ErrorHandler className={styles.content} />
                 <SpinnerCubeGrid className={styles.spinner} show={this.props.loading}/>
                 <Header className={styles.header}/>

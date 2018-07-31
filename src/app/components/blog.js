@@ -56,6 +56,9 @@ class Blog extends React.Component
         // response received - new props
         else if (this.props.loaded && !prevProps.loaded)
         {
+            // scroll to top of posts
+            document.getElementById('app').scrollTo(0, 0);
+
             this.setState({
                 posts: this.props.posts,
                 loaded: this.props.loaded,

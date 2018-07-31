@@ -70,6 +70,9 @@ class BlogPost extends React.Component
         // response received - new props
         else if (this.props.loaded && !prevProps.loaded)
         {
+            // scroll to top of new post
+            document.getElementById('app').scrollTo(0, 0);
+
             const currentPostIndex = this.props.posts.map(x => x._id).indexOf(this.props.match.params.id);
             this.setState(
             {
