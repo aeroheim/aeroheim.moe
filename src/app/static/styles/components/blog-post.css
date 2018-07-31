@@ -13,27 +13,16 @@
 }
 
 @value contentWidth: 115vh;
+@value contentVerticalMargin: 5vh;
 .content
 {
-    /*
-    display: flex;
-    flex-direction: column;
-
-    position: relative;
-
-    width: calc(small + 40%);
-    min-width: calc(small - 2 * sideMargin);
-    max-width: large;
-    margin-left: auto;
-    margin-right: auto;
-    */
     display: flex;
     flex-direction: column;
 
     width: contentWidth;
     max-width: 80vw;
 
-    margin: auto;
+    margin: contentVerticalMargin auto contentVerticalMargin auto;
 }
 
 .contentInTransition
@@ -159,18 +148,28 @@
     composes: backButtonToggle;
 }
 
+@value postFontSize: 1.7vh;
 .post
 {
-    flex: 1;
-    padding: 15px calc(10px + 5%) 35px calc(10px + 5%);
+    padding: 1em 4em 1em 4em;
 
     font-family: 'Nunito';
-    font-weight: 200;
-    color: white;
+    font-size: postFontSize;
 
     overflow-x: hidden;
 
+    color: white;
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 
+ * this is a bit of a hack - normally the code element should be overwritten when parsed by marksy in blog-post-parser,
+ * but doing so overwrites the syntax highlighting returned by prism. as a result, additional code styling should be done here.
+ */
+.post > pre > code
+{
+    border-radius: 1.5em;
+    font-size: 0.85em;
 }
 
 .footer
@@ -269,10 +268,22 @@
 
 @media (max-height: smheight)
 {
+    .content
+    {
+        /* smheight(px) * contentVerticalMargin(vh%) */
+        margin-top: 33.35px;
+    }
+
     .backButton
     {
         /* smheight(px) * linkFontSize(vh%) */
         font-size: 43.355px;
+    }
+
+    .post
+    {
+        /* smheight(px) * postFontSize(vh%) */
+        font-size: 11.339px;
     }
 
     .footerButton

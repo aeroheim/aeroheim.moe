@@ -1,36 +1,33 @@
 @value homeColor from "../global/colors.css";
 
-.h
-{
-    font-weight: 100;
-    font-family: 'M+P1-Light';
-}
-
 .h1
 {
-    composes: h;
-    font-size: 2.5em;
-
     margin-top: 0.5em;
     margin-bottom: 0.5em;
+
+    font-weight: 100;
+    font-family: 'M+P1-Light';
+    font-size: 2.5em;
 }
 
 .h2
 {
-    composes: h;
-    font-size: 2em;
-
     margin-top: 0.4em;
     margin-bottom: 0.4em;
+
+    font-weight: 100;
+    font-family: 'M+P1-Light';
+    font-size: 2em;
 }
 
 .h3
 {
-    composes: h;
-    font-size: 1.5em;
-
     margin-top: 0.3em;
     margin-bottom: 0.3em;
+
+    font-weight: 100;
+    font-family: 'M+P1-Light';
+    font-size: 1.5em;
 }
 
 .a

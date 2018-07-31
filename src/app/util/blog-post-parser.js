@@ -21,9 +21,9 @@ const parser = marksy({
     },
     elements:
     {
-        h1({id, children}) { return <h1 id={id} className={styles.h1}>{children}</h1>; },
-        h2({id, children}) { return <h2 id={id} className={styles.h2}>{children}</h2>; },
-        h3({id, children}) { return <h3 id={id} className={styles.h3}>{children}</h3>; },
+        h1({id, children}) { return <h1 className={styles.h1}>{children}</h1>; },
+        h2({id, children}) { return <h2 className={styles.h2}>{children}</h2>; },
+        h3({id, children}) { return <h3 className={styles.h3}>{children}</h3>; },
         a ({href, title, target, children}) { return <a href={href} title={title} target={target} className={styles.a}>{children}</a>; },
         hr() { return <hr className={styles.hr}/>; },
     },
