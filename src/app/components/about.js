@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PageHeader from './page-header';
 import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/about.css';

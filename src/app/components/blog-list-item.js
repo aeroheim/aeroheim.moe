@@ -1,6 +1,5 @@
 import React from 'react';
 import LinkButton from './link-button';
-import AnimatedCSSTransition from './animated-css-transition';
 import styles from '../static/styles/components/blog-list-item.css';
 
 const BlogListItem = ({ className, post, show, url }) =>
