@@ -23,8 +23,8 @@ function handleBlogRequest(req, res)
         return res.status(422).json({ errors: errors.array() });
     }
 
-    // default limit for pagination is 5 posts
-    const limit = req.query.limit ? req.query.limit : 5;
+    // default limit for pagination is 10 posts
+    const limit = req.query.limit ? req.query.limit : 10;
     req.app.locals.db.blog.count({}, (err, count) =>
     {
         if (err)
@@ -72,7 +72,10 @@ function handleBlogPostRequest(req, res)
                 return res.sendStatus(404);
             }
 
-            json = Object.assign(json, prevPost.length !== 0 ? { prevPost: prevPost[0] } : null);
+            if (prevPost.length !== 0)
+            {
+                json.prevPost = prevPost;
+            }
 
             // find next post
             req.app.locals.db.blog.find({'date': { $gt: post.date }}).sort({ date: 1 }).limit(1).exec((err, nextPost) =>
@@ -82,7 +85,10 @@ function handleBlogPostRequest(req, res)
                     return res.sendStatus(404);
                 }
 
-                json = Object.assign(json, nextPost.length !== 0 ? { nextPost: nextPost[0] } : null);
+                if (nextPost.length !== 0)
+                {
+                    json.nextPost = nextPost;
+                }
 
                 // get post content
                 fs.readFile(path.join(blogContentPath, `${post._id}/${post._id}.md`), 'utf8', (err, data) =>
@@ -92,7 +98,7 @@ function handleBlogPostRequest(req, res)
                         return res.sendStatus(404);
                     }
 
-                    json = Object.assign(json, { content: data });
+                    json.content = data;
                     return res.json(json);
                 });
             });
