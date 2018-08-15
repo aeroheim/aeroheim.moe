@@ -8,6 +8,8 @@ const initialState =
     description: null,
     date: null,
     content: null,
+    prevPost: null,
+    nextPost: null,
     loaded: false,
 }
 
@@ -22,12 +24,14 @@ const blogPostReducer = (state = initialState, action) =>
             return action.stateId === state.stateId 
                 ? {
                     ...state,
-                    postId: action.postId,
-                    title: action.post.title,
-                    description: action.post.description,
-                    date: action.post.date,
-                    tags: action.post.tags,
-                    content: action.post.content,
+                    postId: action.data._id,
+                    title: action.data.title,
+                    description: action.data.description,
+                    date: action.data.date,
+                    tags: action.data.tags,
+                    content: action.data.content,
+                    prevPost: action.data.prevPost,
+                    nextPost: action.data.nextPost,
                     loaded: true,
                 }
                 : state;

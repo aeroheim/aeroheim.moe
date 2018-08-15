@@ -72,8 +72,6 @@ class BlogPost extends React.Component
         {
             // scroll to top of new post
             document.getElementById('app').scrollTo(0, 0);
-
-            const currentPostIndex = this.props.posts.map(x => x._id).indexOf(this.props.match.params.id);
             this.setState(
             {
                 title: this.props.title,
@@ -81,8 +79,8 @@ class BlogPost extends React.Component
                 date: this.props.date,
                 tags: this.props.tags,
                 content: this.props.content,
-                prevPost: currentPostIndex + 1 < this.props.posts.length ? this.props.posts[currentPostIndex + 1] : null,
-                nextPost: currentPostIndex - 1 >= 0 ? this.props.posts[currentPostIndex - 1] : null,
+                prevPost: this.props.prevPost,
+                nextPost: this.props.nextPost,
                 loaded: true,
             });
         }
@@ -92,9 +90,7 @@ class BlogPost extends React.Component
     {
         this.clearPost();
 
-        this.postsStateId = Date.now();
         this.postStateId = this.postsStateId;
-        this.props.fetchPosts(this.postsStateId);
         this.props.fetchPost(this.postStateId, this.props.match.params.id);
 
         this.props.setGalleryImages([]);
@@ -104,7 +100,6 @@ class BlogPost extends React.Component
 
     clearPost()
     {
-        this.props.invalidatePosts(this.postsStateId);
         this.props.invalidatePost(this.postStateId);
         this.setState((prevState, props) =>
         {
@@ -145,7 +140,7 @@ class BlogPost extends React.Component
                         return (
                             <div className={`${this.props.className} ${styles.content} ${transitionStyles['content']}`}>
                                 <header>
-                                    <LinkButton link='/blog' className={styles.header}>
+                                    <LinkButton link='/blog/page/2' className={styles.header}>
                                         <h2 className={styles.backButton}>
                                             <NextIcon className={styles.backButtonIcon}/>
                                             back to blog
@@ -194,11 +189,10 @@ function mapStateToProps(state)
         date: state.blogPost.date,
         tags: state.blogPost.tags,
         content: state.blogPost.content,
+        prevPost: state.blogPost.prevPost,
+        nextPost: state.blogPost.nextPost,
         showImageGallery: state.BlogPostGallery.visible,
-        posts: state.blog.posts,
-        // data is only ready once post & posts list are retrieved - posts list is
-        // necessary in order to determine previous and next posts to display.
-        loaded: state.blogPost.loaded && state.blog.loaded,
+        loaded: state.blogPost.loaded,
     }
 }
 
@@ -206,9 +200,7 @@ function mapDispatchToProps(dispatch)
 {
     return {
         fetchPost: (stateId, postId) => dispatch(fetchPost(stateId, postId)),
-        fetchPosts: (stateId) => dispatch(fetchPosts(stateId)),
         invalidatePost: (stateId) => dispatch(invalidatePost(stateId)),
-        invalidatePosts: (stateId) => dispatch(invalidatePosts(stateId)),
         setGalleryImages: (images) => dispatch(setGalleryImages(images)),
         setGalleryActiveImageIndex: (index) => dispatch(setGalleryActiveImageIndex(index)),
         setGalleryVisibility: (visible) => dispatch(setGalleryVisibility(visible)),

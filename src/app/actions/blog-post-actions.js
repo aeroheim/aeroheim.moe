@@ -14,8 +14,8 @@ export const fetchPost = (stateId, postId) =>
                 var date = new Date(res.data.date);
                 res.data.date = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
                 res.data.content = parseBlogPost(res.data.content);
-                
-                dispatch(receivePost(stateId, postId, res.data))
+
+                dispatch(receivePost(stateId, res.data))
             })
             .catch((err) => dispatch(setAppError(err.response.status)))
             .finally(() => dispatch(setAppLoading(false)));
@@ -32,13 +32,12 @@ const requestPost = (stateId) =>
 }
 
 export const RECEIVE_POST = 'RECEIVE_POST';
-const receivePost = (stateId, postId, post) =>
+const receivePost = (stateId, data) =>
 {
     return {
         type: RECEIVE_POST,
         stateId: stateId,
-        postId: postId,
-        post: post,
+        data: data,
     };
 }
 
