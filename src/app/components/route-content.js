@@ -42,7 +42,7 @@ class RouteContent extends React.Component
     render()
     {
         // remove children from props, it shouldn't be passed down.
-        const props = Object.assign({ key: 'test' }, this.props);
+        const props = Object.assign({}, this.props);
         delete props.children;
 
         return (
