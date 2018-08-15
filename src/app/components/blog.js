@@ -14,7 +14,6 @@ class Blog extends React.Component
     constructor(props)
     {
         super(props);
-        this.blogPostPath = `${props.path}/:id`;
         this.postsStateId = null;
 
         // cache props received from redux in state. this allows the component to display
@@ -32,24 +31,21 @@ class Blog extends React.Component
 
     componentDidMount()
     {
-        if (this.props.match && this.props.match.isExact)
+        if (this.props.match)
         {
-            this.clearAndUpdatePosts();
+            this.clearAndUpdatePosts(this.props.match.params.page);
         }
     }
 
     componentDidUpdate(prevProps)
     {
-        const match = this.props.match && this.props.match.isExact;
-        const prevMatch = prevProps.match && prevProps.match.isExact;
-
         // route match
-        if (match && !prevMatch)
+        if (this.props.match && !prevProps.match)
         {
-            this.clearAndUpdatePosts();
+            this.clearAndUpdatePosts(this.props.match.params.page);
         }
         // route unmatch
-        else if (!match && prevMatch)
+        else if (!this.props.match && prevProps.match)
         {
             this.clearPosts();
         }
@@ -61,17 +57,21 @@ class Blog extends React.Component
 
             this.setState({
                 posts: this.props.posts,
+                page: this.props.page,
+                pages: this.props.pages,
                 loaded: this.props.loaded,
             });
         }
     }
 
-    clearAndUpdatePosts()
+    clearAndUpdatePosts(page)
     {
         this.clearPosts();
 
+        const limit = 6;
+        page = page ? parseInt(page) : 1;
         this.postsStateId = Date.now();
-        this.props.fetchPosts(this.postsStateId);
+        this.props.fetchPosts(this.postsStateId, limit, page);
     }
 
     clearPosts()
@@ -109,21 +109,21 @@ class Blog extends React.Component
             posts: styles.postsOut,
         }
 
-        const match = this.props.match && this.props.match.isExact;
         return (
             <React.Fragment>
-                <Route path={this.blogPostPath} children={(props) =>
-                    <RouteContent path={this.blogPostPath} {...props}>
+                <Route path='/blog/:id' children={(props) =>
+                    // Exclude page from being matched as the 'id' param.
+                    <RouteContent path='/blog/:id' {...props} match={props.match && props.match.params && props.match.params.id == 'page' ? null : props.match}>
                         <BlogPost className={this.props.className}/>
                     </RouteContent>}
                 />
-                <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match && this.state.loaded}>
+                <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match && this.state.loaded}>
                     {({ transitionStyles }) => {
                         return (
                             <div className={`${this.props.className} ${styles.content} ${transitionStyles['content']}`}>
-                                <PageHeader className={styles.header} color={styles.blogColor} show={match}>BLOG</PageHeader>
+                                <PageHeader className={styles.header} color={styles.blogColor} show={this.props.match}>BLOG</PageHeader>
                                 <ul className={`${styles.posts} ${transitionStyles['posts']}`}>
-                                    {this.state.posts.map((post) => <BlogListItem className={styles.post} key={post._id} post={post} show={match}/>)}
+                                    {this.state.posts.map((post) => <BlogListItem className={styles.post} key={post._id} post={post} show={this.props.match}/>)}
                                 </ul>
                             </div>
                         );
@@ -138,6 +138,8 @@ function mapStateToProps(state)
 {
     return {
         posts: state.blog.posts !== null ? state.blog.posts : [],
+        page: state.blog.page,
+        pages: state.blog.pages,
         loaded: state.blog.loaded,
     }
 }
@@ -145,7 +147,7 @@ function mapStateToProps(state)
 function mapDispatchToProps(dispatch)
 {
     return {
-        fetchPosts: (stateId) => dispatch(fetchPosts(stateId)),
+        fetchPosts: (stateId, limit, page) => dispatch(fetchPosts(stateId, limit, page)),
         invalidatePosts: (stateId) => dispatch(invalidatePosts(stateId)),
     }
 }

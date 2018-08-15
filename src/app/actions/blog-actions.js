@@ -1,13 +1,13 @@
 import Axios from 'axios';
 import { setAppError, setAppLoading } from './app-actions';
 
-export const fetchPosts = (stateId) =>
+export const fetchPosts = (stateId, limit, page) =>
 {
     return (dispatch) => 
     {
         dispatch(setAppLoading(true));
         dispatch(requestPosts(stateId));
-        return Axios.get('/api/blog')
+        return Axios.get('/api/blog', {params: { limit: limit, page: page }})
             .then((res) => dispatch(receivePosts(stateId, res.data)))
             .catch((err) => dispatch(setAppError(err.response.status)))
             .finally(() => dispatch(setAppLoading(false)));
@@ -24,12 +24,12 @@ const requestPosts = (stateId) =>
 }
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
-const receivePosts = (stateId, posts) =>
+const receivePosts = (stateId, data) =>
 {
     return {
         type: RECEIVE_POSTS,
         stateId: stateId,
-        posts: posts,
+        data: data,
     };
 }
 

@@ -4,6 +4,8 @@ const initialState =
 {
     stateId: null,
     posts: null,
+    pages: null,
+    page: null,
     loaded: false,
 }
 
@@ -18,7 +20,9 @@ const blogReducer = (state = initialState, action) =>
             return action.stateId === state.stateId 
             ? { 
                 ...state,
-                posts: action.posts, 
+                posts: action.data.posts,
+                pages: action.data.pages,
+                page: action.data.page,
                 loaded: true,
             }
             : state;

@@ -12,11 +12,6 @@ import ErrorHandler from './error-handler';
 import SpinnerCubeGrid from './spinner-cube-grid';
 import styles from '../static/styles/components/aeroheim.css';
 
-const homePath = '/';
-const blogPath = '/blog';
-const projectsPath ='/projects';
-const aboutPath = '/about';
-
 class Aeroheim extends React.Component
 {
     constructor(props)
@@ -31,23 +26,33 @@ class Aeroheim extends React.Component
                 <ErrorHandler className={styles.content} />
                 <SpinnerCubeGrid className={styles.spinner} show={this.props.loading}/>
                 <Header className={styles.header}/>
-                <Route exact path={homePath} children={(props) =>
-                    <RouteContent path={homePath} {...props}>
+                <Route exact path='/' children={(props) =>
+                    <RouteContent path='/' {...props}>
                         <Home className={styles.content}/>
                     </RouteContent>}
                 />
-                <Route exact path={projectsPath} children={(props) =>
-                    <RouteContent path={projectsPath} {...props}>
+                <Route exact path='/projects' children={(props) =>
+                    <RouteContent path='/projects' {...props}>
                         <Projects className={styles.content}/>
                     </RouteContent>}
                 />
-                <Route path={blogPath} children={(props) =>
-                    <RouteContent path={blogPath} {...props}>
-                        <Blog className={styles.content}/>
-                    </RouteContent>}
+                <Route exact path='/blog/:page(page/\d+)?' children={(props) => {
+                        // A regex on the page param is used to support both an optional path and optional parameter.
+                        // The regex will capture the 'page/' prefix however, so it needs to be removed.
+                        if (props.match && props.match.params.page)
+                        {
+                            props.match.params.page = props.match.params.page.substring('page/'.length);
+                        }
+
+                        return (
+                            <RouteContent path='/blog/:page(page/\d+)?' {...props}>
+                                <Blog className={styles.content}/>
+                            </RouteContent>
+                        );
+                    }}
                 />
-                <Route exact path={aboutPath} children={(props) =>
-                    <RouteContent path={aboutPath} {...props}>
+                <Route exact path='/about' children={(props) =>
+                    <RouteContent path='/about' {...props}>
                         <About className={styles.content}/>
                     </RouteContent>}
                 />
