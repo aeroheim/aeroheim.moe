@@ -74,7 +74,7 @@ function handleBlogPostRequest(req, res)
 
             if (prevPost.length !== 0)
             {
-                json.prevPost = prevPost;
+                json.prevPost = prevPost[0];
             }
 
             // find next post
@@ -87,7 +87,7 @@ function handleBlogPostRequest(req, res)
 
                 if (nextPost.length !== 0)
                 {
-                    json.nextPost = nextPost;
+                    json.nextPost = nextPost[0];
                 }
 
                 // get post content
