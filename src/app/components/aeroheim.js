@@ -36,20 +36,10 @@ class Aeroheim extends React.Component
                         <Projects className={styles.content}/>
                     </RouteContent>}
                 />
-                <Route exact path='/blog/:page(page/\d+)?' children={(props) => {
-                        // A regex on the page param is used to support both an optional path and optional parameter.
-                        // The regex will capture the 'page/' prefix however, so it needs to be removed.
-                        if (props.match && props.match.params.page)
-                        {
-                            props.match.params.page = props.match.params.page.substring('page/'.length);
-                        }
-
-                        return (
-                            <RouteContent path='/blog/:page(page/\d+)?' {...props}>
-                                <Blog className={styles.content}/>
-                            </RouteContent>
-                        );
-                    }}
+                <Route exact path='/blog' children={(props) =>
+                    <RouteContent path='/blog' {...props}>
+                        <Blog className={styles.content}/>
+                    </RouteContent>}
                 />
                 <Route exact path='/about' children={(props) =>
                     <RouteContent path='/about' {...props}>

@@ -1,30 +1,22 @@
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
-const { query, validationResult } = require('express-validator/check');
+const { query } = require('express-validator/check');
+const { filterStaticContent, filterQuery, validateExpressValidator } = require('../middleware/validation');
 const blogContentPath = path.join(__dirname, '../../../content/blog');
 
-const filterContent = (req, res, next) =>
-{
-    if (req.params['0'] && (req.params['0'].endsWith('.md') || req.params['0'].endsWith('.json')))
-    {
-        return res.sendStatus(403);
-    }
+const DEFAULT_PAGINATION_LIMIT = 6;
 
-    next();
-}
+const validateBlogQuery = [
+    filterQuery((query) => ['page', 'limit'].includes(query)), 
+    query('limit').optional().isInt({ min: 0 }), 
+    query('page').optional().isInt({ min: 1 }),
+    validateExpressValidator,
+];
 
-const validateBlogQuery = [ query('limit').optional().isInt({ min: 0 }), query('page').optional().isInt({ min: 1 })];
 function handleBlogRequest(req, res)
 {
-    const errors = validationResult(req);
-    if (!errors.isEmpty())
-    {
-        return res.status(422).json({ errors: errors.array() });
-    }
-
-    // default limit for pagination is 10 posts
-    const limit = req.query.limit ? req.query.limit : 10;
+    const limit = req.query.limit ? req.query.limit : DEFAULT_PAGINATION_LIMIT;
     req.app.locals.db.blog.count({}, (err, count) =>
     {
         if (err)
@@ -45,12 +37,19 @@ function handleBlogRequest(req, res)
 
             return res.json({
                 posts: posts,
+                limit: limit,
                 page: page,
                 pages: pages
             });
         });
     });
 }
+
+const validateBlogPostQuery = [
+    filterQuery((query) => ['limit'].includes(query)), 
+    query('limit').optional().isInt({ min: 0 }), 
+    validateExpressValidator,
+];
 
 function handleBlogPostRequest(req, res)
 {
@@ -62,7 +61,8 @@ function handleBlogPostRequest(req, res)
             return res.sendStatus(404);
         }
 
-        var json = Object.assign({}, post);
+        const json = Object.assign({}, post);
+        json.limit = req.query.limit ? req.query.limit : DEFAULT_PAGINATION_LIMIT;
 
         // find previous post
         req.app.locals.db.blog.find({'date': { $lt: post.date }}).sort({ date: -1 }).limit(1).exec((err, prevPost) =>
@@ -77,20 +77,22 @@ function handleBlogPostRequest(req, res)
                 json.prevPost = prevPost[0];
             }
 
-            // find next post
-            req.app.locals.db.blog.find({'date': { $gt: post.date }}).sort({ date: 1 }).limit(1).exec((err, nextPost) =>
+            // find next post and current page of post.
+            req.app.locals.db.blog.find({'date': { $gt: post.date }}).sort({ date: 1 }).exec((err, newerPosts) =>
             {
                 if (err)
                 {
                     return res.sendStatus(404);
                 }
 
-                if (nextPost.length !== 0)
+                if (newerPosts.length !== 0)
                 {
-                    json.nextPost = nextPost[0];
+                    json.nextPost = newerPosts[0];
                 }
 
-                // get post content
+                json.page = Math.floor(newerPosts.length / json.limit) + 1;
+
+                // finally read post content.
                 fs.readFile(path.join(blogContentPath, `${post._id}/${post._id}.md`), 'utf8', (err, data) =>
                 {
                     if (err)
@@ -107,10 +109,10 @@ function handleBlogPostRequest(req, res)
 }
 
 const router = express.Router();
-router.use('/blog/*', filterContent);
+router.use('/blog/*', filterStaticContent((staticContent) => !staticContent.endsWith('.md') && !staticContent.endsWith('.json')));
 router.use('/blog', express.static(blogContentPath));
 router.get('/api/blog', validateBlogQuery, handleBlogRequest);
-router.get('/api/blog/:id', handleBlogPostRequest);
+router.get('/api/blog/:id', validateBlogPostQuery, handleBlogPostRequest);
 
 module.exports = 
 {
