@@ -21,6 +21,7 @@ const blogReducer = (state = initialState, action) =>
             ? { 
                 ...state,
                 posts: action.data.posts,
+                limit: action.data.limit,
                 pages: action.data.pages,
                 page: action.data.page,
                 loaded: true,

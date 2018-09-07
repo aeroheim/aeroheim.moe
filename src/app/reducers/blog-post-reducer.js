@@ -32,6 +32,8 @@ const blogPostReducer = (state = initialState, action) =>
                     content: action.data.content,
                     prevPost: action.data.prevPost,
                     nextPost: action.data.nextPost,
+                    limit: action.data.limit,
+                    page: action.data.page,
                     loaded: true,
                 }
                 : state;

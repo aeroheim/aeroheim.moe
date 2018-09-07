@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchPosts, invalidatePosts } from '../actions/blog-actions';
 import { fetchPost, invalidatePost } from '../actions/blog-post-actions';
 import { setGalleryImages, setGalleryActiveImageIndex, setGalleryVisibility } from '../actions/blog-post-gallery-actions';
 import PrevIcon from '../static/img/icons/prev.svg';
@@ -62,8 +61,9 @@ class BlogPost extends React.Component
         {
             this.clearPost();
         }
-        // same route match, different params
-        else if (this.props.match && prevProps.match && (this.props.match.params.id !== prevProps.match.params.id))
+        // same route match, different params/query
+        else if (this.props.match && prevProps.match 
+            && (this.props.match.params.id !== prevProps.match.params.id || this.props.location.search !== prevProps.location.search))
         {
             this.clearAndUpdatePost();
         }
@@ -81,6 +81,8 @@ class BlogPost extends React.Component
                 content: this.props.content,
                 prevPost: this.props.prevPost,
                 nextPost: this.props.nextPost,
+                limit: this.props.limit,
+                page: this.props.page,
                 loaded: true,
             });
         }
@@ -91,7 +93,7 @@ class BlogPost extends React.Component
         this.clearPost();
 
         this.postStateId = this.postsStateId;
-        this.props.fetchPost(this.postStateId, this.props.match.params.id);
+        this.props.fetchPost(this.postStateId, this.props.match.params.id, this.props.location.search);
 
         this.props.setGalleryImages([]);
         this.props.setGalleryActiveImageIndex(-1);
@@ -140,7 +142,7 @@ class BlogPost extends React.Component
                         return (
                             <div className={`${this.props.className} ${styles.content} ${transitionStyles['content']}`}>
                                 <header>
-                                    <LinkButton link='/blog/page/2' className={styles.header}>
+                                    <LinkButton link={`/blog/?page=${this.state.page}`} className={styles.header}>
                                         <h2 className={styles.backButton}>
                                             <NextIcon className={styles.backButtonIcon}/>
                                             back to blog
@@ -157,14 +159,14 @@ class BlogPost extends React.Component
                                     {this.state.content}
                                 </article>
                                 <footer className={styles.footer}>
-                                    <LinkButton link={this.state.prevPost ? `/blog/${this.state.prevPost._id}` : '/blog'} className={styles.prevButton}>
+                                    <LinkButton link={this.state.prevPost ? `/blog/${this.state.prevPost._id}` : `/blog/?page=${this.state.page}`} className={styles.prevButton}>
                                         <PrevIcon className={styles.footerButtonIcon}/>
                                         <div className={styles.prevButtonText}>
                                             <span>prev post</span>
                                             <h2>{this.state.prevPost ? this.state.prevPost.title : 'back to blog'}</h2>
                                         </div>
                                     </LinkButton>
-                                    <LinkButton link={this.state.nextPost ? `/blog/${this.state.nextPost._id}` : '/blog'} className={styles.nextButton}>
+                                    <LinkButton link={this.state.nextPost ? `/blog/${this.state.nextPost._id}` : `/blog/?page=${this.state.page}`} className={styles.nextButton}>
                                         <div className={styles.nextButtonText}>
                                             <span>next post</span>
                                             <h2>{this.state.nextPost ? this.state.nextPost.title : 'back to blog'}</h2>
@@ -192,6 +194,8 @@ function mapStateToProps(state)
         prevPost: state.blogPost.prevPost,
         nextPost: state.blogPost.nextPost,
         showImageGallery: state.BlogPostGallery.visible,
+        limit: state.blogPost.limit,
+        page: state.blogPost.page,
         loaded: state.blogPost.loaded,
     }
 }
@@ -199,7 +203,7 @@ function mapStateToProps(state)
 function mapDispatchToProps(dispatch)
 {
     return {
-        fetchPost: (stateId, postId) => dispatch(fetchPost(stateId, postId)),
+        fetchPost: (stateId, postId, query) => dispatch(fetchPost(stateId, postId, query)),
         invalidatePost: (stateId) => dispatch(invalidatePost(stateId)),
         setGalleryImages: (images) => dispatch(setGalleryImages(images)),
         setGalleryActiveImageIndex: (index) => dispatch(setGalleryActiveImageIndex(index)),

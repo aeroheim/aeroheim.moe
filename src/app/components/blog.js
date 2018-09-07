@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchPosts, invalidatePosts } from '../actions/blog-actions';
 import RouteContent from './route-content';
 import PageHeader from './page-header';
+import IndexFooter from './index-footer';
 import BlogListItem from './blog-list-item';
 import BlogPost from './blog-post';
 import { Transition, AnimatedCSSTransition } from './animated-css-transition';
@@ -33,7 +34,7 @@ class Blog extends React.Component
     {
         if (this.props.match)
         {
-            this.clearAndUpdatePosts(this.props.match.params.page);
+            this.clearAndUpdatePosts();
         }
     }
 
@@ -42,12 +43,17 @@ class Blog extends React.Component
         // route match
         if (this.props.match && !prevProps.match)
         {
-            this.clearAndUpdatePosts(this.props.match.params.page);
+            this.clearAndUpdatePosts();
         }
         // route unmatch
         else if (!this.props.match && prevProps.match)
         {
             this.clearPosts();
+        }
+        // same route match, different query
+        else if (this.props.match && prevProps.match && (this.props.location.search !== prevProps.location.search))
+        {
+            this.clearAndUpdatePosts();
         }
         // response received - new props
         else if (this.props.loaded && !prevProps.loaded)
@@ -59,19 +65,18 @@ class Blog extends React.Component
                 posts: this.props.posts,
                 page: this.props.page,
                 pages: this.props.pages,
+                limit: this.props.limit,
                 loaded: this.props.loaded,
             });
         }
     }
 
-    clearAndUpdatePosts(page)
+    clearAndUpdatePosts()
     {
         this.clearPosts();
 
-        const limit = 6;
-        page = page ? parseInt(page) : 1;
         this.postsStateId = Date.now();
-        this.props.fetchPosts(this.postsStateId, limit, page);
+        this.props.fetchPosts(this.postsStateId, this.props.location.search);
     }
 
     clearPosts()
@@ -113,7 +118,7 @@ class Blog extends React.Component
             <React.Fragment>
                 <Route path='/blog/:id' children={(props) =>
                     // Exclude page from being matched as the 'id' param.
-                    <RouteContent path='/blog/:id' {...props} match={props.match && props.match.params && props.match.params.id == 'page' ? null : props.match}>
+                    <RouteContent path='/blog/:id' {...props}>
                         <BlogPost className={this.props.className}/>
                     </RouteContent>}
                 />
@@ -125,6 +130,7 @@ class Blog extends React.Component
                                 <ul className={`${styles.posts} ${transitionStyles['posts']}`}>
                                     {this.state.posts.map((post) => <BlogListItem className={styles.post} key={post._id} post={post} show={this.props.match}/>)}
                                 </ul>
+                                <IndexFooter/>
                             </div>
                         );
                     }}
@@ -140,6 +146,7 @@ function mapStateToProps(state)
         posts: state.blog.posts !== null ? state.blog.posts : [],
         page: state.blog.page,
         pages: state.blog.pages,
+        limit: state.blog.limit,
         loaded: state.blog.loaded,
     }
 }
@@ -147,7 +154,7 @@ function mapStateToProps(state)
 function mapDispatchToProps(dispatch)
 {
     return {
-        fetchPosts: (stateId, limit, page) => dispatch(fetchPosts(stateId, limit, page)),
+        fetchPosts: (stateId, query) => dispatch(fetchPosts(stateId, query)),
         invalidatePosts: (stateId) => dispatch(invalidatePosts(stateId)),
     }
 }
