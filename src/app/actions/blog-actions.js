@@ -1,16 +1,16 @@
 import Axios from 'axios';
 import { setAppError, setAppLoading } from './app-actions';
 
-export const fetchPosts = (stateId, limit, page) =>
+export const fetchPosts = (stateId, query) =>
 {
-    return (dispatch) => 
+    return (dispatch) =>
     {
-        dispatch(setAppLoading(true));
+        dispatch(setAppLoading(true, stateId));
         dispatch(requestPosts(stateId));
-        return Axios.get('/api/blog', {params: { limit: limit, page: page }})
+            return Axios.get(`/api/blog/${query}`)
             .then((res) => dispatch(receivePosts(stateId, res.data)))
             .catch((err) => dispatch(setAppError(err.response.status)))
-            .finally(() => dispatch(setAppLoading(false)));
+            .finally(() => dispatch(setAppLoading(false, stateId)));
     };
 }
 

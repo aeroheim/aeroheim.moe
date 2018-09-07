@@ -8,11 +8,12 @@ export const setScrollbarEnabled = (enabled) =>
 }
 
 export const SET_APP_LOADING = 'SET_APP_LOADING';
-export const setAppLoading = (loading) =>
+export const setAppLoading = (loading, id) =>
 {
     return {
         type: SET_APP_LOADING,
         loading: loading,
+        id: id,
     }
 }
 

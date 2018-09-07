@@ -2,13 +2,13 @@ import Axios from 'axios';
 import parseBlogPost from '../util/blog-post-parser';
 import { setAppError, setAppLoading } from './app-actions';
 
-export const fetchPost = (stateId, postId) =>
+export const fetchPost = (stateId, postId, query) =>
 {
     return (dispatch) =>
     {
-        dispatch(setAppLoading(true));
+        dispatch(setAppLoading(true, stateId));
         dispatch(requestPost(stateId));
-        return Axios.get(`/api/blog/${postId}`)
+        return Axios.get(`/api/blog/${postId}/${query}`)
             .then((res) => 
             {
                 var date = new Date(res.data.date);
@@ -18,7 +18,7 @@ export const fetchPost = (stateId, postId) =>
                 dispatch(receivePost(stateId, res.data))
             })
             .catch((err) => dispatch(setAppError(err.response.status)))
-            .finally(() => dispatch(setAppLoading(false)));
+            .finally(() => dispatch(setAppLoading(false, stateId)));
     };
 }
 
