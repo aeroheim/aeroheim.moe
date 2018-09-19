@@ -2,15 +2,8 @@
 @value easeOutCubic from '../global/animations.css';
 @value smheight from '../global/breakpoints.css';
 
-.page
-{
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: auto;
-    grid-template-areas: "content";
-}
-
 @value contentWidth: 115vh;
+@value contentBottomPadding: 6vh;
 .content
 {
     display: flex;
@@ -20,6 +13,7 @@
     max-width: 80vw;
 
     margin: auto;
+    padding-bottom: contentBottomPadding;
 }
 
 .contentInTransition
@@ -71,11 +65,10 @@
 }
 
 @value postsTopMargin: 3vh;
-@value postsBottomMargin: 7.5vh;
 .posts
 {
     margin-top: postsTopMargin;
-    margin-bottom: postsBottomMargin;
+    margin-bottom: 0;
     padding: 0;
 
     list-style: none;
@@ -110,12 +103,27 @@
     margin-top: 1px;
 }
 
+@value footerFontSize: 1.8vh;
+@value footerTopMargin: 5vh;
+.footer
+{
+    margin-top: footerTopMargin;
+    margin-left: auto;
+    margin-right: auto;
+
+    font-size: footerFontSize;
+    fill: blogColor;
+}
+
 @media (max-height: smheight)
 {
     .content
     {
         /* smheight(px) * contentWidth(vh%) */
         width: 767.05px;
+
+        /* smheight(px) * contentBottomPadding(vh%) */
+        padding-bottom: 40.02px;
     }
 
     .header
@@ -128,8 +136,14 @@
     {
         /* smheight(px) * postsTopMargin(vh%) */
         margin-top: 20.01px;
+    }
 
-        /* smheight(px) * postsBottomMargin(vh%) */
-        margin-bottom: 50.025px;
+    .footer
+    {
+        /* smheight(px) * footerFontSize(vh%) */
+        font-size: 12.006px;
+
+        /* smheight(px) * footerTopMargin(vh%) */
+        margin-top: 33.35px;
     }
 }

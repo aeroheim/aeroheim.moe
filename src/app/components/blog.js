@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchPosts, invalidatePosts } from '../actions/blog-actions';
 import RouteContent from './route-content';
 import PageHeader from './page-header';
-import IndexFooter from './index-footer';
+import IndexSelector from './index-selector';
 import BlogListItem from './blog-list-item';
 import BlogPost from './blog-post';
 import { Transition, AnimatedCSSTransition } from './animated-css-transition';
@@ -26,8 +26,8 @@ class Blog extends React.Component
             loaded: false,
         };
 
-        this.clearAndUpdatePosts.bind(this);
-        this.clearPosts.bind(this);
+        this.clearAndUpdatePosts = this.clearAndUpdatePosts.bind(this);
+        this.clearPosts = this.clearPosts.bind(this);
     }
 
     componentDidMount()
@@ -130,7 +130,9 @@ class Blog extends React.Component
                                 <ul className={`${styles.posts} ${transitionStyles['posts']}`}>
                                     {this.state.posts.map((post) => <BlogListItem className={styles.post} key={post._id} post={post} show={this.props.match}/>)}
                                 </ul>
-                                <IndexFooter/>
+                                <IndexSelector className={styles.footer} 
+                                    index={this.state.page} minIndex={1} maxIndex={this.state.pages} maxIndicesToDisplay={12} 
+                                    url='/blog/?page={index}'/>
                             </div>
                         );
                     }}

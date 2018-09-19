@@ -32,8 +32,8 @@ class BlogPost extends React.Component
             loaded: false,
         };
 
-        this.clearAndUpdatePost.bind(this);
-        this.clearPost.bind(this);
+        this.clearAndUpdatePost = this.clearAndUpdatePost.bind(this);
+        this.clearPost = this.clearPost.bind(this);
     }
 
     componentDidMount()
