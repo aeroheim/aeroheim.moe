@@ -14,10 +14,10 @@ class Transition
             this.finished[transitionProperties[i]] = false;
         }
 
-        this.reset.bind(this);
-        this.finishTransition.bind(this);
-        this.setDone.bind(this);
-        this.isDone.bind(this);
+        this.reset = this.reset.bind(this);
+        this.finishTransition = this.finishTransition.bind(this);
+        this.setDone = this.setDone.bind(this);
+        this.isDone = this.isDone.bind(this);
     }
 
     reset()
@@ -89,7 +89,6 @@ class AnimatedCSSTransition extends React.Component
         this.transition = this.transition.bind(this);
         this.transitionInternal = this.transitionInternal.bind(this);
         this.onTransitionEnd = this.onTransitionEnd.bind(this);
-
     }
 
     componentDidMount()
@@ -157,6 +156,7 @@ class AnimatedCSSTransition extends React.Component
         // again since they may have changed between the time transition() was called and now.
         if (this.isDone() && this.props.show !== this.state.active)
         {
+            // TODO: investigate null DOM node errors - somehow got unmounted before we got here
             // Any child component that remounts will stop bubbling events up. The event listener must be re-applied to enabling bubbling again.
             ReactDOM.findDOMNode(this).removeEventListener('transitionend', this.onTransitionEnd);
             ReactDOM.findDOMNode(this).addEventListener('transitionend', this.onTransitionEnd);
@@ -198,6 +198,7 @@ class AnimatedCSSTransition extends React.Component
     {
         for (const key in this.transitions)
         {
+            // TODO: SVGAnimatedStrings are causing weird behavior here (see hover buttons in IndexSelector)
             // filter out elements that aren't using any of the transition styles
             if (e.target.className.includes(this.transitions[key].style))
             {
