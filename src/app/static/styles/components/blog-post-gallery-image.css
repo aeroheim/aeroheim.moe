@@ -41,7 +41,7 @@
     margin: 0 auto 7px auto;
 
     max-width: 100%;
-    max-height: calc(85vh - 2 * headerMargin);
+    max-height: 82vh;
 
     user-select: none;
 }

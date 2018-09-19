@@ -12,8 +12,8 @@
     z-index: 11;
     position: fixed;
 
-    width: calc(100% - 2 * sideMargin);
-    min-height: calc(100% - 2 * headerMargin);
+    width: 100vw;
+    min-height: 100vh;
     padding: headerMargin sideMargin headerMargin sideMargin;
 
     background-color: rgba(0, 0, 0, 0.75);
@@ -39,10 +39,6 @@
 .pageOut
 {
     opacity: 0;
-}
-
-.button
-{   
 }
 
 .closeButtonContainer
