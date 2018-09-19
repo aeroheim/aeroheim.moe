@@ -49,17 +49,16 @@ class About extends React.PureComponent
                                     <br/>
                                     The University of Texas at Austin with a B.S Computer Science in 2015.
                                 </p>
-                                <span>I <i>adore</i> mechanical keyboards (average ~150WPM):</span>
+                                <span>I <i>adore</i> mechanical keyboards (~150WPM):</span>
                                 <ul className={styles.list}>
-                                    <li>Winkeyless 22mini-B w/ Hako Clears + EnjoyPBT Hiragana</li>
+                                    <li>Winkeyless 22mini-B w/ Hako Clears</li>
                                     <li>Leopold FC660C w/ Hypersphere rings ♥</li>
                                 </ul>
                                 <span>I'm also a long-time MMO junkie, avid gamer, and otoge fan:</span>
                                 <ul className={styles.list}>
-                                    <li>Past: <i>Ragnarok Online, Granado Espada, Aion, FFXIV, Tree of Savior</i></li>
-                                    <li>Current: <i>Black Desert Online (NA) - Aeroheim family</i></li>
+                                    <li>Past: <i>Ragnarok Online, Granado Espada, Aion, FFXIV, Tree of Savior, Black Desert Online</i></li>
                                     <li>Sound Voltex: sitting at ~9150 VOLFORCE 😭</li>
-                                    <li>Girls Frontline: aeroheim - UID 227756, add me!</li>
+                                    <li>Girls Frontline: aeroheim - 227756</li>
                                 </ul>
                                 <span>You can hit me up at the following links:</span>
                                 <ul className={styles.list}>
