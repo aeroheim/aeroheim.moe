@@ -1,6 +1,4 @@
 @value easeInCubic, easeOutCubic from "../global/animations.css";
-@value headerMargin from "./header.css";
-
 @value sideMargin: 15px;
 
 .page
@@ -9,12 +7,11 @@
     justify-content: space-between;
     align-items: center;
 
-    z-index: 11;
+    z-index: 999;
     position: fixed;
 
-    width: 100vw;
-    min-height: 100vh;
-    padding: headerMargin sideMargin headerMargin sideMargin;
+    width: 100%;
+    height: 100%;
 
     background-color: rgba(0, 0, 0, 0.75);
 }
@@ -41,61 +38,49 @@
     opacity: 0;
 }
 
-.closeButtonContainer
+@value buttonMinWidth: 35px;
+.button
+{
+    fill: rgba(255, 255, 255, 0.15);
+    transition: fill 0.35s easeOutCubic 0s;
+}
+
+.button:hover
+{
+    fill: rgba(255, 255, 255, 1);
+}
+
+.closeButton
 {
     position: absolute;
     top: 0;
     right: 0;
 
-    width: calc(35px + 5%);
-    min-width: 45px;
-    max-width: 70px;
-    margin-top: 1%;
+    width: calc(buttonMinWidth + 1.5% + 1.5vh);
+    min-width: buttonMinWidth;
+
+    margin-top: 1vh;
     margin-right: 1%;
 }
 
-.closeIcon
+.navButton
 {
-    fill: rgba(255, 255, 255, 0.15);
-    transition: fill 0.35s easeOutCubic 0s;
-}
+    flex-shrink: 0;
 
-.button:hover > .closeIcon
-{
-    fill: rgba(255, 255, 255, 1);
+    width: calc(buttonMinWidth + 5% + 3.5vh);
+    min-width: buttonMinWidth;
 }
 
 .content
 {
     display: flex;
-    flex-direction: column;
+    position: relative;
     justify-content: center;
     align-items: center;
 
     width: 100%;
-    height: 100%;
-    margin-left: 5%;
-    margin-right: 5%;
+    height: auto;
 
-    position: relative;
-}
-
-.navButtonContainer
-{
-    flex-shrink: 0;
-
-    width: calc(40px + 5%);
-    min-width: 50px;
-    max-width: 125px;
-}
-
-.navIcon
-{
-    fill: rgba(255, 255, 255, 0.15);
-    transition: fill 0.35s easeOutCubic 0s;
-}
-
-.button:hover > .navIcon
-{
-    fill: rgba(255, 255, 255, 1);
+    max-width: 100%;
+    max-height: 100%;
 }

@@ -80,24 +80,18 @@ class BlogPostGallery extends React.Component
                 {({ transitionStyles }) => {
                     return (
                         <div className={`${styles.page} ${transitionStyles['page']}`}>
-                            <div className={styles.closeButtonContainer}>
-                                <Button className={styles.button} onClick={this.onClose}>
-                                    <CloseIcon className={styles.closeIcon}/>
-                                </Button>
-                            </div>
-                            <div className={styles.navButtonContainer}>
-                                <Button className={styles.button} animate show={this.props.activeImageIndex > 0} onClick={this.onPrevImage}>
-                                    <PrevIcon className={styles.navIcon}/>
-                                </Button>
-                            </div>
+                            <Button className={`${styles.button} ${styles.closeButton}`} onClick={this.onClose}>
+                                <CloseIcon/>
+                            </Button>
+                            <Button className={`${styles.button} ${styles.navButton}`} animate show={this.props.activeImageIndex > 0} onClick={this.onPrevImage}>
+                                <PrevIcon/>
+                            </Button>
                             <div className={styles.content}>
                                 {this.props.images.map((image, index) => <BlogPostGalleryImage key={index} img={image} index={index} imageCount={this.props.images.length} show={index === this.props.activeImageIndex}/>)}
                             </div>
-                            <div className={styles.navButtonContainer}>
-                                <Button className={styles.button} animate show={this.props.activeImageIndex < this.props.images.length - 1} onClick={this.onNextImage}>
-                                    <NextIcon className={styles.navIcon}/>
-                                </Button>
-                            </div>
+                            <Button className={`${styles.button} ${styles.navButton}`} animate show={this.props.activeImageIndex < this.props.images.length - 1} onClick={this.onNextImage}>
+                                <NextIcon/>
+                            </Button>
                         </div>
                     );
                 }}
