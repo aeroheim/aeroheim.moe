@@ -5,7 +5,7 @@ const { query } = require('express-validator/check');
 const { filterStaticContent, filterQuery, validateExpressValidator } = require('../middleware/validation');
 const blogContentPath = path.join(__dirname, '../../../content/blog');
 
-const DEFAULT_PAGINATION_LIMIT = 6;
+const DEFAULT_PAGINATION_LIMIT = 5;
 
 const validateBlogQuery = [
     filterQuery((query) => ['page', 'limit'].includes(query)), 
