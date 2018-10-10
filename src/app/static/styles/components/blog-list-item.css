@@ -14,7 +14,7 @@
 {
     width: 100%;
     opacity: 1;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(255, 255, 255, 0);
 }
 
 .contentOutTransition
@@ -43,6 +43,7 @@
 
     font-size: linkFontSize;
     color: white;
+    background-color: rgba(0, 0, 0, 0.4);
 
     overflow: hidden;
     transition: background-color 0.65s easeOutCubic 0s;
