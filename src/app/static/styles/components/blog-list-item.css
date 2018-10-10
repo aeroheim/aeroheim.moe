@@ -1,12 +1,12 @@
 @value blogColor from "../global/colors.css";
-@value easeOutCubic, easeOutSine, easeOutExp from "../global/animations.css";
+@value easeOutCubic from "../global/animations.css";
 @value smheight from '../global/breakpoints.css';
 
 .contentInTransition
 {
     width: 75%;
     opacity: 0;
-    background-color: rgba(255, 255, 255, 1.5);
+    background-color: rgba(255, 255, 255, 1);
     transition: width 0.65s easeOutCubic 0s, opacity 0.65s easeOutCubic 0s, background-color 0.65s easeOutCubic 0s;
 }
 

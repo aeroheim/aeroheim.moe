@@ -1,11 +1,12 @@
 import React from 'react';
-import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import HomeMainButton from './home-main-button';
 import HomeExternalButton from './home-external-button';
 import Logo from '../static/img/icons/aeroheim-logo_monotone.svg';
 import GithubIcon from '../static/img/icons/github.svg';
 import TwitterIcon from '../static/img/icons/twitter.svg';
 import LinkedInIcon from '../static/img/icons/linkedin.svg';
+import Stagger from './stagger';
+import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/home.css';
 
 class Home extends React.PureComponent
@@ -42,7 +43,7 @@ class Home extends React.PureComponent
         }
 
         return (
-            <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null}>
+            <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match}>
                 {({ transitionStyles }) => {
                     return (
                         <div className={`${this.props.className} ${styles.content}`}>
@@ -52,9 +53,11 @@ class Home extends React.PureComponent
                                         <Logo className={styles.logo}/>
                                     </div>
                                     <nav className={`${styles.mainLinksGrid} ${transitionStyles['buttons']}`}>
-                                        <HomeMainButton className={styles.mainLink} link='/blog' header='blog' subtext='thoughts and reflections' color={styles.blogColor}/>
-                                        <HomeMainButton className={styles.mainLink} link='/projects' header='projects' subtext='coding works / projects' color={styles.projectsColor}/>
-                                        <HomeMainButton className={styles.mainLink} link='/about' header='about' subtext='introduction & bio' color={styles.aboutColor}/>
+                                        <Stagger delay={75}>
+                                            <HomeMainButton className={styles.mainLink} show={this.props.match} link='/blog' header='blog' subtext='thoughts and reflections' color={styles.blogColor}/>
+                                            <HomeMainButton className={styles.mainLink} show={this.props.match} link='/projects' header='projects' subtext='coding works / projects' color={styles.projectsColor}/>
+                                            <HomeMainButton className={styles.mainLink} show={this.props.match} link='/about' header='about' subtext='introduction & bio' color={styles.aboutColor}/>
+                                        </Stagger>
                                     </nav>
                                 </div>
                                 <nav className={`${styles.externalLinksFlex} ${transitionStyles['buttons']}`}>

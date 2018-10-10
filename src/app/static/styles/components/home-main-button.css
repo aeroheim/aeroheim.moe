@@ -1,6 +1,32 @@
 @value smheight from "../global/breakpoints.css";
 @value easeOutCubic from "../global/animations.css";
 
+.contentInTransition
+{
+    width: 50%;
+    opacity: 0;
+    background-color: rgba(255, 255, 255, 1);
+    transition: width 0.65s easeOutCubic 0s, opacity 0.65s easeOutCubic 0s, background-color 0.65s easeOutCubic 0s;
+}
+
+.contentIn
+{
+    width: 100%;
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.contentOutTransition
+{
+    opacity: 1;
+    transition: opacity 0.65s easeOutCubic 0s;
+}
+
+.contentOut
+{
+    opacity: 0;
+}
+
 @value buttonTextIndent: 2vh;
 .linkButton
 {
@@ -14,7 +40,6 @@
     text-indent: buttonTextIndent;
 
     color: white;
-    background: rgba(0, 0, 0, 0.5);
 
     overflow: hidden;
 }
