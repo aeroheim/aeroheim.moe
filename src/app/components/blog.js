@@ -7,6 +7,7 @@ import PageHeader from './page-header';
 import IndexSelector from './index-selector';
 import BlogListItem from './blog-list-item';
 import BlogPost from './blog-post';
+import Stagger from './stagger';
 import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/blog.css';
 
@@ -92,26 +93,22 @@ class Blog extends React.Component
     {
         const inTransitions =
         {
-            content: new Transition(styles.contentInTransition, 'left'),
-            posts: new Transition(styles.postsInTransition, 'opacity', 'clip-path'),
+            content: new Transition(styles.contentInTransition, 'opacity'),
         }
 
         const inStyles =
         {
             content: styles.contentIn,
-            posts: styles.postsIn,
         }
 
         const outTransitions =
         {
             content: new Transition(styles.contentOutTransition, 'opacity'),
-            posts: new Transition(styles.postsOutTransition, 'opacity'),
         }
 
         const outStyles =
         {
             content: styles.contentOut,
-            posts: styles.postsOut,
         }
 
         return (
@@ -127,8 +124,10 @@ class Blog extends React.Component
                         return (
                             <div className={`${this.props.className} ${styles.content} ${transitionStyles['content']}`}>
                                 <PageHeader className={styles.header} color={styles.blogColor} show={this.props.match}>BLOG</PageHeader>
-                                <ul className={`${styles.posts} ${transitionStyles['posts']}`}>
-                                    {this.state.posts.map((post) => <BlogListItem className={styles.post} key={post._id} post={post} show={this.props.match}/>)}
+                                <ul className={`${styles.posts}`}>
+                                    <Stagger delay={100}>
+                                        {this.state.posts.map((post) => <BlogListItem className={styles.post} key={post._id} post={post} show={this.props.match && this.state.loaded}/>)}
+                                    </Stagger>
                                 </ul>
                                 <IndexSelector className={styles.footer} 
                                     index={this.state.page} minIndex={1} maxIndex={this.state.pages} maxIndicesToDisplay={12} 

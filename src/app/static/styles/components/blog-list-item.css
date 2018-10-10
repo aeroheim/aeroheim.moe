@@ -1,6 +1,32 @@
 @value blogColor from "../global/colors.css";
-@value easeOutCubic from "../global/animations.css";
+@value easeOutCubic, easeOutSine, easeOutExp from "../global/animations.css";
 @value smheight from '../global/breakpoints.css';
+
+.contentInTransition
+{
+    width: 75%;
+    opacity: 0;
+    background-color: rgba(255, 255, 255, 1.5);
+    transition: width 0.65s easeOutCubic 0s, opacity 0.65s easeOutCubic 0s, background-color 0.65s easeOutCubic 0s;
+}
+
+.contentIn
+{
+    width: 100%;
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.contentOutTransition
+{
+    opacity: 1;
+    transition: opacity 0.65s easeOutCubic 0s;
+}
+
+.contentOut
+{
+    opacity: 0;
+}
 
 @value linkFontSize: 1.8vh;
 @value linkVerticalPadding: 1em;
@@ -19,8 +45,6 @@
     color: white;
 
     overflow: hidden;
-
-    background-color: rgba(0, 0, 0, 0.4);
     transition: background-color 0.65s easeOutCubic 0s;
 }
 
