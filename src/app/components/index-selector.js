@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import PrevIcon from '../static/img/icons/prev.svg';
@@ -37,7 +36,7 @@ class IndexSelector extends React.Component
         return this.props.url
             ? (
                 
-                <Link className={`${styles.index} ${index === this.props.index ? styles.activeIndex : ""}`} to={this.props.url.replace('{index}', index)}>
+                <Link key={index} className={`${styles.index} ${index === this.props.index ? styles.activeIndex : ""}`} to={this.props.url.replace('{index}', index)}>
                     {index}
                 </Link>
             )
