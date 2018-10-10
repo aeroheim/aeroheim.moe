@@ -12,19 +12,20 @@
     width: contentWidth;
     max-width: 80vw;
 
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
     padding-bottom: contentBottomPadding;
 }
 
 .contentInTransition
 {
-    left: -25%;
-    transition: left 0.65s easeOutCubic 0s;
+    opacity: 0;
+    transition: opacity 0.65s easeOutCubic 0s;
 }
 
 .contentIn
 {
-    left: 0%;
+    opacity: 1;
 }
 
 .contentOutTransition
