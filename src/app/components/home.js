@@ -54,9 +54,9 @@ class Home extends React.PureComponent
                                     </div>
                                     <nav className={`${styles.mainLinksGrid} ${transitionStyles['buttons']}`}>
                                         <Stagger delay={75}>
-                                            <HomeMainButton className={styles.mainLink} show={this.props.match} link='/blog' header='blog' subtext='thoughts and reflections' color={styles.blogColor}/>
-                                            <HomeMainButton className={styles.mainLink} show={this.props.match} link='/projects' header='projects' subtext='coding works / projects' color={styles.projectsColor}/>
-                                            <HomeMainButton className={styles.mainLink} show={this.props.match} link='/about' header='about' subtext='introduction & bio' color={styles.aboutColor}/>
+                                            <HomeMainButton show={this.props.match} link='/blog' header='blog' subtext='thoughts and reflections' color={styles.blogColor}/>
+                                            <HomeMainButton show={this.props.match} link='/projects' header='projects' subtext='coding works / projects' color={styles.projectsColor}/>
+                                            <HomeMainButton show={this.props.match} link='/about' header='about' subtext='introduction & bio' color={styles.aboutColor}/>
                                         </Stagger>
                                     </nav>
                                 </div>
