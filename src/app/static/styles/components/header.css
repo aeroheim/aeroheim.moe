@@ -49,7 +49,7 @@
     margin-right: itemHorizontalMargin;
 
     opacity: 0.65;
-    transition: opacity 1s easeOutCubic 0s;
+    transition: opacity 0.65s easeOutCubic 0s;
 }
 
 @value textItemFontSize: 1.65vh;
