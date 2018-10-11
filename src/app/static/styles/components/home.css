@@ -172,17 +172,17 @@
 
 .blogColor
 {
-    background-color: blogColor;
+    background: linear-gradient(to right, blogColor, #E94057);
 }
 
 .projectsColor
 {
-    background-color: projectsColor;
+    background: linear-gradient(to right, projectsColor, #1D976C);
 }
 
 .aboutColor
 {
-    background-color: aboutColor;
+    background: linear-gradient(to right, aboutColor, #1FA2FF);
 }
 
 @media (max-height: smheight)
