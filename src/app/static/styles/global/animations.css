@@ -1,9 +1,15 @@
-@value easeInExp: cubic-bezier(0.95, 0.05, 0.795, 0.035);
-@value easeOutExp: cubic-bezier(0.19, 1, 0.22, 1);
-@value easeInCubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
-@value easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);
 @value easeInSine: cubic-bezier(0.47, 0, 0.745, 0.715);
 @value easeOutSine: cubic-bezier(0.39, 0.575, 0.565, 1);
+@value easeInOutSine: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+@value easeInCubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+@value easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+@value easeInOutCubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+@value easeInQuart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+@value easeOutQuart: cubic-bezier(0.165, 0.84, 0.44, 1);
+@value easeInOutQuart: cubic-bezier(0.77, 0, 0.175, 1);
+@value easeInExp: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+@value easeOutExp: cubic-bezier(0.19, 1, 0.22, 1);
+@value easeInOutExp: cubic-bezier(1, 0, 0, 1);
 
 @keyframes revealSquare
 {
