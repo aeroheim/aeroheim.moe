@@ -198,9 +198,12 @@ class AnimatedCSSTransition extends React.Component
     {
         for (const key in this.transitions)
         {
-            // TODO: SVGAnimatedStrings are causing weird behavior here (see hover buttons in IndexSelector)
             // filter out elements that aren't using any of the transition styles
-            if (e.target.className.includes(this.transitions[key].style))
+            const styles = e.target.className instanceof SVGAnimatedString 
+                ? e.target.className.baseVal 
+                : e.target.className;
+
+            if (styles.includes(this.transitions[key].style))
             {
                 if (this.transitions[key].finished[e.propertyName] !== undefined)
                 {
