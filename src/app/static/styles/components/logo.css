@@ -1,0 +1,65 @@
+@value easeInCubic, easeOutCubic, easeInSine, easeOutSine from '../global/animations.css';
+
+.svg
+{
+    isolation: isolate;
+}
+
+.shadow
+{
+    opacity: 0;
+    mix-blend-mode: multiply;
+}
+
+.shadowInTransition
+{
+    opacity: 0;
+    transition: opacity 0.45s easeInCubic 0.1s;
+}
+
+.shadowIn
+{
+    opacity: 0.35
+}
+
+.shadowOutTransition
+{
+    opacity: 0.35;
+    transition: opacity 0.65s easeOutSine 0s;
+}
+
+.shadowOut
+{
+
+    opacity: 0;
+}
+
+.fill
+{
+    fill: none;
+    stroke: white;
+    stroke-width: 15px;
+    stroke-dasharray: 160px;
+}
+
+.fillInTransition
+{
+    stroke-dashoffset: 240px;
+    transition: stroke-dashoffset 0.65s easeOutCubic 0s;
+}
+
+.fillIn
+{
+    stroke-dashoffset: 20px;
+}
+
+.fillOutTransition
+{
+    stroke-dashoffset: 0px;
+    transition: stroke-dashoffset 0.65s easeInCubic 0s
+}
+
+.fillOut
+{
+    stroke-dashoffset: -160px;
+}

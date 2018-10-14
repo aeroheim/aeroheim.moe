@@ -1,7 +1,7 @@
 import React from 'react';
 import HomeMainButton from './home-main-button';
 import HomeExternalButton from './home-external-button';
-import Logo from '../static/img/icons/aeroheim-logo_monotone.svg';
+import Logo from './logo';
 import GithubIcon from '../static/img/icons/github.svg';
 import TwitterIcon from '../static/img/icons/twitter.svg';
 import LinkedInIcon from '../static/img/icons/linkedin.svg';
@@ -9,7 +9,7 @@ import Stagger from './stagger';
 import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/home.css';
 
-class Home extends React.PureComponent
+class Home extends React.Component
 {
     constructor(props)
     {
@@ -50,7 +50,7 @@ class Home extends React.PureComponent
                             <div className={styles.contentGrid}>
                                 <div className={styles.mainContentFlex}>
                                     <div className={`${styles.logoBox} ${transitionStyles['logoBox']}`}>
-                                        <Logo className={styles.logo}/>
+                                        <Logo show={this.props.match}/>
                                     </div>
                                     <nav className={`${styles.mainLinksGrid} ${transitionStyles['buttons']}`}>
                                         <Stagger delay={75}>

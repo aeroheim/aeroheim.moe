@@ -79,34 +79,6 @@
     clip-path: polygon(-100% 0%, 0% 0%, -100% 100%, -200% 100%);
 }
 
-.logo
-{
-    display: block;
-    shape-rendering: geometricPrecision;
-}
-
-.logoInTransition
-{
-    stroke-dashoffset: 866px;
-    transition: stroke-dashoffset 0.65s easeOutSine 0s;
-}
-
-.logoIn
-{
-    stroke-dashoffset: 0px;
-}
-
-.logoOutTransition
-{
-    stroke-dashoffset: 0px;
-    transition: stroke-dashoffset 0.65s easeInSine 0s;
-}
-
-.logoOut
-{
-    stroke-dashoffset: 866px;
-}
-
 @value mainLinksRowGap: 1px;
 @value mainLinksMinRowHeight: calc(logoBoxMinEdgeLength / 3 - mainLinksRowGap);
 @value mainLinksRowHeight: calc(logoBoxEdgeLength / 3 - mainLinksRowGap);
