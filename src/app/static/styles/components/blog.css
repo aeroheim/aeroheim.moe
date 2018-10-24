@@ -2,18 +2,17 @@
 @value easeOutCubic from '../global/animations.css';
 @value smheight from '../global/breakpoints.css';
 
-@value contentWidth: 115vh;
 @value contentBottomPadding: 6vh;
 .content
 {
     display: flex;
     flex-direction: column;
 
-    width: contentWidth;
-    max-width: 80vw;
+    width: 66%;
 
     margin-left: auto;
     margin-right: auto;
+
     padding-bottom: contentBottomPadding;
 }
 
@@ -46,21 +45,6 @@
 }
 
 .blogColor
-{
-    background-color: blogColor;
-}
-
-.postsSpinner
-{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    width: 6vw;
-}
-
-.postsSpinnerColor
 {
     background-color: blogColor;
 }
@@ -120,9 +104,6 @@
 {
     .content
     {
-        /* smheight(px) * contentWidth(vh%) */
-        width: 767.05px;
-
         /* smheight(px) * contentBottomPadding(vh%) */
         padding-bottom: 40.02px;
     }
@@ -146,5 +127,13 @@
 
         /* smheight(px) * footerTopMargin(vh%) */
         margin-top: 33.35px;
+    }
+}
+
+@media (orientation: portrait)
+{
+    .content
+    {
+        width: 90%;
     }
 }

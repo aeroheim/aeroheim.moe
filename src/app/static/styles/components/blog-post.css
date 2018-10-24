@@ -4,21 +4,13 @@
 
 @value sideMargin: 15px;
 
-.page
-{
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: auto;
-    grid-template-areas: "content";
-}
-
 @value contentVerticalMargin: 5vh;
 .content
 {
     display: flex;
     flex-direction: column;
 
-    max-width: 80vw;
+    max-width: 80%;
 
     margin: contentVerticalMargin auto contentVerticalMargin auto;
 }
@@ -149,7 +141,7 @@
 @value postFontSize: 1.7vh;
 .post
 {
-    padding: 1em 4em 1em 4em;
+    padding: 1% 8% 1% 8%;
 
     font-family: 'Nunito';
     font-size: postFontSize;
@@ -294,5 +286,13 @@
     {
         /* smheight(px) * footerButtonHeaderFontSize(vh%) */
         font-size: 16.675px;
+    }
+}
+
+@media (orientation: portrait)
+{
+    .content
+    {
+        max-width: 100%;
     }
 }
