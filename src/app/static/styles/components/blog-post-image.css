@@ -1,14 +1,13 @@
 @value easeOutCubic from "../global/animations.css";
 @value blogColor from "../global/colors.css";
 
-@value imageMargin: 2px;
-
+@value imageBlockVerticalMargin: 2em;
 .imageBlock
 {
     display: flex;
     flex-direction: column;
 
-    margin: 2em 0 2em 0;
+    margin: imageBlockVerticalMargin 0 imageBlockVerticalMargin 0; 
 
     overflow: hidden;
 }
@@ -18,19 +17,19 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+
     margin: 0;
 }
 
 .imgCell
 {
+    /* relative so that the image caption group can be positioned within the cell */
     position: relative;
 
     min-width: 200px;
-    max-width: 100%;
-    margin: imageMargin;
+    margin: 2px;
 
     cursor: zoom-in;
-
     overflow: hidden;
     background-color: white;
 }
@@ -53,34 +52,36 @@
     transform: translateZ(0) scale(1.025) rotate(0.02deg);
 }
 
+@value imgCaptionGroupMargin: 1em;
 .imgCaptionGroup
 {
+    /* absolutely positioned within an image cell */
     position: absolute;
+    /* border-box prevents padding from expanding width */
+    box-sizing: border-box;
     left: 0;
     bottom: 0;
 
-    max-width: 50%;
-    margin-left: 1em;
-    margin-bottom: 1em;
-    padding: 0.6em 1em 0.6em 1em;
+    max-width: calc(100% - 2 * imgCaptionGroupMargin);
+    margin: imgCaptionGroupMargin;
+    padding: calc(imgCaptionGroupMargin / 2) imgCaptionGroupMargin calc(imgCaptionGroupMargin / 2) imgCaptionGroupMargin;
 
     opacity: 0;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: blogColor;
+
     transition: opacity 0.55s easeOutCubic 0s, background-color 0.55s easeOutCubic 0s;
 }
 
 .imgCell:hover > .imgCaptionGroup
 {
     opacity: 1;
-    background-color: blogColor;
 }
 
 .imgCaptionHeader
 {
     margin: 0;
 
-    font-size: responsive 16px 20px;
-    font-range: 215px 1280px;
+    font-size: 1.33em;
 
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -91,8 +92,7 @@
 {
     margin: 0;
 
-    font-size: responsive 12px 16px;
-    font-range: 215px 1280px;
+    font-size: 1em;
 
     white-space: nowrap;
     text-overflow: ellipsis;

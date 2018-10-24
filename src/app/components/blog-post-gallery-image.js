@@ -35,7 +35,7 @@ const BlogPostGalleryImage = ({ show, img, index, imageCount }) =>
                                 <h2 className={styles.imageTitle}>{img.title}</h2>
                                 <span className={styles.imageCaption}>{img.caption}</span>
                             </div>
-                            <span className={styles.imageIndex}>{`${index + 1}/${imageCount}`}</span>
+                            <span className={styles.imageIndex}>{`${index + 1} / ${imageCount}`}</span>
                         </figcaption>
                     </figure>
                 );

@@ -17,7 +17,6 @@ const BlogPostImageGroup = ({ children, maxImagePerRow }) =>
     };
 
     let key = 0;
-
     const childrenWithProps = children.map((child) => React.cloneElement(child, 
     {
         key: key++,

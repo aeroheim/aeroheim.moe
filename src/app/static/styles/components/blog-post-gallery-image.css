@@ -2,7 +2,7 @@
 @value easeInCubic, easeOutCubic from "../global/animations.css";
 @value smheight from "../global/breakpoints.css";
 
-@value contentFontSize: 2vh;
+@value contentFontSize: 1.8vh;
 .content
 {
     display: flex;
@@ -73,6 +73,7 @@
 
     font-family: 'M+P1-Light';
     font-size: 1.33em;
+    font-weight: bold;
 
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -92,13 +93,15 @@
 {
     font-size: 2.5em;
     margin-left: 1em;
+
+    font-weight: bold;
+
 }
 
 @media (max-height: smheight)
 {
     .content
     {
-        /* smheight(px) * contentFontSize(vh%) */
-        font-size: 13.34px;
+        font-size: 12.006px;
     }
 }
