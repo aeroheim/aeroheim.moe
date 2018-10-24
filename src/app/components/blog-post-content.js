@@ -1,7 +1,7 @@
 import React from 'react';
 import store from '../app';
 import { addGalleryImage, setGalleryActiveImageIndex, setGalleryVisibility } from '../actions/blog-post-gallery-actions';
-import styles from '../static/styles/components/blog-post-image.css';
+import styles from '../static/styles/components/blog-post-content.css';
 
 const BlogPostImageBlock = ({ children }) =>
 {
@@ -66,4 +66,13 @@ class BlogPostImage extends React.Component
     }
 }
 
-export { BlogPostImageBlock, BlogPostImageGroup, BlogPostImage };
+const YoutubeEmbed = ({ src }) =>
+{
+    return (
+        <div className={styles.youtubeEmbedContainer}>
+            <iframe className={styles.youtubeEmbed} src={src} frameBorder="0" gesture="media" allow="encrypted-media" allowFullScreen></iframe>
+        </div>
+    );
+}
+
+export { BlogPostImageBlock, BlogPostImageGroup, BlogPostImage, YoutubeEmbed };

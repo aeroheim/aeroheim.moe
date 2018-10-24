@@ -3,7 +3,7 @@ import marksy from 'marksy/components';
 import prism from 'prismjs';
 import prismjsx from 'prismjs/components/prism-jsx'
 import prismLanguages from 'prism-languages';
-import { BlogPostImageBlock, BlogPostImageGroup, BlogPostImage } from '../components/blog-post-image';
+import { BlogPostImageBlock, BlogPostImageGroup, BlogPostImage, YoutubeEmbed } from '../components/blog-post-content';
 import styles from '../static/styles/components/blog-post-elements.css';
 
 const parser = marksy({
@@ -18,6 +18,7 @@ const parser = marksy({
         ImageBlock(props) { return <BlogPostImageBlock {...props}/>; },
         ImageGroup(props) { return <BlogPostImageGroup {...props}/>; },
         Image(props) { return <BlogPostImage {...props}/>; },
+        YoutubeEmbed(props) { return <YoutubeEmbed {...props}/>}, 
     },
     elements:
     {
