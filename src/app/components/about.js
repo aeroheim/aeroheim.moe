@@ -41,7 +41,7 @@ class About extends React.PureComponent
                         <div className={`${this.props.className} ${styles.content}`}>
                             <PageHeader className={styles.header} color={styles.aboutColor} show={this.props.match !== null}>ABOUT</PageHeader>
                             <article className={`${styles.bio} ${transitionStyles['bio']}`}>
-                                <h1 style={{marginBottom: 0}}>Benjamin Pang (龐天擇) :</h1>
+                                <h1 style={{marginBottom: 0}}>Benjamin Pang (龐天擇)&nbsp;:</h1>
                                 <p>
                                     I'm a {`${age}`}-year-old software engineer from Austin, TX. Born in Canada, I spent part 
                                     <br/>
