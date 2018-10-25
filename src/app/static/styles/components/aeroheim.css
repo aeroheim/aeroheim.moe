@@ -7,7 +7,12 @@
     position: fixed;
 
     grid-template-rows: auto 1fr auto;
-    grid-template-columns: auto;
+    /*
+     need to set column min-width is based on child content which can cause can cause the column
+     to expand past 1fr. to fix this the column's min-width needs to be set to 0.
+     see https://stackoverflow.com/questions/43311943/prevent-content-from-expanding-grid-items.
+    */
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "header"
                          "content"
                          "footer";

@@ -2,14 +2,9 @@
 @value easeInCubic, easeOutCubic from "../global/animations.css";
 @value smheight from "../global/breakpoints.css";
 
-@value sideMargin: 15px;
-
 @value contentVerticalMargin: 5vh;
 .content
 {
-    display: flex;
-    flex-direction: column;
-
     max-width: 80%;
 
     margin: contentVerticalMargin auto contentVerticalMargin auto;
