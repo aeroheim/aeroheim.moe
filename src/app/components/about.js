@@ -43,11 +43,11 @@ class About extends React.PureComponent
                             <article className={`${styles.bio} ${transitionStyles['bio']}`}>
                                 <h1 style={{marginBottom: 0}}>Benjamin Pang (龐天擇)&nbsp;:</h1>
                                 <p>
-                                    I'm a {`${age}`}-year-old software engineer from Austin, TX. Born in Canada, I spent part 
+                                    I'm a {`${age}`}-year-old software engineer from Austin, TX.
                                     <br/>
-                                    of my childhood in Hong Kong and grew up in the states. I graduated from 
+                                    Born in Canada, I spent part of my childhood in Hong Kong and grew up in the states.
                                     <br/>
-                                    The University of Texas at Austin with a B.S Computer Science in 2015.
+                                    I graduated from The University of Texas at Austin with a B.S Computer Science in 2015.
                                 </p>
                                 <span>I <i>adore</i> mechanical keyboards (~150WPM):</span>
                                 <ul className={styles.list}>
