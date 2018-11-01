@@ -10,6 +10,7 @@
     flex-direction: column;
 
     max-width: 100%;
+    max-height: 100%;
     margin: auto;
 
     font-family: 'M+P1-Thin';
@@ -44,7 +45,8 @@
     margin-bottom: 0.5em;
 
     max-width: 100%;
-    max-height: 80vh;
+    max-height: 85vh;
+    min-height: 0; /* flex child minimum size causes image to exceed flex parent, so override it. */
 }
 
 .captionContainer
@@ -91,11 +93,9 @@
 
 .imageIndex
 {
-    font-size: 2.5em;
-    margin-left: 1em;
-
+    margin-left: 0.25em;
+    font-size: 2em;
     font-weight: bold;
-
 }
 
 @media (max-height: smheight)
