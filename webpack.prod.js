@@ -34,9 +34,12 @@ module.exports =
                         {
                             presets:
                             [
-                                'env',
-                                'react',
-                                'stage-2',
+                                '@babel/preset-env',
+                                '@babel/preset-react',
+                            ],
+                            plugins:
+                            [
+                                '@babel/plugin-proposal-object-rest-spread',
                             ]
                         }
                     }
@@ -66,9 +69,12 @@ module.exports =
                         {
                             presets:
                             [
-                                'env',
-                                'react',
-                                'stage-2',
+                                '@babel/preset-env',
+                                '@babel/preset-react',
+                            ],
+                            plugins:
+                            [
+                                '@babel/plugin-proposal-object-rest-spread',
                             ]
                         }
                     },

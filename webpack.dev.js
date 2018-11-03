@@ -12,9 +12,6 @@ module.exports =
         // bundle the client for hot reloading; only hot reload for successful updates
         'webpack/hot/only-dev-server',
 
-        // react-hot-loader is used to preserve component states when hot reloading
-        'react-hot-loader/patch',
-
         // entry point for this app
         './src/app/app.js',
     ],
@@ -41,16 +38,18 @@ module.exports =
                 exclude: /node_modules/,
                 use:
                 [
-                    { loader: 'react-hot-loader/webpack' },
                     { 
                         loader: 'babel-loader',
                         options:
                         {
                             presets:
                             [
-                                'env',
-                                'react',
-                                'stage-2',
+                                '@babel/preset-env',
+                                '@babel/preset-react',
+                            ],
+                            plugins:
+                            [
+                                '@babel/plugin-proposal-object-rest-spread',
                             ]
                         }
                     }
@@ -80,9 +79,12 @@ module.exports =
                         {
                             presets:
                             [
-                                'env',
-                                'react',
-                                'stage-2',
+                                '@babel/preset-env',
+                                '@babel/preset-react',
+                            ],
+                            plugins:
+                            [
+                                '@babel/plugin-proposal-object-rest-spread',
                             ]
                         }
                     },

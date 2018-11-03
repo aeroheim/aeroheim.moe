@@ -1,5 +1,5 @@
 import React, { createElement } from 'react';
-import marksy from 'marksy/components';
+import marksy from 'marksy/jsx';
 import prism from 'prismjs';
 import prismjsx from 'prismjs/components/prism-jsx'
 import prismLanguages from 'prism-languages';
