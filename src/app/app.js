@@ -5,7 +5,6 @@ import withAnalytics from './util/analytics';
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import rootReducer from './reducers/reducers';
-import { AppContainer } from 'react-hot-loader';
 import Aeroheim from './components/aeroheim';
 import fonts from './static/styles/fonts/fonts.css';
 
@@ -32,9 +31,7 @@ if (module.hot)
 function render(Component)
 {
     ReactDOM.render(
-        <AppContainer>
-            <Component store={store} history={history}/>
-        </AppContainer>, 
+            <Component store={store} history={history}/>,
         document.getElementById('root')
     );
 }
