@@ -108,7 +108,7 @@ module.exports =
         new webpack.optimize.ModuleConcatenationPlugin(),
         // gzip bundled output 
         new CompressionPlugin({
-            asset: '[path].gz[query]',
+            filename: '[path].gz[query]',
             algorithm: 'gzip',
             test: /\.(js)$/,
             threshold: 10240,
