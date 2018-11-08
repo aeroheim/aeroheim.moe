@@ -120,8 +120,8 @@ module.exports = [
         },
         plugins:
         [
-            new webpack.HotModuleReplacementPlugin(),
-            new webpack.NamedModulesPlugin(),
+            new webpack.HotModuleReplacementPlugin(), // for HMR via node API
+            new webpack.NamedModulesPlugin(), // prints more readable module names in the browser console on HMR updates
             new BundleAnalyzerPlugin({ analyzerMode: 'static', reportFilename: 'dev-bundle-report.html', openAnalyzer: false }),
         ],
     },
