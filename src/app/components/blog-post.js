@@ -71,7 +71,11 @@ class BlogPost extends React.Component
         else if (this.props.loaded && !prevProps.loaded)
         {
             // scroll to top of new post
-            document.getElementById('app').scrollTo(0, 0);
+            if (typeof window !== 'undefined')
+            {
+                document.getElementById('app').scrollTo(0, 0);
+            }
+
             this.setState(
             {
                 title: this.props.title,

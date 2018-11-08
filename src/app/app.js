@@ -1,41 +1,46 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import createHistory from 'history/createBrowserHistory'
-import withAnalytics from './util/analytics';
-import { createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import rootReducer from './reducers/reducers';
-import Aeroheim from './components/aeroheim';
-import fonts from './static/styles/fonts/fonts.css';
+import { Provider } from 'react-redux';
+import { Router } from 'react-router-dom';
+import { initializeStore, initializeHistory, App } from './components/aeroheim';
 
-// remove initial loading spinner
-document.getElementById('root-spinner').remove();
+let preloadedState;
+if (typeof window !== 'undefined')
+{
+    // load state from server-side rendered app
+    preloadedState = window.__PRELOADED_STATE__;
+    delete window.__PRELOADED_STATE__;
+}
 
-// initialize redux store
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+// initialize redux
+const store = initializeStore(preloadedState);
 
-// initialize react-router history
-const history = process.env.NODE_ENV === 'production' ? withAnalytics(createHistory()) : createHistory();
+// initialize react-router
+const history = initializeHistory();
 
 // Webpack hot module replacement
 if (module.hot)
-    {
-        module.hot.accept('./components/aeroheim.js', () =>
-        {
-            // reload Aeroheim and render it again
-            const UpdatedComponent = require('./components/aeroheim').default;
-            render(UpdatedComponent);
-        });
-    }
-
-function render(Component)
 {
-    ReactDOM.render(
-            <Component store={store} history={history}/>,
-        document.getElementById('root')
-    );
+    module.hot.accept('./components/aeroheim.js', () =>
+    {
+        // re-import for new changes and then render again
+        const UpdatedApp = require('./components/aeroheim').App;
+        ReactDOM.render(
+            <Provider store={store}>
+                <Router history={history}>
+                    <UpdatedApp/>
+                </Router>
+            </Provider>
+        , document.getElementById('root'));
+    });
 }
 
-render(Aeroheim);
+ReactDOM.hydrate(
+    <Provider store={store}>
+        <Router history={history}>
+            <App/>
+        </Router>
+    </Provider>
+, document.getElementById('root'));
 
 export default store;
