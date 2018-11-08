@@ -60,7 +60,10 @@ class Blog extends React.Component
         else if (this.props.loaded && !prevProps.loaded)
         {
             // scroll to top of posts
-            document.getElementById('app').scrollTo(0, 0);
+            if (typeof window !== 'undefined')
+            {
+                document.getElementById('app').scrollTo(0, 0);
+            }
 
             this.setState({
                 posts: this.props.posts,

@@ -1,4 +1,4 @@
-const { validationResult } = require('express-validator/check');
+import { validationResult } from 'express-validator/check';
 
 function filterStaticContent(filter, handler)
 {
@@ -25,7 +25,7 @@ function filterQuery(filter, handler)
 {
     return (req, res, next) =>
     {
-        for(query in req.query)
+        for (const query in req.query)
         {
             if (!filter(query))
             {
@@ -55,9 +55,4 @@ function validateExpressValidator(req, res, next)
     next();
 }
 
-module.exports =
-{
-    filterStaticContent: filterStaticContent,
-    filterQuery: filterQuery,
-    validateExpressValidator: validateExpressValidator,
-}
+export { filterStaticContent, filterQuery, validateExpressValidator };

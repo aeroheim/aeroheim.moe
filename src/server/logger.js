@@ -1,8 +1,9 @@
-const winston = require('winston');
-const path = require('path');
-const fs = require('fs');
+import winston from 'winston';
+import morgan from 'morgan';
+import path from 'path';
+import fs from 'fs';
 
-const logsDir = path.join(__dirname, '/../../logs');
+const logsDir = path.join(__dirname, '..', '..', 'logs');
 
 if (!fs.existsSync(logsDir))
 {
@@ -40,10 +41,5 @@ winston.stream =
     }
 }
 
-const morgan = require('morgan')('short', { stream: winston.stream });
-
-module.exports =
-{
-    logExpress: morgan,
-    log: (level, msg) => winston.log(level, msg), 
-}
+export const logger = morgan('short', { stream: winston.stream });
+export const log = (level, msg) => winston.log(level, msg);

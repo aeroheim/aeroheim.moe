@@ -1,19 +1,20 @@
-const fs = require('fs');
-const path = require('path');
-const express = require('express');
-const { query } = require('express-validator/check');
-const { filterStaticContent, filterQuery, validateExpressValidator } = require('../middleware/validation');
-const blogContentPath = path.join(__dirname, '../../../content/blog');
+import fs from 'fs';
+import path from 'path';
+import express from 'express';
+import { query } from 'express-validator/check';
+import { filterStaticContent, filterQuery, validateExpressValidator } from '../middleware/validation';
 
 const DEFAULT_PAGINATION_LIMIT = 5;
+const blogContentPath = path.join(__dirname, 'content', 'blog');
+const blogStorePath = path.join(blogContentPath, 'blog.json');
 
-const validateBlogQuery = [
+const validateBlogQuery = 
+[
     filterQuery((query) => ['page', 'limit'].includes(query)), 
     query('limit').optional().isInt({ min: 0 }), 
     query('page').optional().isInt({ min: 1 }),
     validateExpressValidator,
 ];
-
 function handleBlogRequest(req, res)
 {
     const limit = req.query.limit ? req.query.limit : DEFAULT_PAGINATION_LIMIT;
@@ -45,12 +46,12 @@ function handleBlogRequest(req, res)
     });
 }
 
-const validateBlogPostQuery = [
+const validateBlogPostQuery = 
+[
     filterQuery((query) => ['limit'].includes(query)), 
     query('limit').optional().isInt({ min: 0 }), 
     validateExpressValidator,
 ];
-
 function handleBlogPostRequest(req, res)
 {
     // find post
@@ -108,14 +109,10 @@ function handleBlogPostRequest(req, res)
     });
 }
 
-const router = express.Router();
-router.use('/blog/*', filterStaticContent((staticContent) => !staticContent.endsWith('.md') && !staticContent.endsWith('.json')));
-router.use('/blog', express.static(blogContentPath));
-router.get('/api/blog', validateBlogQuery, handleBlogRequest);
-router.get('/api/blog/:id', validateBlogPostQuery, handleBlogPostRequest);
+const blogRouter = express.Router();
+blogRouter.use('/blog/*', filterStaticContent((staticContent) => !staticContent.endsWith('.md') && !staticContent.endsWith('.json')));
+blogRouter.use('/blog', express.static(blogContentPath));
+blogRouter.get('/api/blog', validateBlogQuery, handleBlogRequest);
+blogRouter.get('/api/blog/:id', validateBlogPostQuery, handleBlogPostRequest);
 
-module.exports = 
-{
-    router: router,
-    storePath: path.join(blogContentPath, 'blog.json')
-}
+export { blogRouter, blogStorePath };
