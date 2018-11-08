@@ -1,16 +1,22 @@
 import React from 'react';
-import { Router, Route } from 'react-router-dom';
-import { connect, Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import rootReducer from '../reducers/reducers';
+import withAnalytics from '../util/analytics';
+import createHistory from 'history/createBrowserHistory'
+import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import RouteContent from './route-content';
 import Header from './header';
 import Footer from './footer';
 import Home from './home';
 import Projects from './projects';
-import Blog from './blog';
+// import Blog from './blog';
 import About from './about';
 import ErrorHandler from './error-handler';
 import SpinnerCubeGrid from './spinner-cube-grid';
 import styles from '../static/styles/components/aeroheim.css';
+import fonts from '../static/styles/fonts/fonts.css';
 
 class Aeroheim extends React.Component
 {
@@ -36,11 +42,6 @@ class Aeroheim extends React.Component
                         <Projects className={styles.content}/>
                     </RouteContent>}
                 />
-                <Route exact path='/blog' children={(props) =>
-                    <RouteContent path='/blog' {...props}>
-                        <Blog className={styles.content}/>
-                    </RouteContent>}
-                />
                 <Route exact path='/about' children={(props) =>
                     <RouteContent path='/about' {...props}>
                         <About className={styles.content}/>
@@ -52,6 +53,14 @@ class Aeroheim extends React.Component
     }
 }
 
+/*
+                <Route exact path='/blog' children={(props) =>
+                    <RouteContent path='/blog' {...props}>
+                        <Blog className={styles.content}/>
+                    </RouteContent>}
+                />
+*/
+
 function mapStateToProps(state)
 {
     return {
@@ -60,15 +69,21 @@ function mapStateToProps(state)
     }
 }
 
-const App = ({ store, history }) =>
+function initializeStore(preloadedState)
 {
-    return (
-        <Provider store={store}>
-            <Router history={history}>
-                <Route path='/' component={connect(mapStateToProps)(Aeroheim)}/>
-            </Router>
-        </Provider>
-    );
+    if (preloadedState)
+    {
+        return createStore(rootReducer, preloadedState, applyMiddleware(thunkMiddleware));
+    }
+
+    return createStore(rootReducer, applyMiddleware(thunkMiddleware));
 }
 
-export default App;
+function initializeHistory()
+{
+    return process.env.NODE_ENV === 'production' ? withAnalytics(createHistory()) : createHistory();
+}
+
+const App = () => <Route path='/' component={connect(mapStateToProps)(Aeroheim)}/>;
+
+export { initializeStore, initializeHistory, App };
