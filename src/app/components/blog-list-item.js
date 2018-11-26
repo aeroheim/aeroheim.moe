@@ -31,9 +31,9 @@ const BlogListItem = ({ className, post, show, url }) =>
 
     return (
         <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={show}>
-            {({ transitionStyles }) => {
+            {({ transitionStyles, onTransitionEnd }) => {
                 return (
-                    <li className={`${transitionStyles['content']} ${className}`}>
+                    <li className={`${transitionStyles['content']} ${className}`} onTransitionEnd={onTransitionEnd}>
                         <LinkButton link={url ? url : `/blog/${post._id}`} className={styles.link}>
                             <h2 className={styles.title}>{post.title}</h2>
                             <span className={styles.date}>{monthFormatter.format(post.date).toUpperCase()} {post.date.getUTCDate()}, {post.date.getUTCFullYear()}</span>

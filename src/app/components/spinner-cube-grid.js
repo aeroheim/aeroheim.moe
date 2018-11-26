@@ -27,9 +27,9 @@ const SpinnerCubeGrid = ({ className, show }) =>
 
     return (
         <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={show}>
-            {({ transitionStyles }) => {
+            {({ transitionStyles, onTransitionEnd }) => {
                 return (
-                    <div className={`${styles.cubeGrid} ${transitionStyles['cubeGrid']} ${className}`}>
+                    <div className={`${styles.cubeGrid} ${transitionStyles['cubeGrid']} ${className}`} onTransitionEnd={onTransitionEnd}>
                         <div className={styles.content}>
                             <div className={styles.cubeOne}></div>
                             <div className={styles.cubeTwo}></div>

@@ -77,9 +77,9 @@ class BlogPostGallery extends React.Component
 
         return (
             <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.show}>
-                {({ transitionStyles }) => {
+                {({ transitionStyles, onTransitionEnd }) => {
                     return (
-                        <div className={`${styles.page} ${transitionStyles['page']}`}>
+                        <div className={`${styles.page} ${transitionStyles['page']}`} onTransitionEnd={onTransitionEnd}>
                             <Button className={`${styles.button} ${styles.closeButton}`} onClick={this.onClose}>
                                 <CloseIcon/>
                             </Button>

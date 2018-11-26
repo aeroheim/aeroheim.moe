@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 class Transition
@@ -16,8 +15,8 @@ class Transition
 
         this.reset = this.reset.bind(this);
         this.finishTransition = this.finishTransition.bind(this);
-        this.setDone = this.setDone.bind(this);
-        this.isDone = this.isDone.bind(this);
+        this.setTransitionFinished = this.setTransitionFinished.bind(this);
+        this.isTransitionFinished = this.isTransitionFinished.bind(this);
     }
 
     reset()
@@ -33,7 +32,7 @@ class Transition
         this.finished[transitionProperty] = true;
     }
 
-    setDone(done)
+    setTransitionFinished(done)
     {
         for (const key in this.finished)
         {
@@ -41,7 +40,7 @@ class Transition
         }
     }
 
-    isDone()
+    isTransitionFinished()
     {
         for (const key in this.finished)
         {
@@ -61,12 +60,15 @@ class AnimatedCSSTransition extends React.Component
     {
         super(props);
 
-        this.inTransitions = props.inTransitions;
+        // in styles are applied when the components are entering/mounting
         this.inStyles = props.inStyles;
-        this.outTransitions = props.outTransitions;
-        this.outStyles = props.outStyles;
+        this.inTransitions = props.inTransitions;
 
-        // transitions - the current set of transition objects, either inTransitions or outTransitions
+        // out styles are applied when the components are leaving/unmounting
+        this.outStyles = props.outStyles;
+        this.outTransitions = props.outTransitions;
+
+        // transitions - the current set of transitions to apply, either inTransitions or outTransitions
         this.transitions = props.inTransitions;
 
         // styles - the complete set of styles to apply to elements, including both the base in/out styles as well as the transition styles
@@ -74,66 +76,58 @@ class AnimatedCSSTransition extends React.Component
 
         for (const key in this.transitions)
         {
-            this.transitions[key].setDone(!this.props.show);
+            // the default state is set to finished so that a new transition can begin.
+            this.transitions[key].setTransitionFinished(true);
             this.styles[key] = this.transitions[key].style;
         }
-        
-        this.state = 
-        {
-            active: false,
-            transitionStyles: this.styles,
-        }
 
-        this.mounted = false;
-        this.isDone = this.isDone.bind(this);
+        // active refers to the state being transitioned from - false for out -> in, true for in -> out.
+        this.active = false;
+        this.timeoutId = null;
+
+        this.isTransitionFinished = this.isTransitionFinished.bind(this);
         this.transition = this.transition.bind(this);
         this.transitionInternal = this.transitionInternal.bind(this);
         this.onTransitionEnd = this.onTransitionEnd.bind(this);
-    }
 
-    componentDidMount()
-    {
-        const element = ReactDOM.findDOMNode(this);
-        if (element)
-        {
-            element.addEventListener('transitionend', this.onTransitionEnd);
-        }
+        this.state = {
+            transitionStyles: this.styles,
+        };
 
-        this.mounted = true;
-        if (this.props.show)
+        if (props.show)
         {
+            // start initial transition.
             this.transition();
         }
     }
 
     componentWillUnmount()
     {
-        const element = ReactDOM.findDOMNode(this);
-        if (element)
-        {
-            element.removeEventListener('transitionend', this.onTransitionEnd);
-        }
-
-        this.mounted = false;
+        clearTimeout(this.timeoutId);
     }
 
-    componentWillReceiveProps(nextProps)
+    componentDidUpdate(prevProps)
     {
-        if (this.props !== nextProps)
+        // transitions should only trigger if props has actually changed.
+        if (this.props !== prevProps)
         {
-            if ((nextProps.show !== this.state.active) || !this.isDone())
+            // when show and active are mismatched, this means that an animation should be triggered.
+            // it's also possible for show and active to match again in the middle of an ongoing transition
+            // in which case the transition should be reversed by triggering another transition.
+
+
+            if (this.props.show !== this.active || !this.isTransitionFinished())
             {
-                // transitionInternal() will be called after render(), so this.props will already be set to nextProps when it runs.
                 this.transition();
             }
         }
     }
 
-    isDone()
+    isTransitionFinished()
     {
         for (const key in this.transitions)
         {
-            if (!this.transitions[key].isDone())
+            if (!this.transitions[key].isTransitionFinished())
             {
                 return false;
             }
@@ -144,25 +138,19 @@ class AnimatedCSSTransition extends React.Component
 
     transition()
     {
-        // Need to wait until the children have been rendered at least once with the transition style before applying
-        // the target style, otherwise no transition occurs. Call requestAnimationFrame to ensure that the transition
-        // occurs after render().
-        setTimeout(() => requestAnimationFrame(() => this.transitionInternal()), 50);
+        clearTimeout(this.timeoutId);
+
+        // children must first be rendered once with only the in/out transition style before the target in/out styles can be applied - if both are 
+        // applied at the same time no transition occurs. setTimeout is used to ensure that the transition occurs after the first render.
+        this.timeoutId = setTimeout(() => this.transitionInternal(), 50);
     }
 
     transitionInternal()
     {
-        // Reset the finished state to begin the transition. The show & active values need to be verified 
-        // again since they may have changed between the time transition() was called and now.
-        if (this.isDone() && this.props.show !== this.state.active)
+        // start and trigger a new transition.
+        if (this.props.show !== this.active && this.isTransitionFinished())
         {
-            // TODO: investigate null DOM node errors - somehow got unmounted before we got here
-            // Any child component that remounts will stop bubbling events up. The event listener must be re-applied to enabling bubbling again.
-            ReactDOM.findDOMNode(this).removeEventListener('transitionend', this.onTransitionEnd);
-            ReactDOM.findDOMNode(this).addEventListener('transitionend', this.onTransitionEnd);
-
             this.transitions = this.props.show ? this.inTransitions : this.outTransitions;
-
             for (const key in this.transitions)
             {
                 this.inTransitions[key].reset();
@@ -170,7 +158,8 @@ class AnimatedCSSTransition extends React.Component
             }
         }
 
-        if (!this.isDone())
+        // continue a triggered transition - this can start a new transition or reverse an ongoing transition.
+        if (!this.isTransitionFinished())
         {
             for (const key in this.transitions)
             {
@@ -180,60 +169,52 @@ class AnimatedCSSTransition extends React.Component
                 }
                 else
                 {
-                    this.styles[key] = `${this.inTransitions[key].style} ${this.inStyles[key]} ${this.outTransitions[key].style} ${!this.props.show ? this.outStyles[key] : ''}`;
+                    this.styles[key] = `${this.inStyles[key]} ${this.outTransitions[key].style} ${!this.props.show ? this.outStyles[key] : ''}`;
                 }
             }
 
-            if (this.mounted)
-            {
-                this.setState({
-                    active: this.state.active,
-                    transitionStyles: this.styles,
-                });
-            }
+            this.active = this.props.show;
+            this.timeoutId = null;
+            this.setState({ transitionStyles: this.styles });
         }
     }
 
     onTransitionEnd(e)
     {
-        for (const key in this.transitions)
+        // the onTransitionEnd event bubbles up from children, so make sure to only handle when necessary.
+        if (!this.isTransitionFinished())
         {
-            // filter out elements that aren't using any of the transition styles
-            const styles = e.target.className instanceof SVGAnimatedString 
-                ? e.target.className.baseVal 
-                : e.target.className;
-
-            if (styles.includes(this.transitions[key].style))
-            {
-                if (this.transitions[key].finished[e.propertyName] !== undefined)
-                {
-                    this.transitions[key].finishTransition(e.propertyName);
-                }
-            }
-        }
-
-        if(this.isDone())
-        {
-            // set to final style for in/out state
             for (const key in this.transitions)
             {
-                this.styles[key] = this.props.show ? `${this.inTransitions[key].style} ${this.inStyles[key]} ${this.outTransitions[key].style}`: this.inTransitions[key].style;
-            }
+                // filter out elements that aren't using any of the transition styles
+                const styles = e.target.className instanceof SVGAnimatedString 
+                    ? e.target.className.baseVal 
+                    : e.target.className;
 
-            if (this.mounted)
+                const finishedTransitionProperty = e.propertyName;
+                if (styles.includes(this.transitions[key].style) && this.transitions[key].finished[finishedTransitionProperty] !== undefined)
+                {
+                    this.transitions[key].finishTransition(finishedTransitionProperty);
+                }
+            }
+    
+            if (this.isTransitionFinished())
             {
-                this.setState({
-                    active: this.props.show,
-                    transitionStyles: this.styles,
-                });
+                // set to final style for in/out state
+                for (const key in this.transitions)
+                {
+                    this.styles[key] = this.props.show ? `${this.inStyles[key]} ${this.outTransitions[key].style}` : this.inTransitions[key].style;
+                }
+
+                this.setState({ transitionStyles: this.styles });
             }
         }
     }
 
     render()
     {
-        return (this.props.show || this.state.active || !this.isDone())
-            ? this.props.children(this.state) 
+        return (this.props.show || this.active || !this.isTransitionFinished())
+            ? this.props.children({ ...this.state, onTransitionEnd: this.onTransitionEnd })
             : null;
     }
 }
@@ -244,6 +225,7 @@ AnimatedCSSTransition.propTypes =
     inTransitions: PropTypes.object.isRequired,
     outStyles: PropTypes.object.isRequired,
     outTransitions: PropTypes.object.isRequired,
+    show: PropTypes.bool.isRequired
 }
 
 export { AnimatedCSSTransition, Transition };

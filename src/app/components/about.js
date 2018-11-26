@@ -36,9 +36,9 @@ class About extends React.PureComponent
         
         return (
             <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null}>
-                {({ transitionStyles }) => {
+                {({ transitionStyles, onTransitionEnd }) => {
                     return (
-                        <div className={`${this.props.className} ${styles.content}`}>
+                        <div className={`${this.props.className} ${styles.content}`} onTransitionEnd={onTransitionEnd}>
                             <PageHeader className={styles.header} color={styles.aboutColor} show={this.props.match !== null}>ABOUT</PageHeader>
                             <article className={`${styles.bio} ${transitionStyles['bio']}`}>
                                 <h1 style={{marginBottom: 0}}>Benjamin Pang (龐天擇)&nbsp;:</h1>

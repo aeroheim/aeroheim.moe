@@ -26,9 +26,9 @@ const BlogPostGalleryImage = ({ show, img, index, imageCount }) =>
 
     return (
         <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={show}>
-            {({ transitionStyles }) => {
+            {({ transitionStyles, onTransitionEnd }) => {
                 return (
-                    <figure className={`${styles.content} ${transitionStyles['content']}`}>
+                    <figure className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
                         <img className={styles.image} src={img.src}/>
                         <figcaption className={styles.captionContainer}>
                             <div className={styles.imageText}>

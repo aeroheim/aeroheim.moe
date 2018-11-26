@@ -43,10 +43,10 @@ class Home extends React.Component
         }
 
         return (
-            <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match}>
-                {({ transitionStyles }) => {
+            <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={Boolean(this.props.match)}>
+                {({ transitionStyles, onTransitionEnd }) => {
                     return (
-                        <div className={`${this.props.className} ${styles.content}`}>
+                        <div className={`${this.props.className} ${styles.content}`} onTransitionEnd={onTransitionEnd}>
                             <div className={styles.contentGrid}>
                                 <div className={styles.mainContentFlex}>
                                     <div className={`${styles.logoBox} ${transitionStyles['logoBox']}`}>

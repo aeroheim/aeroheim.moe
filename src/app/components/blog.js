@@ -119,14 +119,14 @@ class Blog extends React.Component
                         <BlogPost className={this.props.className}/>
                     </RouteContent>}
                 />
-                <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match && this.state.loaded}>
-                    {({ transitionStyles }) => {
+                <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={Boolean(this.props.match && this.state.loaded)}>
+                    {({ transitionStyles, onTransitionEnd }) => {
                         return (
-                            <div className={`${this.props.className} ${styles.content} ${transitionStyles['content']}`}>
+                            <div className={`${this.props.className} ${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
                                 <PageHeader className={styles.header} color={styles.blogColor} show={this.props.match}>BLOG</PageHeader>
                                 <ul className={`${styles.posts}`}>
                                     <Stagger delay={100}>
-                                        {this.state.posts.map((post) => <BlogListItem className={styles.post} key={post._id} post={post} show={this.props.match && this.state.loaded}/>)}
+                                        {this.state.posts.map((post) => <BlogListItem className={styles.post} key={post._id} post={post} show={Boolean(this.props.match && this.state.loaded)}/>)}
                                     </Stagger>
                                 </ul>
                                 <IndexSelector className={styles.footer} 

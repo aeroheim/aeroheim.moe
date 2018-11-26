@@ -30,9 +30,9 @@ const PageHeader = ({ children, className, color, show }) =>
 
     return (
         <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={show}>
-            {({ transitionStyles }) => {
+            {({ transitionStyles, onTransitionEnd }) => {
                 return (
-                    <header className={`${styles.header} ${className} ${transitionStyles['header']}`}>
+                    <header className={`${styles.header} ${className} ${transitionStyles['header']}`} onTransitionEnd={onTransitionEnd}>
                         <div className={styles.headerTextContainer}>
                             <h1 className={`${styles.headerText} ${transitionStyles['headerText']}`}>
                                 {children}

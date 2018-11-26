@@ -27,9 +27,9 @@ const HomeMainButton = ({ show, link, header, subtext, color, className }) =>
 
     return (
         <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={show}>
-            {({ transitionStyles }) => {
+            {({ transitionStyles, onTransitionEnd }) => {
                 return (
-                    <LinkButton link={link} className={`${styles.linkButton} ${transitionStyles['content']} ${className}`}>
+                    <LinkButton link={link} className={`${styles.linkButton} ${transitionStyles['content']} ${className}`} onTransitionEnd={onTransitionEnd}>
                         <div className={`${styles.colorBar} ${color}`}/>
                         <div className={`${styles.colorBarHover} ${color}`}/>
                         <h2 className={styles.header}>{header}</h2>

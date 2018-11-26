@@ -138,9 +138,9 @@ class BlogPost extends React.Component
             <React.Fragment>
                 <BlogPostGallery show={match && this.state.loaded && this.props.showImageGallery}/>
                 <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match && this.state.loaded}>
-                    {({ transitionStyles }) => {
+                    {({ transitionStyles, onTransitionEnd }) => {
                         return (
-                            <div className={`${this.props.className} ${styles.content} ${transitionStyles['content']}`}>
+                            <div className={`${this.props.className} ${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
                                 <header>
                                     <LinkButton link={`/blog/?page=${this.state.page}`} className={styles.header}>
                                         <h2 className={styles.backButton}>
