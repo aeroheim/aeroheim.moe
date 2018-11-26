@@ -21,14 +21,11 @@ class BlogPostGallery extends React.Component
         this.onClose = this.onClose.bind(this);
     }
 
-    componentWillReceiveProps(nextProps)
+    componentDidUpdate(prevProps)
     {
-        if (this.props !== nextProps)
+        if (prevProps.show !== this.props.show)
         {
-            if (this.props.show !== nextProps.show)
-            {
-                this.props.setScrollbarEnabled(!this.props.show && nextProps.show ? false : true);
-            }
+            this.props.setScrollbarEnabled(this.props.show && !prevProps.show ? false : true);
         }
     }
 

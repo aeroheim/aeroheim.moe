@@ -33,10 +33,7 @@ class BlogPostImage extends React.Component
         super(props);
         this.index = -1;
         this.showGallery = this.showGallery.bind(this);
-    }
 
-    componentWillMount()
-    {
         store.dispatch(addGalleryImage({ 
             src: this.props.src,
             title: this.props.title,
