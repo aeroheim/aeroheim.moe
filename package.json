@@ -5,9 +5,8 @@
   "main": "app.js",
   "scripts": {
     "clean": "rimraf ./dist",
-    "prebuild": "npm run clean",
-    "build-dev": "webpack --env=dev --progress --profile --colors",
-    "build-prod": "webpack --env=prod --progress --profile --colors",
+    "build-dev": "npm run clean && webpack --env=dev --progress --colors",
+    "build-prod": "npm run clean && webpack --env=prod --progress --colors",
     "start-dev": "node ./src/server/server.js",
     "start-prod": "cross-env NODE_ENV=production node ./src/server/server.js"
   },
@@ -64,6 +63,7 @@
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
     "webpack": "^4.24.0",
+    "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
   }
