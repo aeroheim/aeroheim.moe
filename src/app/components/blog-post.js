@@ -132,12 +132,11 @@ class BlogPost extends React.Component
         }
 
         const monthFormatter = new Intl.DateTimeFormat('en-us', { month: 'short' });
-        const match = this.props.match !== null;
 
         return (
             <React.Fragment>
-                <BlogPostGallery show={match && this.state.loaded && this.props.showImageGallery}/>
-                <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={match && this.state.loaded}>
+                <BlogPostGallery show={this.props.match !== null && this.state.loaded && this.props.showImageGallery}/>
+                <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null && this.state.loaded}>
                     {({ transitionStyles, onTransitionEnd }) => {
                         return (
                             <div className={`${this.props.className} ${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>

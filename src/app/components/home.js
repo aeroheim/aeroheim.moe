@@ -43,20 +43,20 @@ class Home extends React.Component
         }
 
         return (
-            <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={Boolean(this.props.match)}>
+            <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null}>
                 {({ transitionStyles, onTransitionEnd }) => {
                     return (
                         <div className={`${this.props.className} ${styles.content}`} onTransitionEnd={onTransitionEnd}>
                             <div className={styles.contentGrid}>
                                 <div className={styles.mainContentFlex}>
                                     <div className={`${styles.logoBox} ${transitionStyles['logoBox']}`}>
-                                        <Logo show={this.props.match}/>
+                                        <Logo show={this.props.match !== null}/>
                                     </div>
                                     <nav className={`${styles.mainLinksGrid} ${transitionStyles['buttons']}`}>
                                         <Stagger delay={75}>
-                                            <HomeMainButton show={this.props.match} link='/blog' header='blog' subtext='thoughts and reflections' color={styles.blogColor}/>
-                                            <HomeMainButton show={this.props.match} link='/projects' header='projects' subtext='coding works / projects' color={styles.projectsColor}/>
-                                            <HomeMainButton show={this.props.match} link='/about' header='about' subtext='introduction & bio' color={styles.aboutColor}/>
+                                            <HomeMainButton show={this.props.match !== null} link='/blog' header='blog' subtext='thoughts and reflections' color={styles.blogColor}/>
+                                            <HomeMainButton show={this.props.match !== null} link='/projects' header='projects' subtext='coding works / projects' color={styles.projectsColor}/>
+                                            <HomeMainButton show={this.props.match !== null} link='/about' header='about' subtext='introduction & bio' color={styles.aboutColor}/>
                                         </Stagger>
                                     </nav>
                                 </div>

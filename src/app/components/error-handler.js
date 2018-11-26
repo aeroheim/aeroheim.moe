@@ -103,7 +103,7 @@ class ErrorHandler extends React.PureComponent
         }
 
         return (
-            <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={Boolean(this.props.error)}>
+            <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.error !== null}>
                 {({ transitionStyles, onTransitionEnd }) => {
                     return (
                         <div className={`${this.props.className} ${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
