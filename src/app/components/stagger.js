@@ -10,9 +10,9 @@ class Stagger extends React.Component
             children: [],
             renderedChildren: [],
             currentChildToRenderIndex: 1,
-            timeoutId: null,
         };
 
+        this.timeoutId = null;
         this.onUpdate = this.onUpdate.bind(this);
     }
 
@@ -28,7 +28,7 @@ class Stagger extends React.Component
 
     componentWillUnmount()
     {
-        clearTimeout(this.state.timeoutId);
+        clearTimeout(this.timeoutId);
     }
 
     onUpdate()
@@ -53,28 +53,28 @@ class Stagger extends React.Component
         // reset state and re-execute stagger.
         if (newChildrenReceived)
         {
+            this.timeoutId = null;
             this.setState({
                 children: this.props.children,
                 renderedChildren: this.props.children ? [this.props.children[0]] : [],
                 currentChildToRenderIndex: 1,
-                timeoutId: null,
             });
         }
         // continue stagger.
-        else if (this.state.children && !this.state.timeoutId && this.state.currentChildToRenderIndex < this.state.children.length)
+        else if (this.state.children && !this.timeoutId && this.state.currentChildToRenderIndex < this.state.children.length)
         {
             const timeoutId = setTimeout(() => {
+                this.timeoutId = null;
                 this.setState({
                     children: this.state.children,
                     renderedChildren: this.state.renderedChildren.concat(this.state.children[this.state.currentChildToRenderIndex]),
                     currentChildToRenderIndex: this.state.currentChildToRenderIndex + 1,
-                    timeoutId: null,
                 });
             }, this.props.delay);
 
             // record timeout id to prevent additional staggers from occurring until the current stagger cycle has finished.
             // this id is also needed to clear the timeout incase the component is unmounted before the timeout occurs.
-            this.setState({ ...this.state, timeoutId: timeoutId });
+            this.timeoutId = timeoutId;
         }
     }
 
