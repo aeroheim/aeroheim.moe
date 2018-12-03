@@ -10,13 +10,16 @@ import Datastore from 'nedb';
 import { logger, log } from './logger';
 import { blogRouter, blogStorePath } from './api/blog';
 
-// for server-side rendering
+// SSR dependencies
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import { App, initializeStore } from '../app/components/aeroheim';
 import serialize from 'serialize-javascript';
+import { collectInitial } from 'node-style-loader/collect';
+const initialStyleTag = collectInitial();   // critical styles for SSR - from node-style-loader
+global.server = true;                       // set global flag for SSR
 
 function logError(err, msg)
 {
@@ -43,6 +46,7 @@ function renderPage(html, preloadedState)
         <head>
           <meta charset="utf-8">
           <title>aeroheim</title>
+          ${initialStyleTag}
           <link rel="stylesheet" href="/index.css"/>
           <link rel="icon" type="image/png" href="/favicon-16x16.png" size="16x16">
           <link rel="icon" type="image/png" href="/favicon-32x32.png" size="32x32">
@@ -54,7 +58,6 @@ function renderPage(html, preloadedState)
             <script>
                 window.__PRELOADED_STATE__ = ${serialize(preloadedState)}
             </script>
-            <script src="/bundle.js"></script>
         </html>
     `;
 }
@@ -64,16 +67,15 @@ function renderAppOnServer(req, res)
     // TODO: not sure if context is needed.
     const context = {};
     const store = initializeStore();
-    const html = renderToString(
+    const app = (
         <Provider store={store}>
             <StaticRouter location={req.url} context={context}>
                 <App/>
             </StaticRouter>
         </Provider>);
 
+    const html = renderToString(app);
     const preloadedState = store.getState();
-    console.log(preloadedState);
-
     res.send(renderPage(html, preloadedState));
 }
 
