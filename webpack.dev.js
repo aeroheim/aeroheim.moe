@@ -171,7 +171,7 @@ module.exports = [
                     test: /\.css$/,
                     use: 
                     [
-                        { loader: 'isomorphic-style-loader' },
+                        { loader: 'node-style-loader' },
                         { loader: 'css-loader', options: { modules: true, importLoaders: 1 } },
                         { loader: 'postcss-loader' },
                     ],
