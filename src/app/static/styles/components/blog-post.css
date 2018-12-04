@@ -219,7 +219,8 @@
 }
 
 @value footerButtonHeaderFontSize: 2.5vh;
-.footerButtonText > h1, h2
+.footerButtonText > h1, 
+.footerButtonText > h2
 {
     margin: 0;
 

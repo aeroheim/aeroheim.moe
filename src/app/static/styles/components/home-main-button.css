@@ -80,7 +80,8 @@
     /* relative enforces correct z-index against colorBar */
     position: relative;
 
-    margin-top: -0.1em;
+    margin: -0.1em 0 0 0;
+    line-height: 1.25em;
 
     font-size: headerFontSize;
     font-family: 'M+P1-Thin';
