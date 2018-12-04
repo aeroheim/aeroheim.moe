@@ -60,6 +60,8 @@ function renderPage(html, preloadedState)
             </script>
         </html>
     `;
+
+    // TODO: add bundle.js 
 }
 
 function renderAppOnServer(req, res)
