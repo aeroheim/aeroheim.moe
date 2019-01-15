@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchPost, invalidatePost } from '../actions/blog-post-actions';
-import { setGalleryImages, setGalleryActiveImageIndex, setGalleryVisibility } from '../actions/blog-post-gallery-actions';
-import PrevIcon from '../static/img/icons/prev.svg';
-import NextIcon from '../static/img/icons/next.svg';
+import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import LinkButton from './link-button';
 import BlogPostGallery from './blog-post-gallery';
-import { Transition, AnimatedCSSTransition } from './animated-css-transition';
+import PrevIcon from '../static/img/icons/prev.svg';
+import NextIcon from '../static/img/icons/next.svg';
 import styles from '../static/styles/components/blog-post.css';
 
 class BlogPost extends React.Component
@@ -14,8 +13,8 @@ class BlogPost extends React.Component
     constructor(props)
     {
         super(props);
-        this.postStateId = null;
-        this.postsStateId = null;
+        this.postRequestId = null;
+        this.postsRequestId = null;
 
         // cache props received from redux in state. this allows the component to display
         // cached values when the redux store is cleared while the component is transitioning
@@ -27,6 +26,9 @@ class BlogPost extends React.Component
             date: null,
             tags: null,
             content: null,
+            images: [],
+            galleryIndex: -1,
+            galleryVisible: false,
             prevPost: null,
             nextPost: null,
             loaded: false,
@@ -34,6 +36,8 @@ class BlogPost extends React.Component
 
         this.clearAndUpdatePost = this.clearAndUpdatePost.bind(this);
         this.clearPost = this.clearPost.bind(this);
+        this.viewGallery = this.viewGallery.bind(this);
+        this.closeGallery = this.closeGallery.bind(this);
     }
 
     componentDidMount()
@@ -72,13 +76,15 @@ class BlogPost extends React.Component
         {
             // scroll to top of new post
             document.getElementById('app').scrollTo(0, 0);
-            this.setState(
-            {
+            this.setState({
                 title: this.props.title,
                 description: this.props.description,
                 date: this.props.date,
                 tags: this.props.tags,
                 content: this.props.content,
+                images: this.props.images,
+                galleryIndex: -1,
+                galleryVisible: false,
                 prevPost: this.props.prevPost,
                 nextPost: this.props.nextPost,
                 limit: this.props.limit,
@@ -91,21 +97,39 @@ class BlogPost extends React.Component
     clearAndUpdatePost()
     {
         this.clearPost();
-
-        this.postStateId = this.postsStateId;
-        this.props.fetchPost(this.postStateId, this.props.match.params.id, this.props.location.search);
-
-        this.props.setGalleryImages([]);
-        this.props.setGalleryActiveImageIndex(-1);
-        this.props.setGalleryVisibility(false);
+        this.postRequestId = this.postsRequestId;
+        this.props.fetchPost(this.postRequestId, this.props.match.params.id, this.props.location.search, { viewGallery: this.viewGallery });
     }
 
     clearPost()
     {
-        this.props.invalidatePost(this.postStateId);
-        this.setState((prevState, props) =>
-        {
-            return Object.assign(prevState, { loaded: false });
+        this.props.invalidatePost(this.postRequestId);
+        this.setState(prevState => {
+            return {
+                ...prevState,
+                loaded: false,
+            };
+        });
+    }
+
+    viewGallery(index)
+    {
+        this.setState(prevState => {
+            return {
+                ...prevState,
+                galleryIndex: index,
+                galleryVisible: true,
+            };
+        });
+    }
+
+    closeGallery()
+    {
+        this.setState(prevState => {
+            return {
+                ...prevState,
+                galleryVisible: false,
+            };
         });
     }
 
@@ -135,7 +159,7 @@ class BlogPost extends React.Component
 
         return (
             <React.Fragment>
-                <BlogPostGallery show={this.props.match !== null && this.state.loaded && this.props.showImageGallery}/>
+                <BlogPostGallery images={this.state.images} index={this.state.galleryIndex} onIndex={this.viewGallery} onClose={this.closeGallery} show={this.props.match !== null && this.state.loaded && this.state.galleryVisible}/>
                 <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null && this.state.loaded}>
                     {({ transitionStyles, onTransitionEnd }) => {
                         return (
@@ -190,24 +214,22 @@ function mapStateToProps(state)
         date: state.blogPost.date,
         tags: state.blogPost.tags,
         content: state.blogPost.content,
+        images: state.blogPost.images,
         prevPost: state.blogPost.prevPost,
         nextPost: state.blogPost.nextPost,
         showImageGallery: state.BlogPostGallery.visible,
         limit: state.blogPost.limit,
         page: state.blogPost.page,
         loaded: state.blogPost.loaded,
-    }
+    };
 }
 
 function mapDispatchToProps(dispatch)
 {
     return {
-        fetchPost: (stateId, postId, query) => dispatch(fetchPost(stateId, postId, query)),
-        invalidatePost: (stateId) => dispatch(invalidatePost(stateId)),
-        setGalleryImages: (images) => dispatch(setGalleryImages(images)),
-        setGalleryActiveImageIndex: (index) => dispatch(setGalleryActiveImageIndex(index)),
-        setGalleryVisibility: (visible) => dispatch(setGalleryVisibility(visible)),
-    }
+        fetchPost: (requestId, postId, query, markdownProps) => dispatch(fetchPost(requestId, postId, query, markdownProps)),
+        invalidatePost: requestId => dispatch(invalidatePost(requestId)),
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BlogPost);

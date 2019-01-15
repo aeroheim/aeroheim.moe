@@ -16,7 +16,7 @@ class Blog extends React.Component
     constructor(props)
     {
         super(props);
-        this.postsStateId = null;
+        this.postsRequestId = null;
 
         // cache props received from redux in state. this allows the component to display
         // cached values when the redux store is cleared while the component is transitioning
@@ -76,16 +76,18 @@ class Blog extends React.Component
     {
         this.clearPosts();
 
-        this.postsStateId = Date.now();
-        this.props.fetchPosts(this.postsStateId, this.props.location.search);
+        this.postsRequestId = Date.now();
+        this.props.fetchPosts(this.postsRequestId, this.props.location.search);
     }
 
     clearPosts()
     {
-        this.props.invalidatePosts(this.postsStateId);
-        this.setState((prevState, props) =>
-        {
-            return Object.assign(prevState, { loaded: false });
+        this.props.invalidatePosts(this.postsRequestId);
+        this.setState(prevState => {
+            return {
+                ...prevState,
+                loaded: false,
+            };
         });
     }
 
@@ -155,8 +157,8 @@ function mapStateToProps(state)
 function mapDispatchToProps(dispatch)
 {
     return {
-        fetchPosts: (stateId, query) => dispatch(fetchPosts(stateId, query)),
-        invalidatePosts: (stateId) => dispatch(invalidatePosts(stateId)),
+        fetchPosts: (requestId, query) => dispatch(fetchPosts(requestId, query)),
+        invalidatePosts: requestId => dispatch(invalidatePosts(requestId)),
     }
 }
 

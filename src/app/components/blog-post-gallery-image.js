@@ -2,7 +2,7 @@ import React from 'react';
 import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/blog-post-gallery-image.css';
 
-const BlogPostGalleryImage = ({ show, img, index, imageCount }) =>
+const BlogPostGalleryImage = ({ src, title, caption, alt, index, imageCount, show }) =>
 {
     const inTransitions =
     {
@@ -29,11 +29,11 @@ const BlogPostGalleryImage = ({ show, img, index, imageCount }) =>
             {({ transitionStyles, onTransitionEnd }) => {
                 return (
                     <figure className={`${styles.content} ${transitionStyles['content']}`} onTransitionEnd={onTransitionEnd}>
-                        <img className={styles.image} src={img.src}/>
+                        <img className={styles.image} src={src} alt={alt} title={title}/>
                         <figcaption className={styles.captionContainer}>
                             <div className={styles.imageText}>
-                                <h2 className={styles.imageTitle}>{img.title}</h2>
-                                <span className={styles.imageCaption}>{img.caption}</span>
+                                <h2 className={styles.imageTitle}>{title}</h2>
+                                <span className={styles.imageCaption}>{caption}</span>
                             </div>
                             <span className={styles.imageIndex}>{`${index + 1}`}&nbsp;/&nbsp;{`${imageCount}`}</span>
                         </figcaption>

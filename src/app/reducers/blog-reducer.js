@@ -2,7 +2,7 @@ import { REQUEST_POSTS, RECEIVE_POSTS, INVALIDATE_POSTS } from '../actions/blog-
 
 const initialState =
 {
-    stateId: null,
+    requestId: null,
     posts: null,
     pages: null,
     page: null,
@@ -14,10 +14,10 @@ const blogReducer = (state = initialState, action) =>
     switch(action.type)
     {
         case REQUEST_POSTS:
-            return { ...state, stateId: action.stateId };
+            return { ...state, requestId: action.requestId };
         case RECEIVE_POSTS:
-            // only accept the receive if the state it's intended for matches.
-            return action.stateId === state.stateId 
+            // only accept the receive from the latest request.
+            return action.requestId === state.requestId 
             ? { 
                 ...state,
                 posts: action.data.posts,
@@ -28,8 +28,8 @@ const blogReducer = (state = initialState, action) =>
             }
             : state;
         case INVALIDATE_POSTS:
-            // only invalidate the state if it's intended for the current state or regardless of state.
-            return action.stateId === undefined || action.stateId === null || action.stateId === state.stateId ? initialState : state;
+            // only invalidate the state if the requestId matches or none is specified.
+            return action.requestId === undefined || action.requestId === null || action.requestId === state.requestId ? initialState : state;
         default:
             return state;
     }

@@ -1,43 +1,43 @@
 import Axios from 'axios';
 import { setAppError, setAppLoading } from './app-actions';
 
-export const fetchPosts = (stateId, query) =>
+export const fetchPosts = (requestId, query) =>
 {
     return (dispatch) =>
     {
-        dispatch(setAppLoading(true, stateId));
-        dispatch(requestPosts(stateId));
+        dispatch(setAppLoading(true, requestId));
+        dispatch(requestPosts(requestId));
             return Axios.get(`/api/blog/${query}`)
-            .then((res) => dispatch(receivePosts(stateId, res.data)))
+            .then((res) => dispatch(receivePosts(requestId, res.data)))
             .catch((err) => dispatch(setAppError(err.response.status)))
-            .finally(() => dispatch(setAppLoading(false, stateId)));
+            .finally(() => dispatch(setAppLoading(false, requestId)));
     };
 }
 
 export const REQUEST_POSTS = 'REQUEST_POSTS';
-const requestPosts = (stateId) =>
+const requestPosts = (requestId) =>
 {
     return {
         type: REQUEST_POSTS,
-        stateId: stateId,
+        requestId: requestId,
     };
 }
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
-const receivePosts = (stateId, data) =>
+const receivePosts = (requestId, data) =>
 {
     return {
         type: RECEIVE_POSTS,
-        stateId: stateId,
+        requestId: requestId,
         data: data,
     };
 }
 
 export const INVALIDATE_POSTS = 'INVALIDATE_POSTS';
-export const invalidatePosts = (stateId) =>
+export const invalidatePosts = (requestId) =>
 {
     return {
         type: INVALIDATE_POSTS,
-        stateId: stateId,
+        requestId: requestId,
     }
 }

@@ -1,15 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { setScrollbarEnabled } from '../actions/app-actions';
+import { Transition, AnimatedCSSTransition } from './animated-css-transition';
+import Button from './button';
+import BlogPostGalleryImage from './blog-post-gallery-image';
 import PrevIcon from '../static/img/icons/prev.svg';
 import NextIcon from '../static/img/icons/next.svg';
 import CloseIcon from '../static/img/icons/close.svg';
-import Button from './button';
-import BlogPostGalleryImage from './blog-post-gallery-image';
-import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/blog-post-gallery.css';
-
-import { connect } from 'react-redux';
-import { setScrollbarEnabled } from '../actions/app-actions';
-import { setGalleryActiveImageIndex, setGalleryVisibility } from '../actions/blog-post-gallery-actions';
 
 class BlogPostGallery extends React.Component
 {
@@ -31,23 +29,24 @@ class BlogPostGallery extends React.Component
 
     onPrevImage()
     {
-        if (this.props.activeImageIndex > 0)
+        if (this.props.index > 0)
         {
-            this.props.setGalleryActiveImageIndex(this.props.activeImageIndex - 1);
+            this.props.onIndex(this.props.index - 1);
         }
     }
 
     onNextImage()
     {
-        if (this.props.activeImageIndex + 1 < this.props.images.length)
+        if (this.props.index + 1 < this.props.images.length)
         {
-            this.props.setGalleryActiveImageIndex(this.props.activeImageIndex + 1);
+            this.props.onIndex(this.props.index + 1);
         }
     }
 
     onClose()
     {
-        this.props.setGalleryVisibility(false);
+        this.props.setScrollbarEnabled(false);
+        this.props.onClose();
     }
 
     render()
@@ -84,7 +83,7 @@ class BlogPostGallery extends React.Component
                                 <PrevIcon/>
                             </Button>
                             <div className={styles.content}>
-                                {this.props.images.map((image, index) => <BlogPostGalleryImage key={index} img={image} index={index} imageCount={this.props.images.length} show={index === this.props.activeImageIndex}/>)}
+                                {this.props.images.map(image => <BlogPostGalleryImage {...image} key={image.index} imageCount={this.props.images.length} show={image.index === this.props.index}/>)}
                             </div>
                             <Button className={`${styles.button} ${styles.navButton}`} onClick={this.onNextImage}>
                                 <NextIcon/>
@@ -97,22 +96,11 @@ class BlogPostGallery extends React.Component
     }
 }
 
-function mapStateToProps(state)
-{
-    const props = state.BlogPostGallery;
-    return {
-        images: props.images,
-        activeImageIndex: props.activeImageIndex,
-    }
-}
-
 function mapDispatchToProps(dispatch)
 {
     return {
-        setScrollbarEnabled: (enabled) => dispatch(setScrollbarEnabled(enabled)),
-        setGalleryActiveImageIndex: (index) => dispatch(setGalleryActiveImageIndex(index)),
-        setGalleryVisibility: (enabled) => dispatch(setGalleryVisibility(enabled)),
-    }
+        setScrollbarEnabled: enabled => dispatch(setScrollbarEnabled(enabled)),
+    };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BlogPostGallery);
+export default connect(null, mapDispatchToProps)(BlogPostGallery);

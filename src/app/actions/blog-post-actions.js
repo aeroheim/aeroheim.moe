@@ -1,51 +1,54 @@
 import Axios from 'axios';
-import parseBlogPost from '../util/blog-post-parser';
+import compileBlogPost from '../util/blog-post-parser';
 import { setAppError, setAppLoading } from './app-actions';
 
-export const fetchPost = (stateId, postId, query) =>
+export const fetchPost = (requestId, postId, query, markdownContext) =>
 {
     return (dispatch) =>
     {
-        dispatch(setAppLoading(true, stateId));
-        dispatch(requestPost(stateId));
+        dispatch(setAppLoading(true, requestId));
+        dispatch(requestPost(requestId));
         return Axios.get(`/api/blog/${postId}/${query}`)
-            .then((res) => 
+            .then(res =>
             {
                 var date = new Date(res.data.date);
                 res.data.date = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
-                res.data.content = parseBlogPost(res.data.content);
 
-                dispatch(receivePost(stateId, res.data))
+                const post = compileBlogPost(res.data.content, markdownContext);
+                res.data.content = post.content;
+                res.data.images = post.images;
+
+                dispatch(receivePost(requestId, res.data))
             })
-            .catch((err) => dispatch(setAppError(err.response.status)))
-            .finally(() => dispatch(setAppLoading(false, stateId)));
+            .catch(err => { console.log(err); dispatch(setAppError(err.response.status)); })
+            .finally(() => dispatch(setAppLoading(false, requestId)));
     };
 }
 
 export const REQUEST_POST = 'REQUEST_POST';
-const requestPost = (stateId) =>
+const requestPost = (requestId) =>
 {
     return {
         type: REQUEST_POST,
-        stateId: stateId,
+        requestId: requestId,
     };
 }
 
 export const RECEIVE_POST = 'RECEIVE_POST';
-const receivePost = (stateId, data) =>
+const receivePost = (requestId, data) =>
 {
     return {
         type: RECEIVE_POST,
-        stateId: stateId,
+        requestId: requestId,
         data: data,
     };
 }
 
 export const INVALIDATE_POST = 'INVALIDATE_POST';
-export const invalidatePost = (stateId) =>
+export const invalidatePost = (requestId) =>
 {
     return {
         type: INVALIDATE_POST,
-        stateId: stateId,
+        requestId: requestId,
     }
 }

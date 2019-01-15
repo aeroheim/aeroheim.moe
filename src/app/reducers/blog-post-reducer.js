@@ -2,12 +2,13 @@ import { REQUEST_POST, RECEIVE_POST, INVALIDATE_POST } from '../actions/blog-pos
 
 const initialState =
 {
-    stateId: null,
+    requestId: null,
     postId: null,
     title: null,
     description: null,
     date: null,
     content: null,
+    images: [],
     prevPost: null,
     nextPost: null,
     loaded: false,
@@ -18,10 +19,10 @@ const blogPostReducer = (state = initialState, action) =>
     switch(action.type)
     {
         case REQUEST_POST:
-            return { ...state, stateId: action.stateId};
+            return { ...state, requestId: action.requestId};
         case RECEIVE_POST:
-            // only accept the receive if the state it's intended for matches.
-            return action.stateId === state.stateId 
+            // only accept the receive from the latest request.
+            return action.requestId === state.requestId 
                 ? {
                     ...state,
                     postId: action.data._id,
@@ -30,6 +31,7 @@ const blogPostReducer = (state = initialState, action) =>
                     date: action.data.date,
                     tags: action.data.tags,
                     content: action.data.content,
+                    images: action.data.images,
                     prevPost: action.data.prevPost,
                     nextPost: action.data.nextPost,
                     limit: action.data.limit,
@@ -38,8 +40,8 @@ const blogPostReducer = (state = initialState, action) =>
                 }
                 : state;
         case INVALIDATE_POST:
-            // only invalidate the state if it's intended for the current state or regardless of state.
-            return action.stateId === undefined || action.stateId === null || action.stateId === state.stateId ? initialState : state;
+            // only invalidate the state if the requestId matches or none is specified.
+            return action.requestId === undefined || action.requestId === null || action.requestId === state.requestId ? initialState : state;
         default:
             return state;
     }
