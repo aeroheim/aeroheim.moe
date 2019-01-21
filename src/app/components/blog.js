@@ -1,8 +1,7 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchPosts, invalidatePosts } from '../actions/blog-actions';
-import RouteContent from './route-content';
+import RegisteredRoute from './registered-route';
 import PageHeader from './page-header';
 import IndexSelector from './index-selector';
 import BlogListItem from './blog-list-item';
@@ -115,12 +114,9 @@ class Blog extends React.Component
 
         return (
             <React.Fragment>
-                <Route path='/blog/:id' children={(props) =>
-                    // Exclude page from being matched as the 'id' param.
-                    <RouteContent path='/blog/:id' {...props}>
-                        <BlogPost className={this.props.className}/>
-                    </RouteContent>}
-                />
+                <RegisteredRoute path='/blog/:id' children={props =>
+                    <BlogPost className={this.props.className} {...props}/>
+                }/>
                 <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null && this.state.loaded}>
                     {({ transitionStyles, onTransitionEnd }) => {
                         return (

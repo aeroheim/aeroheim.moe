@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import { connect, Provider } from 'react-redux';
-import RouteContent from './route-content';
+import RegisteredRoute from './registered-route';
 import Header from './header';
 import Footer from './footer';
 import Home from './home';
@@ -26,26 +26,18 @@ class Aeroheim extends React.Component
                 <ErrorHandler className={styles.content} />
                 <SpinnerCubeGrid className={styles.spinner} show={this.props.loading}/>
                 <Header className={styles.header}/>
-                <Route exact path='/' children={(props) =>
-                    <RouteContent path='/' {...props}>
-                        <Home className={styles.content}/>
-                    </RouteContent>}
-                />
-                <Route exact path='/projects' children={(props) =>
-                    <RouteContent path='/projects' {...props}>
-                        <Projects className={styles.content}/>
-                    </RouteContent>}
-                />
-                <Route exact path='/blog' children={(props) =>
-                    <RouteContent path='/blog' {...props}>
-                        <Blog className={styles.content}/>
-                    </RouteContent>}
-                />
-                <Route exact path='/about' children={(props) =>
-                    <RouteContent path='/about' {...props}>
-                        <About className={styles.content}/>
-                    </RouteContent>}
-                />
+                <RegisteredRoute exact path='/' children={props =>
+                    <Home className={styles.content} {...props}/>
+                }/>
+                <RegisteredRoute exact path='/projects' children={props =>
+                    <Projects className={styles.content} {...props}/>
+                }/>
+                <RegisteredRoute exact path='/blog' children={props =>
+                    <Blog className={styles.content} {...props}/>
+                }/>
+                <RegisteredRoute exact path='/about' children={props =>
+                    <About className={styles.content} {...props}/>
+                }/>
                 <Footer className={styles.footer}/>
             </div>
         );
