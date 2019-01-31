@@ -8,7 +8,8 @@
     "build-dev": "npm run clean && webpack --env=dev --progress --colors",
     "build-prod": "npm run clean && webpack --env=prod --progress --colors",
     "start-dev": "node ./src/server/server.js",
-    "start-prod": "cross-env NODE_ENV=production node ./src/server/server.js"
+    "start-prod": "cross-env NODE_ENV=production node ./src/server/server.js",
+    "lint": "eslint **/*.js"
   },
   "repository": {
     "type": "git",
@@ -26,11 +27,13 @@
     "deep-equal": "^1.0.1",
     "express": "^4.16.4",
     "express-validator": "^5.3.0",
+    "history": "^4.7.2",
     "marksy": "^6.1.0",
     "morgan": "^1.9.1",
     "nedb": "^1.8.0",
     "prism-languages": "^0.4.0",
     "prismjs": "^1.15.0",
+    "prop-types": "^15.6.2",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-ga": "^2.5.3",
@@ -47,6 +50,7 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^9.3.1",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "compression-webpack-plugin": "^2.0.0",
     "cross-env": "^5.2.0",

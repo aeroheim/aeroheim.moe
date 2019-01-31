@@ -5,13 +5,12 @@ import blogReducer from './blog-reducer';
 import blogPostReducer from './blog-post-reducer';
 import BlogPostGalleryReducer from './blog-post-gallery-reducer';
 
-const rootReducer = combineReducers(
-{
-    app: appReducer,
-    routes: routesReducer,
-    blog: blogReducer,
-    blogPost: blogPostReducer,
-    BlogPostGallery: BlogPostGalleryReducer,
+const rootReducer = combineReducers({
+  app: appReducer,
+  routes: routesReducer,
+  blog: blogReducer,
+  blogPost: blogPostReducer,
+  BlogPostGallery: BlogPostGalleryReducer,
 });
 
 export default rootReducer;

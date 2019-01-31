@@ -1,6 +1,4 @@
-/* eslint-disable no-shadow */
 /* eslint-disable consistent-return */
-/* eslint-disable no-underscore-dangle */
 
 const fs = require('fs');
 const path = require('path');

@@ -1,5 +1,4 @@
 /* eslint-disable consistent-return */
-/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-undef */
 
 const { validationResult } = require('express-validator/check');
