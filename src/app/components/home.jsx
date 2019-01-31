@@ -54,6 +54,6 @@ const Home = ({ className, match }) => {
       )}
     </AnimatedCSSTransition>
   );
-}
+};
 
 export default Home;

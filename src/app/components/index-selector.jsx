@@ -16,7 +16,6 @@ class IndexSelector extends React.Component {
 
   handleGoToIndex(e) {
     e.preventDefault();
-
     const index = e.target.goto.value;
     if (this.props.url) {
       this.props.history.push(this.props.url.replace('{index}', index));
@@ -180,7 +179,7 @@ IndexSelector.propTypes = {
     }
   },
   adjacentIndicesToDisplay: (props, propName, componentName) => {
-    if (props[propName] && (!Number.isInteger(props[propsName]) || props[propName] < 1)) {
+    if (props[propName] && (!Number.isInteger(props[propName]) || props[propName] < 1)) {
       return new Error(`Invalid prop '${propName}' with value '${props[propName]}' supplied to ${componentName}. '${propName}' must be an integer greater than one.`);
     }
   },
