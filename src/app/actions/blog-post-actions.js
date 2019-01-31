@@ -35,6 +35,7 @@ export const fetchPost = (requestId, postId, query, markdownContext) => (dispatc
 
       dispatch(receivePost(requestId, res.data));
     })
+    // eslint-disable-next-line no-console
     .catch((err) => { console.log(err); dispatch(setAppError(err.response.status)); })
     .finally(() => dispatch(setAppLoading(false, requestId)));
 };
