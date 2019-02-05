@@ -5,41 +5,36 @@ import fs from 'fs';
 
 const logsDir = path.join(__dirname, '..', '..', 'logs');
 
-if (!fs.existsSync(logsDir))
-{
-    fs.mkdirSync(logsDir);
+if (!fs.existsSync(logsDir)) {
+  fs.mkdirSync(logsDir);
 }
 
 winston.configure({
-    transports:
-    [
-        new winston.transports.Console({
-            level: 'debug',
-            colorize: false,
-            timestamp: true,
-            json: false,
-            handleExceptions: true
-        }),
-        new winston.transports.File({
-            level: 'info',
-            colorize: true,
-            timestamp: true,
-            json: false,
-            maxFiles: 4,
-            maxsize: 10 * 1024 * 1024,
-            filename: path.join(logsDir, 'server.log'),
-            handleExceptions: true,
-        }),
-    ],
+  transports: [
+    new winston.transports.Console({
+      level: 'debug',
+      colorize: false,
+      timestamp: true,
+      json: false,
+      handleExceptions: true,
+    }),
+    new winston.transports.File({
+      level: 'info',
+      colorize: true,
+      timestamp: true,
+      json: false,
+      maxFiles: 4,
+      maxsize: 10 * 1024 * 1024,
+      filename: path.join(logsDir, 'server.log'),
+      handleExceptions: true,
+    }),
+  ],
 });
 
-winston.stream = 
-{
-    write: function(message, encoding)
-    {
-        winston.info(message);
-    }
-}
+winston.stream = {
+  write(message) {
+    winston.info(message);
+  },
+};
 
-export const logger = morgan('short', { stream: winston.stream });
-export const log = (level, msg) => winston.log(level, msg);
+export default morgan('short', { stream: winston.stream });
