@@ -81,8 +81,13 @@ class AnimatedCSSTransition extends React.Component {
     };
 
     if (props.show) {
-      // start initial transition.
-      this.transition();
+      if (typeof window !== 'undefined') {
+        // start initial transition process.
+        this.transition();
+      } else {
+        // use transition styles on first render, which results in transitions immediately finishing.
+        this.transitionInternal();
+      }
     }
   }
 

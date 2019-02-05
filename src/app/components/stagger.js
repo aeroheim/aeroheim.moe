@@ -4,11 +4,19 @@ import PropTypes from 'prop-types';
 class Stagger extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      children: [],
-      renderedChildren: [],
-      currentChildToRenderIndex: 1,
-    };
+    if (typeof window !== 'undefined') {
+      this.state = {
+        children: [],
+        renderedChildren: [],
+        currentChildToRenderIndex: 1,
+      };
+    } else {
+      this.state = {
+        children: props.children,
+        renderedChildren: props.children,
+        currentChildToRenderIndex: props.children.length,
+      };
+    }
 
     this.timeoutId = null;
     this.onUpdate = this.onUpdate.bind(this);

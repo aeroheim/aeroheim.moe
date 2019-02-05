@@ -18,7 +18,6 @@ import { blogRouter, blogStorePath } from './api/blog';
 import logger from './logger';
 import webpackAppConfig from '../../webpack.app.config';
 
-global.SSR = true;
 const initialStyles = collectInitial();
 
 function logError(err, msg) {
