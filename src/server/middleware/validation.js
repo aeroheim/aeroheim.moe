@@ -19,7 +19,7 @@ function filterStaticContent(filter, handler) {
 
 function filterQuery(filter, handler) {
   return (req, res, next) => {
-    for (query in req.query) {
+    for (const query in req.query) {
       if (!filter(query)) {
         if (handler) {
           return handler(query, { req, res, next });
