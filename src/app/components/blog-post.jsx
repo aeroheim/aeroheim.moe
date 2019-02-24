@@ -35,10 +35,8 @@ class BlogPost extends React.Component {
     this.clearPost = this.clearPost.bind(this);
     this.viewGallery = this.viewGallery.bind(this);
     this.closeGallery = this.closeGallery.bind(this);
-  }
 
-  componentDidMount() {
-    if (this.props.match) {
+    if (props.match) {
       this.clearAndUpdatePost();
     }
   }

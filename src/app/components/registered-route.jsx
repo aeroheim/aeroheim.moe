@@ -6,9 +6,10 @@ import deepEqual from 'deep-equal';
 import { matchRoute, unmatchRoute } from '../actions/routes-actions';
 
 class RegisterRoute extends React.Component {
-  componentDidMount() {
-    if (this.props.match) {
-      this.props.matchRoute(this.props.path);
+  constructor(props) {
+    super(props);
+    if (props.match) {
+      props.matchRoute(this.props.path);
     }
   }
 

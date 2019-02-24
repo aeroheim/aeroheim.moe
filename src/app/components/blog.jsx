@@ -25,10 +25,8 @@ class Blog extends React.Component {
 
     this.clearAndUpdatePosts = this.clearAndUpdatePosts.bind(this);
     this.clearPosts = this.clearPosts.bind(this);
-  }
 
-  componentDidMount() {
-    if (this.props.match) {
+    if (props.match) {
       this.clearAndUpdatePosts();
     }
   }

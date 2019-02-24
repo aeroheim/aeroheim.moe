@@ -37,7 +37,6 @@ const config = {
       },
       {
         test: /\.css$/,
-        include: path.resolve(__dirname, './src/app/static/styles'),
         use: [
           { loader: 'style-loader' },
           { loader: 'css-loader', options: { modules: true, importLoaders: 1 } },
@@ -46,7 +45,6 @@ const config = {
       },
       {
         test: /\.svg$/,
-        include: path.resolve(__dirname, './src/app/static/img/icons'),
         use: [
           {
             loader: 'react-svg-loader',
@@ -56,10 +54,6 @@ const config = {
       },
       {
         test: /\.(jpg|png|woff|woff2|eot|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        include: [
-          path.resolve(__dirname, './src/app/static/img'),
-          path.resolve(__dirname, './src/app/static/styles/fonts'),
-        ],
         use: ['url-loader?limit=10000'],
       },
     ],

@@ -2,7 +2,8 @@ import { SET_SCROLLBAR_ENABLED, SET_APP_LOADING, SET_APP_ERROR, CLEAR_APP_ERROR 
 
 const initialState = {
   scrollbarEnabled: true,
-  activeLoading: new Set(),
+  // activeLoading is stored as an object instead of set - must be serializable for SSR.
+  activeLoading: {},
   loading: false,
   error: null,
 };
@@ -13,12 +14,12 @@ const appReducer = (state = initialState, action) => {
       return { ...state, scrollbarEnabled: action.enabled };
     case SET_APP_LOADING:
     {
-      const activeLoading = new Set(state.activeLoading);
+      const activeLoading = Object.assign({}, state.activeLoading);
       const id = action.id ? action.id : 0;
       if (action.loading) {
-        activeLoading.add(id);
+        activeLoading[id] = true;
       } else {
-        activeLoading.delete(id);
+        delete activeLoading[id];
       }
       return { ...state, activeLoading, loading: activeLoading.size > 0 };
     }

@@ -6,7 +6,7 @@ import { query } from 'express-validator/check';
 import { filterStaticContent, filterQuery, validateExpressValidator } from '../middleware/validation';
 
 const DEFAULT_PAGINATION_LIMIT = 5;
-const blogContentPath = path.join(__dirname, 'content', 'blog');
+const blogContentPath = path.join(__dirname, '..', 'content', 'blog');
 const blogStorePath = path.join(blogContentPath, 'blog.json');
 
 const validateBlogQuery = [

@@ -106,7 +106,7 @@ class AnimatedCSSTransition extends React.Component {
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timeoutId);
+    window.clearTimeout(this.timeoutId);
   }
 
   onTransitionEnd(e) {
@@ -162,11 +162,11 @@ class AnimatedCSSTransition extends React.Component {
   }
 
   transition() {
-    clearTimeout(this.timeoutId);
+    window.clearTimeout(this.timeoutId);
 
     // children must first be rendered once with only the in/out transition style before the target in/out styles can be applied - if both are
     // applied at the same time no transition occurs. setTimeout is used to ensure that the transition occurs after the first render.
-    this.timeoutId = setTimeout(() => this.transitionInternal(), 50);
+    this.timeoutId = window.setTimeout(() => this.transitionInternal(), 50);
   }
 
   isTransitionFinished() {

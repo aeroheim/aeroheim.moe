@@ -37,4 +37,12 @@ winston.stream = {
   },
 };
 
-export default morgan('short', { stream: winston.stream });
+export const loggerMiddleware = morgan('short', { stream: winston.stream });
+export const logger = {
+  log: (level, msg) => winston.log(level, msg),
+  logError: (err, msg) => {
+    if (err) {
+      winston.log('error', msg);
+    }
+  },
+};

@@ -28,8 +28,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        include: path.resolve(__dirname, './src'),
+        test: /\.jsx?$/,
         use: [
           {
             loader: 'babel-loader',
@@ -52,13 +51,9 @@ const config = {
           { loader: 'css-loader', options: { modules: true, importLoaders: 1 } },
           { loader: 'postcss-loader' },
         ],
-        include: [
-          path.resolve(__dirname, './src/app/static/styles'),
-        ],
       },
       {
         test: /\.svg$/,
-        include: path.resolve(__dirname, './src/app/static/img/icons'),
         use: [
           {
             loader: 'babel-loader',
@@ -85,10 +80,6 @@ const config = {
       },
       {
         test: /\.(jpg|png|woff|woff2|eot|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        include: [
-          path.resolve(__dirname, './src/app/static/img'),
-          path.resolve(__dirname, './src/app/static/styles/fonts'),
-        ],
         use: ['url-loader?limit=10000'],
       },
     ],

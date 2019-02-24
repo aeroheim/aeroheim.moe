@@ -20,9 +20,7 @@ class Stagger extends React.Component {
 
     this.timeoutId = null;
     this.onUpdate = this.onUpdate.bind(this);
-  }
 
-  componentDidMount() {
     this.onUpdate();
   }
 
@@ -31,7 +29,7 @@ class Stagger extends React.Component {
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timeoutId);
+    window.clearTimeout(this.timeoutId);
   }
 
   onUpdate() {
@@ -57,7 +55,7 @@ class Stagger extends React.Component {
       });
     } else if (this.state.children && !this.timeoutId && this.state.currentChildToRenderIndex < this.state.children.length) {
       // continue stagger.
-      const timeoutId = setTimeout(() => {
+      const timeoutId = window.setTimeout(() => {
         this.timeoutId = null;
         this.setState(prevState => ({
           children: prevState.children,

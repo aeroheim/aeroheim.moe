@@ -1,6 +1,11 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import { connect, Provider } from 'react-redux';
+import createHistory from 'history/createBrowserHistory';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import withAnalytics from '../util/analytics';
+import rootReducer from '../reducers/reducers';
 import RegisteredRoute from './registered-route';
 import Header from './header';
 import Footer from './footer';
@@ -11,6 +16,8 @@ import About from './about';
 import ErrorHandler from './error-handler';
 import SpinnerCubeGrid from './spinner-cube-grid';
 import styles from '../static/styles/components/aeroheim.css';
+import '../static/styles/global/index.css';
+import '../static/styles/fonts/fonts.css';
 
 const Aeroheim = props => (
   <div id="app" className={styles.page} style={!props.scrollbarEnabled ? { overflowY: 'hidden' } : null}>
@@ -32,13 +39,30 @@ function mapStateToProps(state) {
   };
 }
 
-export const AppRoot = () => <Route path="/" component={connect(mapStateToProps)(Aeroheim)} />;
-export const App = ({ store, history }) => (
-  <Provider store={store}>
-    <Router history={history}>
-      <AppRoot />
-    </Router>
-  </Provider>
-);
+export function initializeAppStore(state) {
+  return state
+    ? createStore(rootReducer, state, applyMiddleware(thunkMiddleware))
+    : createStore(rootReducer, applyMiddleware(thunkMiddleware));
+}
+
+export function initializeAppHistory() {
+  return process.env.NODE_ENV === 'production'
+    ? withAnalytics(createHistory())
+    : createHistory();
+}
+
+// HOC-wrapped components passed to Routes need to be lifted to an outer scope, otherwise
+// the components will remount everytime the route changes.
+const AeroheimWithHOC = connect(mapStateToProps)(Aeroheim);
+export const AppRoot = () => <Route path="/" component={AeroheimWithHOC} />;
+export const App = ({ store, history }) => {
+  return (
+    <Provider store={store}>
+      <Router history={history}>
+        <AppRoot />
+      </Router>
+    </Provider>
+  );
+};
 
 export default App;
