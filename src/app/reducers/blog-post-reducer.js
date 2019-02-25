@@ -13,7 +13,7 @@ const initialState = {
   loaded: false,
 };
 
-const blogPostReducer = (state = initialState, action) => {
+const BlogPostReducer = (state = initialState, action) => {
   switch (action.type) {
     case REQUEST_POST:
       return { ...state, requestId: action.requestId };
@@ -44,4 +44,4 @@ const blogPostReducer = (state = initialState, action) => {
   }
 };
 
-export default blogPostReducer;
+export default BlogPostReducer;

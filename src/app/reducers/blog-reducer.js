@@ -8,7 +8,7 @@ const initialState = {
   loaded: false,
 };
 
-const blogReducer = (state = initialState, action) => {
+const BlogReducer = (state = initialState, action) => {
   switch (action.type) {
     case REQUEST_POSTS:
       return { ...state, requestId: action.requestId };
@@ -32,4 +32,4 @@ const blogReducer = (state = initialState, action) => {
   }
 };
 
-export default blogReducer;
+export default BlogReducer;

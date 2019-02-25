@@ -182,7 +182,7 @@ function mapStateToProps(state) {
     images: state.blogPost.images,
     prevPost: state.blogPost.prevPost,
     nextPost: state.blogPost.nextPost,
-    showImageGallery: state.BlogPostGallery.visible,
+    showImageGallery: state.blogPostGallery.visible,
     limit: state.blogPost.limit,
     page: state.blogPost.page,
     loaded: state.blogPost.loaded,

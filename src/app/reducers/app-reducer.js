@@ -8,7 +8,7 @@ const initialState = {
   error: null,
 };
 
-const appReducer = (state = initialState, action) => {
+const AppReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_SCROLLBAR_ENABLED:
       return { ...state, scrollbarEnabled: action.enabled };
@@ -32,4 +32,4 @@ const appReducer = (state = initialState, action) => {
   }
 };
 
-export default appReducer;
+export default AppReducer;

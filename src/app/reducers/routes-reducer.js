@@ -5,7 +5,7 @@ const initialState = {
   activeRoutes: {},
 };
 
-const routesReducer = (state = initialState, action) => {
+const RoutesReducer = (state = initialState, action) => {
   let activeRoutes;
   switch (action.type) {
     case MATCH_ROUTE:
@@ -21,4 +21,4 @@ const routesReducer = (state = initialState, action) => {
   }
 };
 
-export default routesReducer;
+export default RoutesReducer;
