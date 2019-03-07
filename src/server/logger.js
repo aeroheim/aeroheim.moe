@@ -3,8 +3,7 @@ import morgan from 'morgan';
 import path from 'path';
 import fs from 'fs';
 
-const logsDir = path.join(__dirname, '..', '..', 'logs');
-
+const logsDir = path.join(__dirname, '..', 'logs');
 if (!fs.existsSync(logsDir)) {
   fs.mkdirSync(logsDir);
 }

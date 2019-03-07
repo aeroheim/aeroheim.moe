@@ -3,18 +3,12 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-const outputDirectoryName = 'dist';
-if (__dirname.endsWith(outputDirectoryName)) {
-  // eslint-disable-next-line no-global-assign
-  __dirname = __dirname.substr(0, __dirname.length - outputDirectoryName.length);
-}
-
 const config = {
   name: 'server',
   entry: './src/server/server.jsx',
   output: {
     filename: 'server.js',
-    path: path.resolve(outputDirectoryName),
+    path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
   },
   resolve: {
