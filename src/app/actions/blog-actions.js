@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import { setAppError, setAppLoading } from './app-actions';
+import { queueSsrRequest } from './ssr-actions';
 
 export const REQUEST_POSTS = 'REQUEST_POSTS';
 const requestPosts = requestId => ({
@@ -23,8 +24,17 @@ export const invalidatePosts = requestId => ({
 export const fetchPosts = (requestId, query) => (dispatch) => {
   dispatch(setAppLoading(true, requestId));
   dispatch(requestPosts(requestId));
-  return Axios.get(`/api/blog/${query}`)
+
+  const requestConfig = global.__SERVER__
+    ? { baseURL: global.__SERVER_URL__ }
+    : {};
+
+  const request = Axios.get(`/api/blog/${query}`, requestConfig)
     .then(res => dispatch(receivePosts(requestId, res.data)))
     .catch(err => dispatch(setAppError(err.response.status)))
     .finally(() => dispatch(setAppLoading(false, requestId)));
+
+  if (global.__SERVER__) {
+    dispatch(queueSsrRequest(request));
+  }
 };

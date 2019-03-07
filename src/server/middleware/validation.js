@@ -1,7 +1,4 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-undef */
-
-const { validationResult } = require('express-validator/check');
+import { validationResult } from 'express-validator/check';
 
 function filterStaticContent(filter, handler) {
   return (req, res, next) => {
@@ -20,7 +17,7 @@ function filterStaticContent(filter, handler) {
 
 function filterQuery(filter, handler) {
   return (req, res, next) => {
-    for (query in req.query) {
+    for (const query in req.query) {
       if (!filter(query)) {
         if (handler) {
           return handler(query, { req, res, next });
@@ -43,8 +40,4 @@ function validateExpressValidator(req, res, next) {
   next();
 }
 
-module.exports = {
-  filterStaticContent,
-  filterQuery,
-  validateExpressValidator,
-};
+export { filterStaticContent, filterQuery, validateExpressValidator };

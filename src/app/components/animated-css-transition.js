@@ -71,17 +71,21 @@ class AnimatedCSSTransition extends React.Component {
     this.active = false;
     this.timeoutId = null;
 
-    this.isTransitionFinished = this.isTransitionFinished.bind(this);
-    this.transition = this.transition.bind(this);
-    this.transitionInternal = this.transitionInternal.bind(this);
-    this.onTransitionEnd = this.onTransitionEnd.bind(this);
-
     this.state = {
       transitionStyles: this.styles,
     };
 
-    if (props.show) {
-      // start initial transition.
+    if (global.__SERVER__ && props.show) {
+      this.active = true;
+      this.styles = this.inStyles;
+      this.state = {
+        transitionStyles: this.styles,
+      };
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.show) {
       this.transition();
     }
   }
@@ -92,8 +96,6 @@ class AnimatedCSSTransition extends React.Component {
       // when show and active are mismatched, this means that an animation should be triggered.
       // it's also possible for show and active to match again in the middle of an ongoing transition
       // in which case the transition should be reversed by triggering another transition.
-
-
       if (this.props.show !== this.active || !this.isTransitionFinished()) {
         this.transition();
       }
@@ -101,10 +103,10 @@ class AnimatedCSSTransition extends React.Component {
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timeoutId);
+    window.clearTimeout(this.timeoutId);
   }
 
-  onTransitionEnd(e) {
+  onTransitionEnd = (e) => {
     // the onTransitionEnd event bubbles up from children, so make sure to only handle when necessary.
     if (!this.isTransitionFinished()) {
       for (const key in this.transitions) {
@@ -130,7 +132,7 @@ class AnimatedCSSTransition extends React.Component {
     }
   }
 
-  transitionInternal() {
+  transitionInternal = () => {
     // start and trigger a new transition.
     if (this.props.show !== this.active && this.isTransitionFinished()) {
       this.transitions = this.props.show ? this.inTransitions : this.outTransitions;
@@ -156,15 +158,15 @@ class AnimatedCSSTransition extends React.Component {
     }
   }
 
-  transition() {
-    clearTimeout(this.timeoutId);
+  transition = () => {
+    window.clearTimeout(this.timeoutId);
 
     // children must first be rendered once with only the in/out transition style before the target in/out styles can be applied - if both are
     // applied at the same time no transition occurs. setTimeout is used to ensure that the transition occurs after the first render.
-    this.timeoutId = setTimeout(() => this.transitionInternal(), 50);
+    this.timeoutId = window.setTimeout(() => this.transitionInternal(), 50);
   }
 
-  isTransitionFinished() {
+  isTransitionFinished = () => {
     for (const key in this.transitions) {
       if (!this.transitions[key].isTransitionFinished()) {
         return false;

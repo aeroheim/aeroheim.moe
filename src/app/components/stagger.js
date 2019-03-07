@@ -4,17 +4,23 @@ import PropTypes from 'prop-types';
 class Stagger extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      children: [],
-      renderedChildren: [],
-      currentChildToRenderIndex: 1,
-    };
+    if (global.__SERVER__) {
+      this.state = {
+        children: props.children,
+        renderedChildren: props.children,
+        currentChildToRenderIndex: props.children.length,
+      };
+    } else {
+      this.state = {
+        children: [],
+        renderedChildren: [],
+        currentChildToRenderIndex: 1,
+      };
+    }
 
     this.timeoutId = null;
     this.onUpdate = this.onUpdate.bind(this);
-  }
 
-  componentDidMount() {
     this.onUpdate();
   }
 
@@ -23,7 +29,7 @@ class Stagger extends React.Component {
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timeoutId);
+    window.clearTimeout(this.timeoutId);
   }
 
   onUpdate() {
@@ -49,7 +55,7 @@ class Stagger extends React.Component {
       });
     } else if (this.state.children && !this.timeoutId && this.state.currentChildToRenderIndex < this.state.children.length) {
       // continue stagger.
-      const timeoutId = setTimeout(() => {
+      const timeoutId = window.setTimeout(() => {
         this.timeoutId = null;
         this.setState(prevState => ({
           children: prevState.children,

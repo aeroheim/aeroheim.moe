@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { setAppError, NotImplementedError } from '../actions/app-actions';
 
 class Projects extends React.Component {
-  componentDidMount() {
-    if (this.props.match) {
+  constructor(props) {
+    super(props);
+    if (props.match) {
       this.props.setAppError(NotImplementedError);
     }
   }
@@ -20,11 +21,6 @@ class Projects extends React.Component {
     return null;
   }
 }
-
-Projects.propTypes = {
-  match: PropTypes.object.isRequired,
-  setAppError: PropTypes.func.isRequired,
-};
 
 function mapDispatchToProps(dispatch) {
   return {

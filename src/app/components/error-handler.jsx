@@ -19,11 +19,11 @@ class ErrorHandler extends React.PureComponent {
       title: null,
       text: null,
     };
-  }
 
-  componentDidMount() {
+    this.initializeError = this.initializeError.bind(this);
+
     // check for initial 404.
-    if (this.props.error === null) {
+    if (!props.error) {
       this.initializeError();
     }
   }
@@ -59,7 +59,7 @@ class ErrorHandler extends React.PureComponent {
   }
 
   initializeError() {
-    if (this.props.activeRoutes.size === 0) {
+    if (Object.keys(this.props.activeRoutes).length === 0) {
       // no route matched - 404 error.
       this.props.setAppError(404);
     } else if (this.props.error) {

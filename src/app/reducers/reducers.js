@@ -1,16 +1,18 @@
 import { combineReducers } from 'redux';
-import appReducer from './app-reducer';
-import routesReducer from './routes-reducer';
-import blogReducer from './blog-reducer';
-import blogPostReducer from './blog-post-reducer';
+import AppReducer from './app-reducer';
+import RoutesReducer from './routes-reducer';
+import BlogReducer from './blog-reducer';
+import BlogPostReducer from './blog-post-reducer';
 import BlogPostGalleryReducer from './blog-post-gallery-reducer';
+import SsrReducer from './ssr-reducer';
 
 const rootReducer = combineReducers({
-  app: appReducer,
-  routes: routesReducer,
-  blog: blogReducer,
-  blogPost: blogPostReducer,
-  BlogPostGallery: BlogPostGalleryReducer,
+  app: AppReducer,
+  routes: RoutesReducer,
+  blog: BlogReducer,
+  blogPost: BlogPostReducer,
+  blogPostGallery: BlogPostGalleryReducer,
+  ssr: SsrReducer,
 });
 
 export default rootReducer;

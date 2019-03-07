@@ -18,46 +18,50 @@ class BlogPost extends React.Component {
     // cached values when the redux store is cleared while the component is transitioning
     // to a new set of props or unmounting.
     this.state = {
-      title: null,
-      description: null,
-      date: null,
-      tags: null,
-      content: null,
-      images: [],
+      title: this.props.title,
+      description: this.props.description,
+      date: this.props.date,
+      tags: this.props.tags,
+      content: this.props.content,
+      images: this.props.images,
       galleryIndex: -1,
       galleryVisible: false,
-      prevPost: null,
-      nextPost: null,
-      loaded: false,
+      prevPost: this.props.prevPost,
+      nextPost: this.props.nextPost,
+      limit: this.props.limit,
+      page: this.props.page,
+      loaded: this.props.loaded,
     };
 
-    this.clearAndUpdatePost = this.clearAndUpdatePost.bind(this);
-    this.clearPost = this.clearPost.bind(this);
-    this.viewGallery = this.viewGallery.bind(this);
-    this.closeGallery = this.closeGallery.bind(this);
+    if (global.__SERVER__ && props.match && !props.loaded) {
+      this.updatePost();
+    }
   }
 
   componentDidMount() {
-    if (this.props.match) {
-      this.clearAndUpdatePost();
+    if (this.props.match && !this.props.loaded) {
+      this.updatePost();
     }
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match && !prevProps.match) {
       // route match
-      this.clearAndUpdatePost();
+      this.updatePost();
     } else if (!this.props.match && prevProps.match) {
       // route unmatch
       this.clearPost();
     } else if (this.props.match && prevProps.match
-            && (this.props.match.params.id !== prevProps.match.params.id || this.props.location.search !== prevProps.location.search)) {
+        && (this.props.match.params.id !== prevProps.match.params.id || this.props.location.search !== prevProps.location.search)) {
       // same route match, different params/query
-      this.clearAndUpdatePost();
+      this.clearPost();
+      this.updatePost();
     } else if (this.props.loaded && !prevProps.loaded) {
       // response received - new props
-      // scroll to top of new post
-      document.getElementById('app').scrollTo(0, 0);
+      if (typeof window !== 'undefined') {
+        document.getElementById('app').scrollTo(0, 0);
+      }
+
       this.setState({
         title: this.props.title,
         description: this.props.description,
@@ -80,8 +84,22 @@ class BlogPost extends React.Component {
     this.clearPost();
   }
 
-  clearAndUpdatePost() {
-    this.clearPost();
+  viewGallery = (index) => {
+    this.setState(prevState => ({
+      ...prevState,
+      galleryIndex: index,
+      galleryVisible: true,
+    }));
+  }
+
+  closeGallery = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      galleryVisible: false,
+    }));
+  }
+
+  updatePost() {
     this.postRequestId = this.postsRequestId;
     this.props.fetchPost(this.postRequestId, this.props.match.params.id, this.props.location.search, { viewGallery: this.viewGallery });
   }
@@ -91,21 +109,6 @@ class BlogPost extends React.Component {
     this.setState(prevState => ({
       ...prevState,
       loaded: false,
-    }));
-  }
-
-  viewGallery(index) {
-    this.setState(prevState => ({
-      ...prevState,
-      galleryIndex: index,
-      galleryVisible: true,
-    }));
-  }
-
-  closeGallery() {
-    this.setState(prevState => ({
-      ...prevState,
-      galleryVisible: false,
     }));
   }
 
@@ -182,7 +185,7 @@ function mapStateToProps(state) {
     images: state.blogPost.images,
     prevPost: state.blogPost.prevPost,
     nextPost: state.blogPost.nextPost,
-    showImageGallery: state.BlogPostGallery.visible,
+    showImageGallery: state.blogPostGallery.visible,
     limit: state.blogPost.limit,
     page: state.blogPost.page,
     loaded: state.blogPost.loaded,

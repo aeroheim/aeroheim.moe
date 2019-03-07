@@ -19,34 +19,41 @@ class Blog extends React.Component {
     // cached values when the redux store is cleared while the component is transitioning
     // to a new set of props or unmounting.
     this.state = {
-      posts: null,
-      loaded: false,
+      posts: this.props.posts,
+      page: this.props.page,
+      pages: this.props.pages,
+      limit: this.props.limit,
+      loaded: this.props.loaded,
     };
 
-    this.clearAndUpdatePosts = this.clearAndUpdatePosts.bind(this);
-    this.clearPosts = this.clearPosts.bind(this);
+    if (global.__SERVER__ && props.match && !props.loaded) {
+      this.updatePosts();
+    }
   }
 
   componentDidMount() {
-    if (this.props.match) {
-      this.clearAndUpdatePosts();
+    if (this.props.match && !this.props.loaded) {
+      this.updatePosts();
     }
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match && !prevProps.match) {
       // route match
-      this.clearAndUpdatePosts();
+      this.updatePosts();
     } else if (!this.props.match && prevProps.match) {
       // route unmatch
       this.clearPosts();
     } else if (this.props.match && prevProps.match && (this.props.location.search !== prevProps.location.search)) {
       // same route match, different query
-      this.clearAndUpdatePosts();
+      this.clearPosts();
+      this.updatePosts();
     } else if (this.props.loaded && !prevProps.loaded) {
       // response received - new props
-      // scroll to top of posts
-      document.getElementById('app').scrollTo(0, 0);
+      if (typeof window !== 'undefined') {
+        document.getElementById('app').scrollTo(0, 0);
+      }
+
       this.setState({
         posts: this.props.posts,
         page: this.props.page,
@@ -57,9 +64,11 @@ class Blog extends React.Component {
     }
   }
 
-  clearAndUpdatePosts() {
+  componentWillUnmount() {
     this.clearPosts();
+  }
 
+  updatePosts() {
     this.postsRequestId = Date.now();
     this.props.fetchPosts(this.postsRequestId, this.props.location.search);
   }
