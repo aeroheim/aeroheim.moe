@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 class Stagger extends React.Component {
   constructor(props) {
     super(props);
-    if (typeof window !== 'undefined') {
-      this.state = {
-        children: [],
-        renderedChildren: [],
-        currentChildToRenderIndex: 1,
-      };
-    } else {
+    if (global.__SERVER__) {
       this.state = {
         children: props.children,
         renderedChildren: props.children,
         currentChildToRenderIndex: props.children.length,
+      };
+    } else {
+      this.state = {
+        children: [],
+        renderedChildren: [],
+        currentChildToRenderIndex: 1,
       };
     }
 

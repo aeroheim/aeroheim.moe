@@ -15,18 +15,28 @@ import { loggerMiddleware } from './logger';
 import webpackAppConfig from '../../webpack.app';
 import initializeDatabase from './database';
 
+const PORT = process.env.port || 8080;
 const initialStyles = collectInitial();
+global.__SERVER__ = true;
+global.__SERVER_URL__ = `http://localhost:${PORT}`;
 
-function render(req, res) {
+const App = ({ store, location }) => (
+  <Provider store={store}>
+    <StaticRouter location={location} context={{}}>
+      <AppRoot />
+    </StaticRouter>
+  </Provider>
+);
+
+async function render(req, res) {
   const store = initializeAppStore();
-  const routerContext = {};
-  const app = (
-    <Provider store={store}>
-      <StaticRouter location={req.url} context={routerContext}>
-        <AppRoot />
-      </StaticRouter>
-    </Provider>
-  );
+
+  // initial render + collect pending requests.
+  let renderedApp = renderToString(<App store={store} location={req.url} />);
+  await Promise.all(store.getState().ssr.requests);
+
+  // render again after resolving all requests.
+  renderedApp = renderToString(<App store={store} location={req.url} />);
 
   res.send(`
     <!doctype html>
@@ -40,7 +50,7 @@ function render(req, res) {
       <link rel="icon" type="image/png" href="/favicon-96x96.png" size="96x96">
     </head>
     <body>
-      <div id="root" class="root">${renderToString(app)}</div>
+      <div id="root" class="root">${renderedApp}</div>
     </body>
       <script>
           window.__INITIAL_STATE__ = ${serialize(store.getState())}
@@ -63,7 +73,7 @@ function listen(port) {
   });
   app.use(express.static(__dirname));
   app.use(blogRouter);
-  app.get('/favicon*', (req, res) => res.sendFile(path.join(__dirname, req.path)));
+  app.get('/favicon*', (req, res) => res.sendFile(path.join(__dirname, '..', 'src', req.path)));
   app.use(render);
   app.listen(port);
 }
@@ -84,7 +94,6 @@ function webpackDevServerListen(port, proxyPort) {
   new WebpackDevServer(webpack(webpackAppDevConfig), webpackDevServerOptions).listen(port, 'localhost');
 }
 
-const PORT = process.env.PORT || 8080;
 if (process.env.NODE_ENV === 'production') {
   listen(PORT);
 } else {

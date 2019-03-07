@@ -10,7 +10,7 @@ function render(Component, store, history) {
 }
 
 let initialState = null;
-if (typeof window !== 'undefined') {
+if (!global.__SERVER__) {
   // load state from server-side rendered app
   initialState = window.__INITIAL_STATE__;
   delete window.__INITIAL_STATE__;

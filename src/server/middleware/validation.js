@@ -1,5 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-undef */
 import { validationResult } from 'express-validator/check';
 
 function filterStaticContent(filter, handler) {
