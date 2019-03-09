@@ -4,6 +4,7 @@ import { fetchPost, invalidatePost } from '../actions/blog-post-actions';
 import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import LinkButton from './link-button';
 import BlogPostGallery from './blog-post-gallery';
+import compileBlogPost from '../util/blog-post-parser';
 import PrevIcon from '../static/img/icons/prev.svg';
 import NextIcon from '../static/img/icons/next.svg';
 import styles from '../static/styles/components/blog-post.css';
@@ -14,6 +15,12 @@ class BlogPost extends React.Component {
     this.postRequestId = null;
     this.postsRequestId = null;
 
+    let content = null;
+    let images = [];
+    if (this.props.markdown) {
+      ({ content, images } = compileBlogPost(this.props.markdown, { viewGallery: this.viewGallery }));
+    }
+
     // cache props received from redux in state. this allows the component to display
     // cached values when the redux store is cleared while the component is transitioning
     // to a new set of props or unmounting.
@@ -22,8 +29,8 @@ class BlogPost extends React.Component {
       description: this.props.description,
       date: this.props.date,
       tags: this.props.tags,
-      content: this.props.content,
-      images: this.props.images,
+      content,
+      images,
       galleryIndex: -1,
       galleryVisible: false,
       prevPost: this.props.prevPost,
@@ -58,6 +65,12 @@ class BlogPost extends React.Component {
       this.updatePost();
     } else if (this.props.loaded && !prevProps.loaded) {
       // response received - new props
+      let content = null;
+      let images = [];
+      if (this.props.markdown) {
+        ({ content, images } = compileBlogPost(this.props.markdown, { viewGallery: this.viewGallery }));
+      }
+
       if (typeof window !== 'undefined') {
         document.getElementById('app').scrollTo(0, 0);
       }
@@ -67,8 +80,8 @@ class BlogPost extends React.Component {
         description: this.props.description,
         date: this.props.date,
         tags: this.props.tags,
-        content: this.props.content,
-        images: this.props.images,
+        content,
+        images,
         galleryIndex: -1,
         galleryVisible: false,
         prevPost: this.props.prevPost,
@@ -181,8 +194,7 @@ function mapStateToProps(state) {
     description: state.blogPost.description,
     date: state.blogPost.date,
     tags: state.blogPost.tags,
-    content: state.blogPost.content,
-    images: state.blogPost.images,
+    markdown: state.blogPost.markdown,
     prevPost: state.blogPost.prevPost,
     nextPost: state.blogPost.nextPost,
     showImageGallery: state.blogPostGallery.visible,
@@ -194,7 +206,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchPost: (requestId, postId, query, markdownProps) => dispatch(fetchPost(requestId, postId, query, markdownProps)),
+    fetchPost: (requestId, postId, query) => dispatch(fetchPost(requestId, postId, query)),
     invalidatePost: requestId => dispatch(invalidatePost(requestId)),
   };
 }

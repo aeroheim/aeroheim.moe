@@ -4,6 +4,7 @@ import prism from 'prismjs';
 import prismLanguages from 'prism-languages';
 import { BlogPostImageBlock, BlogPostImageGroup, BlogPostImage, YoutubeEmbed } from '../components/blog-post-markdown';
 import styles from '../static/styles/components/blog-post-markdown.css';
+import '../static/styles/components/blog-post-parser.css';
 
 function findComponentNodes(tree, filter) {
   let nodes = [];

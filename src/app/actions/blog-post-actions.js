@@ -1,5 +1,4 @@
 import Axios from 'axios';
-import compileBlogPost from '../util/blog-post-parser';
 import { setAppError, setAppLoading } from './app-actions';
 import { queueSsrRequest } from './ssr-actions';
 
@@ -22,7 +21,7 @@ export const invalidatePost = requestId => ({
   requestId,
 });
 
-export const fetchPost = (requestId, postId, query, markdownContext) => (dispatch) => {
+export const fetchPost = (requestId, postId, query) => (dispatch) => {
   dispatch(setAppLoading(true, requestId));
   dispatch(requestPost(requestId));
 
@@ -31,15 +30,7 @@ export const fetchPost = (requestId, postId, query, markdownContext) => (dispatc
     : {};
 
   const request = Axios.get(`/api/blog/${postId}/${query}`, requestConfig)
-    .then((res) => {
-      const date = new Date(res.data.date);
-      res.data.date = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
-      const post = compileBlogPost(res.data.content, markdownContext);
-      res.data.content = post.content;
-      res.data.images = post.images;
-
-      dispatch(receivePost(requestId, res.data));
-    })
+    .then(res => dispatch(receivePost(requestId, res.data)))
     .catch(err => dispatch(setAppError(err.response.status)))
     .finally(() => dispatch(setAppLoading(false, requestId)));
 
