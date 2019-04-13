@@ -1,7 +1,8 @@
 import React, { createElement } from 'react';
 import marksy from 'marksy/jsx';
-import prism from 'prismjs';
-import prismLanguages from 'prism-languages';
+import Prism from 'prismjs';
+// eslint-disable-next-line no-unused-vars
+import PrismJsx from 'prismjs/components/prism-jsx'; // Jsx support for Prism is provided from another module.
 import { BlogPostImageBlock, BlogPostImageGroup, BlogPostImage, YoutubeEmbed } from '../components/blog-post-markdown';
 import styles from '../static/styles/components/blog-post-markdown.css';
 import '../static/styles/components/blog-post-parser.css';
@@ -28,7 +29,7 @@ function compileBlogPost(markdown, context) {
   const compile = marksy({
     createElement,
     highlight(language, code) {
-      return prism.highlight(code, Object.assign({}, prismLanguages[language]));
+      return Prism.highlight(code, Prism.languages[language]);
     },
     components:
         {

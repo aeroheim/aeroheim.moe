@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import { connect, Provider } from 'react-redux';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import withAnalytics from '../util/analytics';
@@ -47,8 +47,8 @@ export function initializeAppStore(state) {
 
 export function initializeAppHistory() {
   return process.env.NODE_ENV === 'production'
-    ? withAnalytics(createHistory())
-    : createHistory();
+    ? withAnalytics(createBrowserHistory())
+    : createBrowserHistory();
 }
 
 // HOC-wrapped components passed to Routes need to be lifted to an outer scope, otherwise
