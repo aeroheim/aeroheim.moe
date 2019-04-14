@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchPost, invalidatePost } from '../actions/blog-post-actions';
 import { Transition, AnimatedCSSTransition } from './animated-css-transition';
+import Meta from './meta';
 import LinkButton from './link-button';
 import BlogPostGallery from './blog-post-gallery';
 import compileBlogPost from '../util/blog-post-parser';
@@ -147,6 +148,7 @@ class BlogPost extends React.Component {
         <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null && this.state.loaded}>
           {({ transitionStyles, onTransitionEnd }) => (
             <div className={`${this.props.className} ${styles.content} ${transitionStyles.content}`} onTransitionEnd={onTransitionEnd}>
+              <Meta title={this.state.title} description={this.state.description} />
               <header>
                 <LinkButton link={`/blog/?page=${this.state.page}`} className={styles.header}>
                   <h2 className={styles.backButton}>

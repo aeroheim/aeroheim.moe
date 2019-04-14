@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts, invalidatePosts } from '../actions/blog-actions';
 import RegisteredRoute from './registered-route';
+import Meta from './meta';
 import PageHeader from './page-header';
 import IndexSelector from './index-selector';
 import BlogListItem from './blog-list-item';
@@ -101,6 +102,7 @@ class Blog extends React.Component {
         <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null && this.state.loaded}>
           {({ transitionStyles, onTransitionEnd }) => (
             <div className={`${this.props.className} ${styles.content} ${transitionStyles.content}`} onTransitionEnd={onTransitionEnd}>
+              <Meta title="blog" description="thoughts and reflections" />
               <PageHeader className={styles.header} color={styles.blogColor} show={this.props.match !== null}>BLOG</PageHeader>
               <ul className={`${styles.posts}`}>
                 <Stagger delay={100}>

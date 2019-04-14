@@ -1,4 +1,5 @@
 import React from 'react';
+import Meta from './meta';
 import PageHeader from './page-header';
 import { Transition, AnimatedCSSTransition } from './animated-css-transition';
 import styles from '../static/styles/components/about.css';
@@ -23,6 +24,7 @@ class About extends React.PureComponent {
       <AnimatedCSSTransition inTransitions={inTransitions} inStyles={inStyles} outTransitions={outTransitions} outStyles={outStyles} show={this.props.match !== null}>
         {({ transitionStyles, onTransitionEnd }) => (
           <div className={`${this.props.className} ${styles.content}`} onTransitionEnd={onTransitionEnd}>
+            <Meta title="about" description="introduction & bio" />
             <PageHeader className={styles.header} color={styles.aboutColor} show={this.props.match !== null}>ABOUT</PageHeader>
             <article className={`${styles.bio} ${transitionStyles.bio}`}>
               <h1 style={{ marginBottom: 0 }}>Benjamin Pang (龐天擇)&nbsp;:</h1>

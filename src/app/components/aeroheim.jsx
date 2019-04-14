@@ -4,9 +4,9 @@ import { connect, Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import withAnalytics from '../util/analytics';
 import rootReducer from '../reducers/reducers';
 import RegisteredRoute from './registered-route';
+import Meta from './meta';
 import Header from './header';
 import Footer from './footer';
 import Home from './home';
@@ -15,12 +15,14 @@ import Blog from './blog';
 import About from './about';
 import ErrorHandler from './error-handler';
 import SpinnerCubeGrid from './spinner-cube-grid';
+import withAnalytics from '../util/analytics';
 import styles from '../static/styles/components/aeroheim.css';
 import '../static/styles/global/index.css';
 import '../static/styles/fonts/fonts.css';
 
 const Aeroheim = props => (
   <div id="app" className={styles.page} style={!props.scrollbarEnabled ? { overflowY: 'hidden' } : null}>
+    <Meta title="aeroheim" description="hi - personal site for stuff" />
     <ErrorHandler className={styles.content} />
     <SpinnerCubeGrid className={styles.spinner} show={props.loading} />
     <Header className={styles.header} />
@@ -55,14 +57,12 @@ export function initializeAppHistory() {
 // the components will remount everytime the route changes.
 const AeroheimWithHOC = connect(mapStateToProps)(Aeroheim);
 export const AppRoot = () => <Route path="/" component={AeroheimWithHOC} />;
-export const App = ({ store, history }) => {
-  return (
-    <Provider store={store}>
-      <Router history={history}>
-        <AppRoot />
-      </Router>
-    </Provider>
-  );
-};
+export const App = ({ store, history }) => (
+  <Provider store={store}>
+    <Router history={history}>
+      <AppRoot />
+    </Router>
+  </Provider>
+);
 
 export default App;

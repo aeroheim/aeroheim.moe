@@ -7,6 +7,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import serialize from 'serialize-javascript';
 import { collectInitial } from 'node-style-loader/collect';
 import { initializeAppStore, AppRoot } from '../app/components/aeroheim';
@@ -37,6 +38,7 @@ async function render(req, res) {
 
   // render again after resolving all requests.
   renderedApp = renderToString(<App store={store} location={req.url} />);
+  const helmet = Helmet.renderStatic();
 
   res.send(`
     <!doctype html>
@@ -45,9 +47,11 @@ async function render(req, res) {
       <meta charset="utf-8">
       <title>aeroheim</title>
       ${initialStyles}
+      ${helmet.meta.toString()}
       <link rel="icon" type="image/png" href="/favicon-16x16.png" size="16x16">
       <link rel="icon" type="image/png" href="/favicon-32x32.png" size="32x32">
       <link rel="icon" type="image/png" href="/favicon-96x96.png" size="96x96">
+      <link rel="icon" type="image/png" href="/favicon-512x512.png" size="512x512">
     </head>
     <body>
       <div id="root" class="root">${renderedApp}</div>
