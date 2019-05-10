@@ -4,7 +4,7 @@ import { fetchPosts, invalidatePosts } from '../actions/blog-actions';
 import RegisteredRoute from './registered-route';
 import Meta from './meta';
 import PageHeader from './page-header';
-import IndexSelector from './index-selector';
+import Paginator from './paginator';
 import BlogListItem from './blog-list-item';
 import BlogPost from './blog-post';
 import Stagger from './stagger';
@@ -109,7 +109,7 @@ class Blog extends React.Component {
                   {this.state.posts.map(post => <BlogListItem className={styles.post} key={post._id} post={post} show={this.props.match !== null && this.state.loaded} />)}
                 </Stagger>
               </ul>
-              <IndexSelector
+              <Paginator
                 className={styles.footer}
                 index={this.state.page}
                 minIndex={1}

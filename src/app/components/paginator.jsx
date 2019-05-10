@@ -3,9 +3,9 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import PrevIcon from '../static/img/icons/prev.svg';
 import NextIcon from '../static/img/icons/next.svg';
-import styles from '../static/styles/components/index-selector.css';
+import styles from '../static/styles/components/paginator.css';
 
-class IndexSelector extends React.Component {
+class Paginator extends React.Component {
   constructor(props) {
     super(props);
     this.handleGoToIndex = this.handleGoToIndex.bind(this);
@@ -141,7 +141,7 @@ class IndexSelector extends React.Component {
   }
 }
 
-IndexSelector.propTypes = {
+Paginator.propTypes = {
   url: (props, propName, componentName) => {
     if ((!props[propName] && !props.onIndexChange) || (props[propName] && props.onIndexChange)) {
       return new Error(`Invalid props '${propName}' and 'onIndexChange' supplied to ${componentName}. '${propName}' and 'onIndexChange' must be mutually exclusive.`);
@@ -185,4 +185,4 @@ IndexSelector.propTypes = {
   },
 };
 
-export default withRouter(IndexSelector);
+export default withRouter(Paginator);
